@@ -607,3 +607,11 @@
 - 安全边界：没有发送 AGENT 消息、上传文件、运行节点、修改 Provider/模型或调用真实/付费 API；没有启动 `Lavans.exe` 桌面窗口或旧版 ChromaOS。
 - 包体一致性：源码与当前新版包的修复后 CSS SHA-256 均为 `4C3313E4EE299875EB9A36B1259624197AEA10DBD59AD39D8B93283689400DF0`。包体改前单文件备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-canvas-create-layer\release\Lavans-win32-x64\resources\frontend\canvas-list.css`，SHA-256 为 `521918FCFC3A36B35EA65131E43C554643A5B23093EC32DD1847BC2DBAAA0DEC`。
 - 恢复方式：源码使用本批 Git 提交做选择性 `git revert`；当前新版包只在需要时从上述单文件备份恢复，禁止覆盖其它运行数据。本批恢复提交以仓库当前 `HEAD` 为准。
+
+### 内置浏览器 MutationObserver 噪声归因（2026-08-27，无产品改动）
+
+- 隔离证据：`canvas-list.html` 与 `recolor.html` 单独打开均无该错误；经主页 iframe 加载时出现同一条无来源 URL 的 `MutationObserver.observe()` 参数错误，且切换画布/复色不改变结果。
+- 判别证据：分别给 `lanvas-unified.js` 与 `external-link.js` 的第一方观察器增加可回退诊断后，两处均未捕获错误；临时禁止主页树内全部第一方 MutationObserver 后，错误仍以相同消息出现。因此该条属于 Codex 内置浏览器注入/检查层噪声，不是 Lavans 第一方运行错误，不应为消除工具噪声修改产品代码。
+- 回退状态：所有诊断代码、候选修复和临时测试已撤销；源码与当前解包验收包的 `lanvas-unified.js` SHA-256 均恢复为 `4DE6950909115AE9199C99F6672D0AFC352FA181347ECCCDF43BBA546A5E8A20`，`external-link.js` 均恢复为 `2701E69922D18C1CE910BDA703B6C69B768919A7A114994C2A64CB9EA7A4927B`。
+- 功能复验：主页 15 项导航完整；浅色可切换到深色并恢复；无限画布与一键复色 iframe 均可见且活动页标识正确。没有发送、上传、生成、Provider/模型切换、正式数据写入或真实/付费 API。
+- 下一步：把 AGENT Skill 部分清单未加载警告作为下一项独立主题，先做只读归因；不再把该 MutationObserver 噪声计入 Lavans 缺陷。
