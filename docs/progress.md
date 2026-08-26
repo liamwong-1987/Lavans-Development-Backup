@@ -623,4 +623,5 @@
 - 红绿证据：新增“尚未导入自定义 Skill 时 errors 必须为空”合同，修复前稳定得到 `附加 Skill 根目录不存在`，修复后通过；首次空状态、同进程两阶段导入、重启恢复、图标读取、坏包隔离、路径安全和组合身份共 59/59 通过。
 - 可见验收：使用 60 秒自动退出、系统临时数据目录的 3217 本地验收服务打开智能画布；页面控制台 0 条警告/错误，Skill API 返回 3 个现有 Skill 且 `errors` 为 0。临时服务随后 `CLEAN_EXIT` 并删除临时数据，没有停止或重启当前 3001 后端。
 - 包体与恢复：源码和当前解包验收包的 `canvasRoutes.js` SHA-256 均为 `370BCBDEA69596C49A293F580DBC35B0062869EBECB3B2808CD5F821972C2AFA`；包内改前文件备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-skill-empty-root\release\Lavans-win32-x64\resources\backend\routes\canvasRoutes.js`。
-- 边界：没有导入或关联 Skill，没有发送消息、上传文件、运行节点、切换 Provider/模型或触发真实/付费 API。当前 3001 验收后端仍运行改前内存代码；下一次正常启动会读取已修复的包内文件，停止或重启现有进程仍需单独授权。
+- 当前运行态：用户明确继续后，PID 28108 的旧测试后端收到正常 `SIGINT`、完成状态保存并退出；随后从修复后的解包后端原路径启动 PID 32148。当前 3001 Skill API 返回 3 个现有 Skill、`errors` 为 0；内置浏览器刷新主页面并打开智能画布 AGENT 抽屉，“电商视频”卡可见，加载前后控制台均为 0 条警告/错误。主验收页面保留，测试后端继续运行。
+- 边界：没有启动 `Lavans.exe` 或 `ChromaOS.exe`，没有导入或关联 Skill，没有发送消息、上传文件、运行节点、切换 Provider/模型或触发真实/付费 API。
