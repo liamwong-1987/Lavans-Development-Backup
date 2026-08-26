@@ -7,6 +7,7 @@
   "scripts": {
     "start": "electron .",
     "start:backend": "node resources/backend/server.js",
+    "build:win": "node scripts/package-windows.mjs",
     "check": "node --check electron/main.js && node --check electron/preload.js && node --check resources/backend/server.js",
     "test": "node --test"
   },
@@ -23,9 +24,11 @@
     "unzipper": "0.10.14"
   },
   "devDependencies": {
+    "@electron/packager": "20.0.4",
     "electron": "24.8.3",
     "playwright": "1.62.1"
   },
+  "packageManager": "pnpm@11.19.0",
   "engines": {
     "node": ">=18"
   },
