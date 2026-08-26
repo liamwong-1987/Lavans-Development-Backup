@@ -597,3 +597,13 @@
 - 数据核对：`release/Lavans-win32-x64/resources/backend/output/canvas/canvases/canvas_780c168c59559f.json` 仍保留，`nodes` 与 `connections` 均为空，并写入 `deleted_at: 1787783098668`，符合可恢复的回收站语义；界面提示 30 天后自动清理。
 - 浏览器运行状态：内置浏览器验收页保留在 `http://127.0.0.1:3001/`，只使用新版包内本地后端；未启动 `Lavans.exe` 桌面窗口或旧版 ChromaOS。为便于继续验收，本地测试后端暂时保持运行，停止它需要单独确认。
 - 恢复状态：开始记录前仓库为 `main`、HEAD `3d47499112c577a72a99d4afe27300f5aa70a2f1` 且工作区干净；本节仅新增进度记录，未修改生产代码。
+
+### 新建画布名称输入遮挡修复（2026-08-27，通过）
+
+- 根因证据：`.ws-board-world` 因画布缩放 `transform` 形成独立堆叠上下文，但自身 `z-index` 为 `auto`；创建卡片虽为 `z-index:60`，仍无法越过后置的空状态层。修复前内置浏览器在名称输入框左侧执行 `elementFromPoint()`，实际命中空状态“新建画布”的 `SPAN`，不是输入框。
+- 最小修复：只给 `.ws-board-world` 增加 `z-index:1`，同时同步到源码与当前解包新版 `release/Lavans-win32-x64/resources/frontend/canvas-list.css`。未修改 HTML、JavaScript、尺寸、文案、主题变量、创建/取消流程或任何 Provider 逻辑。
+- 红绿证据：新增一个聚焦 CSS 合同，修复前 0/1、修复后 1/1；与画布工作区往返测试合并运行 2/2 通过，隔离夹具文件修改数为 0。
+- 可见验收：内置浏览器刷新当前新版包后，浅色与深色下输入框左、中、右三处均真实命中 `INPUT`；名称文字可输入且焦点正确，`Esc` 可取消，空状态按钮仍可再次打开创建卡片。验收结束后恢复浅色，创建卡片关闭，默认项目仍为 0，回收站仍为 1；没有创建新画布。
+- 安全边界：没有发送 AGENT 消息、上传文件、运行节点、修改 Provider/模型或调用真实/付费 API；没有启动 `Lavans.exe` 桌面窗口或旧版 ChromaOS。
+- 包体一致性：源码与当前新版包的修复后 CSS SHA-256 均为 `4C3313E4EE299875EB9A36B1259624197AEA10DBD59AD39D8B93283689400DF0`。包体改前单文件备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-canvas-create-layer\release\Lavans-win32-x64\resources\frontend\canvas-list.css`，SHA-256 为 `521918FCFC3A36B35EA65131E43C554643A5B23093EC32DD1847BC2DBAAA0DEC`。
+- 恢复方式：源码使用本批 Git 提交做选择性 `git revert`；当前新版包只在需要时从上述单文件备份恢复，禁止覆盖其它运行数据。本批恢复提交以仓库当前 `HEAD` 为准。
