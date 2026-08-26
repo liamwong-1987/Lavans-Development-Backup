@@ -14,6 +14,11 @@ try {
 } catch(_e) {}
 app.setName(BRAND.appName);
 
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+
 // ===== STEP 1: 启动前强制清理 3001 端口所有残留进程 =====
 function killPort3001() {
   try {
@@ -33,6 +38,13 @@ let mainWindow = null;
 let externalWindows = []; // 持有外部浏览器窗口引用，防止被 GC 回收
 let tray = null;
 let firstCloseAttempt = true;
+
+app.on('second-instance', () => {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (mainWindow.isMinimized()) mainWindow.restore();
+  mainWindow.show();
+  mainWindow.focus();
+});
 
 const NAVBAR_HEIGHT = 40;
 const APP_URL = 'http://127.0.0.1:3001';
@@ -301,3 +313,4 @@ app.on('window-all-closed', () => {
   if (tray) return;
   app.quit();
 });
+}

@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..', '..', '..');
 const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
@@ -16,6 +17,38 @@ test('Lavans 根入口使用干净的开发资源路径和应用身份', () => {
   assert.match(main, /app\.isPackaged/);
   assert.match(main, /path\.resolve\(__dirname, '\.\.', 'resources'\)/);
   assert.match(main, /app\.setName\(BRAND\.appName\)/);
+});
+
+test('桌面入口只允许一个实例并由主实例恢复窗口', () => {
+  const main = read('electron/main.js');
+  const lockAt = main.indexOf('app.requestSingleInstanceLock()');
+  const portCleanupAt = main.indexOf('killPort3001();');
+
+  assert.notEqual(lockAt, -1);
+  assert.ok(lockAt < portCleanupAt);
+  assert.match(main, /if \(!gotTheLock\) \{\s*app\.quit\(\);\s*\} else \{/);
+  assert.match(main, /app\.on\('second-instance',[\s\S]*mainWindow\.restore\(\)[\s\S]*mainWindow\.show\(\)[\s\S]*mainWindow\.focus\(\)/);
+
+  let quitCount = 0;
+  const executedCommands = [];
+  vm.runInNewContext(main, {
+    __dirname: path.join(root, 'electron'),
+    require(id) {
+      if(id === 'electron') return {
+        app: {
+          isPackaged: false,
+          setName() {},
+          requestSingleInstanceLock: () => false,
+          quit: () => { quitCount += 1; }
+        }
+      };
+      if(id === 'child_process') return { execSync: command => { executedCommands.push(command); } };
+      return require(id);
+    }
+  }, { filename: 'electron/main.js' });
+
+  assert.equal(quitCount, 1);
+  assert.deepEqual(executedCommands, []);
 });
 
 test('Electron 预加载与外壳只暴露 Lavans 命名接口', () => {
