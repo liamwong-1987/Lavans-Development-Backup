@@ -625,3 +625,11 @@
 - 包体与恢复：源码和当前解包验收包的 `canvasRoutes.js` SHA-256 均为 `370BCBDEA69596C49A293F580DBC35B0062869EBECB3B2808CD5F821972C2AFA`；包内改前文件备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-skill-empty-root\release\Lavans-win32-x64\resources\backend\routes\canvasRoutes.js`。
 - 当前运行态：用户明确继续后，PID 28108 的旧测试后端收到正常 `SIGINT`、完成状态保存并退出；随后从修复后的解包后端原路径启动 PID 32148。当前 3001 Skill API 返回 3 个现有 Skill、`errors` 为 0；内置浏览器刷新主页面并打开智能画布 AGENT 抽屉，“电商视频”卡可见，加载前后控制台均为 0 条警告/错误。主验收页面保留，测试后端继续运行。
 - 边界：没有启动 `Lavans.exe` 或 `ChromaOS.exe`，没有导入或关联 Skill，没有发送消息、上传文件、运行节点、切换 Provider/模型或触发真实/付费 API。
+
+### 普通画布 Tailwind 生产警告归因（2026-08-27，无产品改动）
+
+- 来源：警告由项目随包分发的第三方 `resources/frontend/vendor/js/tailwindcss-cdn.js` 发出，不是外部 CDN 请求。普通画布及另外 7 个第一方页面会加载这份本地运行时。
+- 动态证据：内置浏览器打开不写数据的 `text-studio.html` 后，页面加载该脚本并实际注入 10207 字符的 Tailwind 样式；页面控制台稳定出现同一条生产模式警告。因此它不是只负责打印警告的废代码，直接删除会造成界面样式回归。
+- 构建证据：当前 `package.json`、锁文件、脚本与第一方资源中没有 Tailwind CLI、PostCSS 或 Autoprefixer 编译链。正确消除警告需要把 8 个页面迁移为预编译 CSS，而不是修改第三方文件或静默屏蔽控制台。
+- 裁决：当前验收批次不改产品代码。警告属于已知的本地开发式 Tailwind 运行时开销，不是本次功能故障；按 UI 完全一致优先级归入“不要在小修批次动”。如后续迁移，必须作为独立架构主题，对 8 个页面逐页建立浅色/深色、布局、状态和主要工作流的前后视觉基线。
+- 验收边界：本轮没有创建画布、写入正式数据、运行节点、调用 Provider、上传文件或触发付费请求；只读诊断标签已关闭，主内置浏览器验收页仍保留在 `http://127.0.0.1:3001/`。
