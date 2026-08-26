@@ -52,10 +52,10 @@ module.exports = function canvasRoutes(routeOptions = {}) {
   const historyPath = path.join(outputRoot, 'canvas-history.json');
   const imageHistoryPath = path.join(outputRoot, 'canvas-image-history.json');
   const agentSkillStoreRoot = path.join(outputRoot, '.state', 'canvas-agent-skills');
-  const agentSkillRegistryOptions = Object.freeze({ additionalRoots: [agentSkillStoreRoot] });
-  const loadScopedAgentSkillRegistry = () => loadAgentSkillRegistry(agentSkillRegistryOptions);
-  const findScopedAgentSkill = skillId => findAgentSkill(skillId, agentSkillRegistryOptions);
-  const findScopedAgentSkillRuntime = skillId => findAgentSkillRuntime(skillId, agentSkillRegistryOptions);
+  const agentSkillRegistryOptions = () => ({ additionalRoots: fs.existsSync(agentSkillStoreRoot) ? [agentSkillStoreRoot] : [] });
+  const loadScopedAgentSkillRegistry = () => loadAgentSkillRegistry(agentSkillRegistryOptions());
+  const findScopedAgentSkill = skillId => findAgentSkill(skillId, agentSkillRegistryOptions());
+  const findScopedAgentSkillRuntime = skillId => findAgentSkillRuntime(skillId, agentSkillRegistryOptions());
   if (!fs.existsSync(canvasesRoot)) fs.mkdirSync(canvasesRoot, { recursive: true });
   const libraryRoot = path.join(outputRoot, 'library');
   const workflowImportRoot = path.join(uploadRoot, 'workflow-imports');

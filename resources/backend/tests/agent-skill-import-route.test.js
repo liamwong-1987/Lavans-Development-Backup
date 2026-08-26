@@ -110,6 +110,7 @@ test('画布路由两阶段导入、图标读取和重启复用保持 Lavans 独
   await withServer(outputRoot, async baseUrl => {
     const before = await json(await fetch(`${baseUrl}/api/canvas/agent-skills`));
     assert.equal(before.status, 200);
+    assert.deepEqual(before.body.errors, [], '尚未导入自定义 Skill 时不应产生部分加载警告');
     assert.equal(before.body.skills.some(skill => skill.id === 'persistent-custom-skill'), false);
 
     const form = new FormData();

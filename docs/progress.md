@@ -615,3 +615,12 @@
 - 回退状态：所有诊断代码、候选修复和临时测试已撤销；源码与当前解包验收包的 `lanvas-unified.js` SHA-256 均恢复为 `4DE6950909115AE9199C99F6672D0AFC352FA181347ECCCDF43BBA546A5E8A20`，`external-link.js` 均恢复为 `2701E69922D18C1CE910BDA703B6C69B768919A7A114994C2A64CB9EA7A4927B`。
 - 功能复验：主页 15 项导航完整；浅色可切换到深色并恢复；无限画布与一键复色 iframe 均可见且活动页标识正确。没有发送、上传、生成、Provider/模型切换、正式数据写入或真实/付费 API。
 - 下一步：把 AGENT Skill 部分清单未加载警告作为下一项独立主题，先做只读归因；不再把该 MutationObserver 噪声计入 Lavans 缺陷。
+
+### AGENT Skill 空目录伪警告修复（2026-08-27，通过）
+
+- 根因：画布路由在尚未导入任何自定义 Skill 时，仍把不存在的 `outputRoot/.state/canvas-agent-skills` 作为附加 Registry 根目录传入；Registry 按安全合同把显式缺失目录记为错误，前端因此误报“部分清单未加载”，但 3 个现有 Skill 实际均已成功返回。
+- 最小修复：`canvasRoutes.js` 每次查询 Registry 时只在自定义 Skill 存储目录真实存在后纳入该目录。没有创建空运行目录；导入流程在同一进程创建目录后，下一次查询立即识别；已存在但损坏、冲突、越界、链接或摘要漂移的 Skill 仍保持失败关闭和明确告警。
+- 红绿证据：新增“尚未导入自定义 Skill 时 errors 必须为空”合同，修复前稳定得到 `附加 Skill 根目录不存在`，修复后通过；首次空状态、同进程两阶段导入、重启恢复、图标读取、坏包隔离、路径安全和组合身份共 59/59 通过。
+- 可见验收：使用 60 秒自动退出、系统临时数据目录的 3217 本地验收服务打开智能画布；页面控制台 0 条警告/错误，Skill API 返回 3 个现有 Skill 且 `errors` 为 0。临时服务随后 `CLEAN_EXIT` 并删除临时数据，没有停止或重启当前 3001 后端。
+- 包体与恢复：源码和当前解包验收包的 `canvasRoutes.js` SHA-256 均为 `370BCBDEA69596C49A293F580DBC35B0062869EBECB3B2808CD5F821972C2AFA`；包内改前文件备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-skill-empty-root\release\Lavans-win32-x64\resources\backend\routes\canvasRoutes.js`。
+- 边界：没有导入或关联 Skill，没有发送消息、上传文件、运行节点、切换 Provider/模型或触发真实/付费 API。当前 3001 验收后端仍运行改前内存代码；下一次正常启动会读取已修复的包内文件，停止或重启现有进程仍需单独授权。
