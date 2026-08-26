@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/smart-canvas-core/assets/logo.png" type="image/png">
+    <title data-i18n="asset.title">素材库管理</title>
+    <script>
+        (function(){
+            try {
+                var theme = localStorage.getItem('studio_theme') || localStorage.getItem('canvas_theme') || 'light';
+                if(theme === 'dark') {
+                    document.documentElement.classList.add('studio-theme-dark');
+                    document.documentElement.classList.add('theme-dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
+    <script src="brand-config.js"></script>
+    <script src="/smart-canvas-core/vendor/js/lucide.js"></script>
+    <script src="/smart-canvas-core/i18n.js"></script>
+    <script src="/smart-canvas-core/theme.js"></script>
+    <link rel="stylesheet" href="/smart-canvas-core/vendor/css/fonts.css">
+    <link rel="stylesheet" href="/asset-manager.css">
+  <link rel="stylesheet" href="/lanvas-unified.css?v=2026.08.21.1">
+</head>
+<body>
+    <div id="studioSidebarHost"></div>
+    <div class="asset-page">
+        <header class="asset-page-head">
+            <div>
+                <div class="asset-title" data-i18n="asset.title">素材库管理</div>
+                <div class="asset-sub" data-i18n="asset.subtitle">按库、分组、内容和预览管理素材与提示词。</div>
+            </div>
+            <div class="asset-head-actions">
+                <div id="assetStatus" class="asset-status" data-i18n="asset.ready">准备就绪</div>
+                <button id="storageSettingsBtn" class="asset-btn" type="button"><i data-lucide="settings"></i><span data-i18n="asset.preferences">偏好设置</span></button>
+                <button id="refreshBtn" class="asset-btn" type="button"><i data-lucide="refresh-cw"></i><span data-i18n="asset.refresh">刷新</span></button>
+            </div>
+        </header>
+
+        <div class="asset-tabs">
+            <button id="assetTabAssets" class="active" type="button" data-tab="assets"><i data-lucide="image"></i><span data-i18n="asset.imageAssets">图片资产</span></button>
+            <button id="assetTabWorkflows" type="button" data-tab="workflows"><i data-lucide="workflow"></i><span data-i18n="asset.workflowManagement">工作流管理</span></button>
+            <button id="assetTabPrompts" type="button" data-tab="prompts"><i data-lucide="text-cursor-input"></i><span data-i18n="asset.promptLibrary">提示词库</span></button>
+            <button id="assetTabCanvasAssets" type="button" data-tab="canvas-assets"><i data-lucide="layout-dashboard"></i><span data-i18n="asset.canvasAssets">画布资产</span></button>
+            <button id="assetTabLocal" type="button" data-tab="local"><i data-lucide="folder-open"></i><span data-i18n="asset.localAssets">本地素材</span></button>
+        </div>
+
+        <main id="assetManagerRoot" class="asset-manager-root"></main>
+    </div>
+
+    <input id="assetUploadInput" type="file" accept="image/*,video/*,audio/*,.json,.zip,application/json,application/zip" multiple hidden>
+    <script src="/asset-manager.js"></script>
+<script src="/external-link.js"></script>
+  <script src="/lanvas-unified.js?v=2026.08.21.1"></script>
+</body>
+</html>

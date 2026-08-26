@@ -1,0 +1,10 @@
+/* Lavans Unified Visual System v2.0
+ * Compatibility entrypoint loaded by the existing pages.
+ * The imports are intentionally layered so visual changes cannot leak into
+ * page geometry through broad, unscoped selectors.
+ */
+
+@import url("/lanvas-tokens.css?v=2026.08.21.2");
+@import url("/lanvas-components.css?v=2026.08.21.2");
+@import url("/lanvas-shell.css?v=2026.08.21.2");
+@import url("/lanvas-pages.css?v=2026.08.21.2");

@@ -1,0 +1,85 @@
+/* Lavans design tokens.
+ * Tokens may change color and typography only. This file must never define
+ * page layout, element order, dimensions, spacing or scrolling behavior.
+ */
+
+:root {
+  --lanvas-brand-900: #26073f;
+  --lanvas-brand-800: #35105a;
+  --lanvas-brand-700: #4a167d;
+  --lanvas-brand-600: #5e22a3;
+  --lanvas-brand-500: #743ac2;
+  --lanvas-brand-400: #9669dc;
+  --lanvas-brand-300: #be9aea;
+  --lanvas-brand-200: #dcc8f5;
+  --lanvas-brand-100: #efe5fa;
+  --lanvas-canvas: #f2f1f5;
+  --lanvas-shell: #f8f7fa;
+  --lanvas-surface-1: #ffffff;
+  --lanvas-surface-2: #f7f6f9;
+  --lanvas-surface-3: #efedf3;
+  --lanvas-border-subtle: #e7e3eb;
+  --lanvas-border: #d8d2de;
+  --lanvas-border-strong: #bdb4c7;
+  --lanvas-text: #211d27;
+  --lanvas-text-2: #625b6a;
+  --lanvas-text-3: #8b8493;
+  --lanvas-disabled: #b0aab6;
+  --lanvas-success: #51b98a;
+  --lanvas-warning: #d99a3d;
+  --lanvas-error: #d95d5d;
+  --lanvas-shadow: rgba(44, 31, 55, .10);
+  --lanvas-focus: 0 0 0 3px rgba(116, 58, 194, .22);
+  --lanvas-action-gradient: linear-gradient(110deg, #35105a 0%, #5e22a3 48%, #2a0847 100%);
+  --lanvas-font: "MiSans VF", "MiSans", "PingFang SC", "Microsoft YaHei UI", sans-serif;
+  --lanvas-mono: "JetBrains Mono", "Cascadia Mono", ui-monospace, monospace;
+  --lanvas-ease: cubic-bezier(.16, 1, .3, 1);
+  color-scheme: light;
+}
+
+html.studio-theme-dark,
+html[data-theme="dark"],
+body.studio-theme-dark,
+body[data-theme="dark"] {
+  --lanvas-canvas: #060708;
+  --lanvas-shell: #0b0c0e;
+  --lanvas-surface-1: #111315;
+  --lanvas-surface-2: #171a1d;
+  --lanvas-surface-3: #1e2226;
+  --lanvas-border-subtle: #282d33;
+  --lanvas-border: #3a4149;
+  --lanvas-border-strong: #3a4149;
+  --lanvas-text: #f4f0f7;
+  --lanvas-text-2: #d0c8d6;
+  --lanvas-text-3: #a49aaa;
+  --lanvas-disabled: #696171;
+  --lanvas-shadow: rgba(0, 0, 0, .34);
+  --lanvas-focus: 0 0 0 3px rgba(150, 105, 220, .28);
+  color-scheme: dark;
+}
+
+html[data-lanvas-ui="true"],
+body[data-lanvas-page],
+body[data-lanvas-page] button,
+body[data-lanvas-page] input,
+body[data-lanvas-page] select,
+body[data-lanvas-page] textarea {
+  font-family: var(--lanvas-font) !important;
+  font-optical-sizing: auto;
+  font-synthesis: none;
+}
+
+body[data-lanvas-page] {
+  color: var(--lanvas-text);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body[data-lanvas-page] .log,
+body[data-lanvas-page] .logs,
+body[data-lanvas-page] .log-line,
+body[data-lanvas-page] code,
+body[data-lanvas-page] pre {
+  font-family: var(--lanvas-mono) !important;
+  font-variant-numeric: tabular-nums;
+}

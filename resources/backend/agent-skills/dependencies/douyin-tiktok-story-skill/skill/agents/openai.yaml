@@ -1,0 +1,4 @@
+interface:
+  display_name: "抖音达人剧情创作"
+  short_description: "基于本地达人脚本数据库创作原创短视频剧情"
+  default_prompt: "Use $douyin-tiktok-story-skill to create an original Douyin story script from my topic."

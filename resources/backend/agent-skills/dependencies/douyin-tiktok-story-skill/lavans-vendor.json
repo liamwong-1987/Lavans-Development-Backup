@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0",
+  "name": "douyin-tiktok-story-skill-agent",
+  "source": "https://github.com/liujunxibaba/douyin-tiktok-story-skill-agent",
+  "commit": "97e0a472bb737b159cf9d83cb53177a015d3cb50",
+  "license": "MIT",
+  "importedAt": "2026-08-20T04:59:35+08:00",
+  "databaseIncluded": false,
+  "notes": "Only the public Skill code is vendored. The separately licensed douyin-story.sqlite3 corpus is intentionally not included."
+}

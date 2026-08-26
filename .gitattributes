@@ -1,0 +1,5 @@
+# Markdown documents use intentional double-space hard breaks.
+*.md whitespace=-trailing-space
+
+# Preserve third-party vendor sources byte-for-byte.
+resources/frontend/vendor/** whitespace=-trailing-space,-space-before-tab

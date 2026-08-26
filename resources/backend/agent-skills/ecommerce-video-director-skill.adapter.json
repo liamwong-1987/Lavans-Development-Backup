@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ecommerce-video-director-skill",
+  "displayName": "电商带货 | AI 视频一条龙",
+  "description": "电商带货 | AI 视频一条龙。用户要做电商短视频策划、带货脚本、3×3 九宫格分镜、人物/产品/场景资产、Seedance/可灵/MiniMax 视频提示词、成本预估或发布合规检查时使用；正式生产前必须调用头脑风暴 Skill，把每个客户不同的意图、钩子、叙事、卖点证明、人物关系、视觉语法、声音和转化方式整理为用户确认的视频创意蓝图。",
+  "status": "partial",
+  "source": {
+    "kind": "bundled-folder",
+    "path": "./bundled/ecommerce-video-director-skill",
+    "entry": "SKILL.md",
+    "readOnly": true,
+    "importMode": "bundled-read-only",
+    "signatureStatus": "unsigned-local"
+  },
+  "defaults": {},
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "materialPolicy": {
+    "workspaceScope": "canvas-agent",
+    "shareWithRecolor": false
+  },
+  "dependencies": [],
+  "stages": [
+    {
+      "id": "skill-chat",
+      "order": 1,
+      "title": "Skill 对话",
+      "canvasStage": "skill-chat",
+      "summary": "读取内置 Skill 指令；执行器绑定后才能运行工具",
+      "executor": {
+        "kind": "skill",
+        "ref": "unbound"
+      },
+      "readiness": "adapter-required",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": []
+    }
+  ],
+  "runtimeContract": {
+    "instructionOnly": true,
+    "executable": false
+  },
+  "capabilities": {
+    "chat": true,
+    "instructionOnly": true,
+    "executable": false
+  },
+  "blockers": [
+    "未绑定执行器"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "contentHash": "309a77b6e868809d99831a33e357fe585e67cab1c5284cb9a98abefd48e95f20",
+    "packageHash": "e37df59978f40ea94a75f006244d5f30fb77bd04832f1e418c108c23235303f1"
+  },
+  "trust": {
+    "kind": "unsigned-local",
+    "signed": false,
+    "verified": false
+  },
+  "ui": {
+    "version": "1.7.0",
+    "publisher": "bundled",
+    "iconAsset": "",
+    "usageScenario": "",
+    "howToUse": "",
+    "outputContent": "",
+    "skillType": "other"
+  }
+}

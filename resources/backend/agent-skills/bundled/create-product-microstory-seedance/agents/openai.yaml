@@ -1,0 +1,4 @@
+interface:
+  display_name: "放入产品直出短视频"
+  short_description: "放入产品图片，直接生成资产、提示词并接入 CLI 出视频"
+  default_prompt: "使用 $create-product-microstory-seedance，读取我的产品信息和图片，生成微故事、角色资产和 Seedance 2.0 提示词，最后询问我提供视频 CLI。"

@@ -1,0 +1,33 @@
+{
+  "name": "lavans",
+  "version": "1.0.7",
+  "private": true,
+  "description": "Lavans AI Creative Canvas",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "start:backend": "node resources/backend/server.js",
+    "check": "node --check electron/main.js && node --check electron/preload.js && node --check resources/backend/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "archiver": "5.3.2",
+    "axios": "1.18.0",
+    "cors": "2.8.6",
+    "dotenv": "16.6.1",
+    "express": "4.22.2",
+    "form-data": "4.0.6",
+    "https-proxy-agent": "5.0.1",
+    "multer": "1.4.5-lts.2",
+    "sharp": "0.35.2",
+    "unzipper": "0.10.14"
+  },
+  "devDependencies": {
+    "electron": "24.8.3",
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

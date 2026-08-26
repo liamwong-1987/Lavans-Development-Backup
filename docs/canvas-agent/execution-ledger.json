@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "planVersion": "2026-08-20.1",
+  "phases": [
+    {
+      "id": "1",
+      "name": "执行底座与恢复账本",
+      "status": "accepted",
+      "tasks": [
+        { "id": "1.1", "status": "tested", "evidence": ["D:\\Lavans_Recovery\\canvas_agent_delivery_foundation_20260820_151027\\manifest.json"] },
+        { "id": "1.2", "status": "tested", "evidence": ["Artifact Version Store 专项测试通过"] },
+        { "id": "1.3", "status": "tested", "evidence": ["Dependency Graph 正反向查询与循环拒绝测试通过"] },
+        { "id": "1.4", "status": "tested", "evidence": ["精确传播、零删除、跨重启幂等测试通过"] },
+        { "id": "1.5", "status": "tested", "evidence": ["审核、批准、锁定与替换状态机测试通过"] },
+        { "id": "1.6", "status": "tested", "evidence": ["精确授权、预算、过期输入与重复消费阻断测试通过"] },
+        { "id": "1.7", "status": "tested", "evidence": ["10 阶段、合法状态、唯一 nextAction 与原子写入测试通过"] },
+        { "id": "1.8", "status": "accepted", "evidence": ["恢复审计与服务重启通过；真实状态接口两次刷新健康且投影一致", "软件内浏览器真实可视验收通过：隔离画布 canvas_5f819c4759151b 中 3 个依赖节点成功投影；brief 状态按草稿→待审核→已批准→已锁定流转；页面刷新后节点、依赖数量和锁定状态自动恢复", "可视验收未调用付费模型，未进入或修改一键复色", "用户于 2026-08-20 明确确认阶段一通过"] }
+      ]
+    },
+    { "id": "2", "name": "产品事实与调研", "status": "accepted", "tasks": [
+      { "id": "2.1", "status": "tested", "evidence": ["真实品牌图片和 MD 资料已盘点；A/B/C 证据分级、事实冲突、禁说项和不可变产品事实锁均已生成", "软件内浏览器只显示中文纯文字，不显示结构化程序格式"] },
+      { "id": "2.2", "status": "tested", "evidence": ["授权本地故事库成功路径执行健康检查和两次离线机制检索；缺库路径真实阻塞", "networkUsed=false，externalModelUsed=false，未调用付费 API"] },
+      { "id": "2.3", "status": "tested", "evidence": ["资料与证据、产品事实锁、离线调研、调研边界四个节点实时投影", "用户勾选清单后只点击一次提交审核，后台自动完成批准和锁定；阻塞节点不能提交"] }
+    ] },
+    { "id": "3", "name": "创意与剧本锁定", "status": "accepted", "tasks": [
+      { "id": "3.1", "status": "tested", "evidence": ["真实品牌生成 3 个纯中文创意方向；单选卡选择深夜守护后只提交一次，方向产物与选择结果均锁定"] },
+      { "id": "3.2", "status": "tested", "evidence": ["按已锁定产品事实和创意方向生成完整纯文字剧本；缺少故事库时采用事实限定原创路径且明确 storyResearchUsed=false", "拒绝程序格式剧本和不完整创意方向"] },
+      { "id": "3.3", "status": "accepted", "evidence": ["V1 保持不可变，手动修改生成 V2；差异显示新增 5 行、删除 6 行、4 个改动区", "剧本审核只有一次提交按钮，后台自动批准并锁定 V2；刷新后正文、版本与锁定状态恢复", "用户确认阶段三通过并授权进入阶段四"] }
+    ] },
+    { "id": "4", "name": "结构化分镜与资产台账", "status": "accepted", "tasks": [
+      { "id": "4.1", "status": "tested", "evidence": ["真实品牌锁定剧本拆分为 5 个连续镜头，总时长严格为 30 秒；逐镜包含画面、动作、对白、旁白、字幕、声音、首尾帧、所需资产和不可变化约束", "结构化分镜以中文纯文字展示，用户勾选 3 项清单后只提交一次，后台自动审核、批准和锁定"] },
+      { "id": "4.2", "status": "tested", "evidence": ["建立 7 项资产锚点，覆盖角色、真实产品、统一场景、道具和 Logo；真实产品图与 MD 报告以文件名显示，不泄露内部资料编号", "每项资产登记事实锚点、不可变化约束和逐镜引用；不存在的上传资料 ID 被后端拒绝"] },
+      { "id": "4.3", "status": "tested", "evidence": ["本地确定性覆盖校验通过：5/5 镜头完整覆盖、7 项资产、0 个缺失引用；缺失 Logo、错误时长和不存在资产的测试路径均被阻断", "软件内浏览器完成三次独立单次提交；阶段四状态 locked、Stage completed；刷新后节点、锁定状态与依赖连线恢复"] }
+    ] },
+    { "id": "5", "name": "模型策略与费用防线", "status": "accepted", "tasks": [
+      { "id": "5.1", "status": "tested", "evidence": ["动态读取画布 API 配置，站点与模型分开选择；图片、视频、比例和数量全部使用选择控件，不暴露 API Key", "真实画布生成模型能力与站点选择节点并锁定"] },
+      { "id": "5.2", "status": "tested", "evidence": ["手动与自动模式均可勾选；自动模式硬限制在当前已批准批次，不能越过剧本、分镜、旁白、资产、逐镜视频和最终合成审核关", "真实画布生成手动与自动执行边界节点并锁定"] },
+      { "id": "5.3", "status": "tested", "evidence": ["预算、重试和备用模型全部可勾选；付费授权精确绑定输入版本、站点、模型、数量、预算、重试、模式、备用和人工审核关，高价批次需要再次确认", "软件内浏览器只提交一次即锁定阶段五三个节点；刷新恢复通过；未调用付费媒体 API"] }
+    ] },
+    { "id": "6", "name": "视觉资产生产", "status": "accepted", "tasks": [
+      { "id": "6.1", "status": "tested", "evidence": ["阶段四锁定覆盖版本与阶段五三项锁定策略被绑定到视觉资产批次；Provider、模型、比例、7 项资产、7 张候选、30 元最高授权和 1 次重试均可见", "缺少产品实拍图片时后端阻断整个批次"] },
+      { "id": "6.2", "status": "tested", "evidence": ["正式路径复用 /api/canvas-image-tasks，排队、运行、失败、中断和成功均形成不可覆盖的可恢复节点", "真实德伦堡产品卡绑定并显示上传实拍图；MD 只用于事实约束，不发送给图片接口；无费用测试替身明确标记为非模型结果"] },
+      { "id": "6.3", "status": "tested", "evidence": ["软件内浏览器显示 7 个资产分组和 7 个默认单选候选；用户只需一次提交，后台统一批准并锁定 7 个选择版本与视觉资产包", "锁定后刷新恢复通过；阶段七节点数量为 0；未调用付费媒体 API"] }
+    ] },
+    { "id": "7", "name": "分镜图、故事板与调度", "status": "accepted", "tasks": [
+      { "id": "7.1", "status": "tested", "evidence": ["阶段四 5 个锁定镜头与阶段六 7 个锁定资产版本被精确绑定；每镜头建立首帧和尾帧任务，共 10 项；缺少任一锁定资产版本时整个批次阻断", "正式路径复用 /api/canvas-image-tasks；排队、运行、失败、中断和成功均形成可恢复节点"] },
+      { "id": "7.2", "status": "tested", "evidence": ["软件内浏览器显示 5 个镜头、10 个首尾帧单选卡；镜头顺序、时长、景别、动作、转场和镜头运动均为中文可读", "全部首尾帧选择最后只提交一次；10 个选择版本、锁定故事板和阶段七交付包同时锁定"] },
+      { "id": "7.3", "status": "tested", "evidence": ["本地确定性生成 5 张机位、站位、拍摄方向和运动路线调度图；不调用模型、不产生费用", "刷新后 15 个阶段七节点全部从后台账本恢复；阶段八节点 0、声音节点 0、视频节点 0；未调用付费媒体 API"] }
+    ] },
+    { "id": "8", "name": "声音与逐镜制作包", "status": "accepted", "tasks": [{ "id": "8.1", "status": "accepted", "evidence": ["12 个音色、语速、字幕和音乐单选项可见，默认勾选 4 项；实际切换并恢复推荐默认成功；无文字输入框", "用户于 2026-08-20 明确确认阶段八通过"] }, { "id": "8.2", "status": "accepted", "evidence": ["5 个逐镜中文制作包均显示旁白、对白、字幕、音乐、音效和视频提示词；首尾帧及视觉资产精确绑定；总时长 30 秒"] }, { "id": "8.3", "status": "accepted", "evidence": ["72/72 自动化测试通过；软件内浏览器建立 7 个审核前节点，勾选 6 项清单后只点击一次提交，形成 9 个锁定阶段八节点；刷新恢复、页面错误日志 0、阶段九节点 0"] }] },
+    { "id": "9", "name": "逐镜视频生产与验收", "status": "awaiting-user", "tasks": [{ "id": "9.1", "status": "tested", "evidence": ["读取画布 API 设置建立 APIMART Seedance 2.0、480P、每镜头 5 秒的逐镜计划；5 个镜头最高预计约 2.06 元；批次费用先确认，自动模式仍受人工审核关限制"] }, { "id": "9.2", "status": "tested", "evidence": ["真实低成本批次中镜头 1、3、4、5 生成成功并保留可播放版本；镜头 2 被内容政策拦截后只影响本镜头；旧生成中节点转为历史，不再误报运行中", "正式失败恢复区分中转站故障和内容安全拦截；前者原 Prompt 重试，后者使用勾选项生成 Prompt 修改前后对照；确认费用前不会付费或重新生成"] }, { "id": "9.3", "status": "awaiting-user", "evidence": ["81/81 自动化测试通过；41 个生产画布文件、171 个节点、78 条连线往返测试修改数 0", "软件内浏览器显示 4 个真实可播放视频、1 个内容安全失败镜头、5 个安全修改勾选项、原 Prompt 与修改后 Prompt 对照、费用确认安全门；未勾选费用时拒绝重做；刷新后修改预览和选择恢复；页面错误日志 0", "当前停止在阶段九用户审核，不进入阶段十，不自动合成最终视频"] }] },
+    { "id": "10", "name": "合成、质检与最终交付", "status": "awaiting-user", "tasks": [{ "id": "10.1", "status": "tested", "evidence": ["正式计划只接受锁定且当前有效的阶段八声音包和完整阶段九视频包；缺镜头、未锁定或逐镜时长与锁定时间线不一致时强制阻断", "隔离受控测试计划明确显示 5 个镜头、9:16、720×1280、5 秒以及‘不是正式品牌成片’标记；未调用付费模型"] }, { "id": "10.2", "status": "tested", "evidence": ["软件内浏览器真实执行本地 FFmpeg 合成，生成 720×1280、实测 5.11 秒的可播放 MP4；视频轨、声音轨、烧录字幕和独立 SRT 均正常", "自动质检 7/7 通过；失败任务保留历史并可安全重试；运行中可中断且浏览器断开会终止本地 FFmpeg 子进程"] }, { "id": "10.3", "status": "tested", "evidence": ["未勾选 7 项最终清单时拒绝提交；勾选全部后只提交一次即锁定受控测试审核和交付包", "MP4、SRT、质检报告、版本来源与制作说明、ZIP 五类文件均返回 200；刷新与 artifact 深链接恢复通过；正式品牌路径仍因阶段九镜头 2 未完成而保持阻塞"] }] }
+  ],
+  "decisions": [
+    "关键阶段人工审核，禁止一键直接成片",
+    "上游变化保留下游文件并精确标记影响",
+    "画布 AGENT 与一键复色完全隔离",
+    "阶段 1 已由用户验收，阶段 2 一次完成并测试后再等待用户审核"
+    ,"阶段 2 用户审核只需一次提交，后台保留提交、批准、锁定三段审计状态"
+    ,"阶段 3 创意方向先选后锁，完整剧本不自动进入分镜；用户一次提交剧本审核后后台批准并锁定"
+    ,"阶段 4 分镜、资产台账和覆盖校验分别形成可见节点并分别人工审核；覆盖校验只在本地执行，不生成图片或视频"
+    ,"阶段 5 站点与模型分开配置；自动模式只在当前已批准批次内运行，永不跨越人工审核关；三项策略一次提交锁定"
+    ,"阶段 6 每项视觉资产逐项生成并保留版本；产品必须绑定实拍图；最后按资产单选并只提交一次，锁定后不自动进入阶段 7"
+    ,"阶段 7 每镜头分别单选首帧和尾帧；故事板和本地调度图一起只提交一次，锁定后不自动进入声音、逐镜视频或最终成片"
+    ,"阶段 8 音色、语速、字幕和音乐全部单选；逐镜制作包精确绑定锁定输入；最后只提交一次，锁定后不调用配音或视频接口、不自动进入阶段 9"
+    ,"阶段 9 每个镜头独立生成、播放、重做和保留版本；中转站故障不改 Prompt，内容安全拦截必须展示原词、新词和修改说明；用户确认提示词与单镜头费用后才能重做；全部镜头通过后只提交一次，且不自动进入阶段 10"
+    ,"阶段 10 正式合成只接受锁定且完整的阶段九视频包，并要求逐镜时长与阶段八锁定时间线一致；受控测试路径必须隔离、显著标记且不能作为品牌成片交付"
+    ,"阶段 10 使用本地 FFmpeg 合成和自动质检，不调用媒体生成模型；最终审核清单全部勾选后只提交一次，统一锁定 MP4、SRT、质检报告、版本来源说明和 ZIP"
+  ],
+  "modifiedFiles": [
+    "resources/backend/routes/canvasRoutes.js",
+    "resources/backend/routes/canvasAgentFoundationRoutes.js",
+    "resources/backend/services/canvasAgentFoundation/atomicJsonStore.js",
+    "resources/backend/services/canvasAgentFoundation/artifactVersionStore.js",
+    "resources/backend/services/canvasAgentFoundation/dependencyGraph.js",
+    "resources/backend/services/canvasAgentFoundation/approvalGateEngine.js",
+    "resources/backend/services/canvasAgentFoundation/impactPropagator.js",
+    "resources/backend/services/canvasAgentFoundation/executionGuard.js",
+    "resources/backend/services/canvasAgentFoundation/taskLedger.js",
+    "resources/backend/services/canvasAgentFoundation/recoveryAuditor.js",
+    "resources/backend/services/canvasAgentFoundation/canvasProjection.js",
+    "resources/backend/services/canvasAgentFoundation/index.js",
+    "resources/backend/services/agentProductResearchService.js",
+    "resources/backend/services/agentCreativeScriptService.js",
+    "resources/backend/services/agentStoryboardAssetService.js",
+    "resources/backend/services/agentModelStrategyService.js",
+    "resources/backend/services/agentVisualAssetService.js",
+    "resources/backend/services/agentStoryboardDispatchService.js",
+    "resources/backend/services/agentSoundProductionPackageService.js",
+    "resources/backend/services/agentShotVideoProductionService.js",
+    "resources/backend/services/agentFinalDeliveryService.js",
+    "resources/backend/services/agentRunService.js",
+    "resources/backend/tests/agent-product-research.test.js",
+    "resources/backend/tests/agent-creative-script.test.js",
+    "resources/backend/tests/agent-storyboard-assets.test.js",
+    "resources/backend/tests/agent-model-strategy.test.js",
+    "resources/backend/tests/agent-visual-assets.test.js",
+    "resources/backend/tests/agent-storyboard-dispatch.test.js",
+    "resources/backend/tests/agent-sound-production-package.test.js",
+    "resources/backend/tests/agent-shot-video-production.test.js",
+    "resources/backend/tests/agent-final-delivery.test.js",
+    "resources/backend/tests/canvas-agent-foundation.test.js",
+    "resources/backend/tests/canvas-agent-foundation-ui.test.js",
+    "resources/frontend/smart-canvas-core/smart-canvas-core.js",
+    "resources/frontend/smart-canvas-core/smart-canvas-core.css",
+    "resources/frontend/smart-canvas-core/smart-canvas.html",
+    "docs/canvas-agent/execution-ledger.json",
+    "docs/canvas-agent/recovery-protocol.md",
+    "docs/canvas-agent/decisions.md",
+    "docs/canvas-agent/phase-mapping.md",
+    "docs/Canvas-Agent开发任务总表.md",
+    "docs/Canvas-Agent开发进度.md"
+  ],
+  "backupPath": "D:\\Lavans_Recovery\\canvas_agent_delivery_foundation_20260820_151027",
+  "phase2BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase2_product_research_20260820_1635",
+  "phase3BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase3_creative_script_20260820_1705",
+  "phase4PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase4_prechange_20260820_1730",
+  "phase4BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase4_storyboard_assets_20260820_1740",
+  "phase5PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase5_prechange_20260820_1810",
+  "phase5BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase5_model_strategy_20260820_1820",
+  "phase6PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase6_prechange_20260820_181238",
+  "phase6BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase6_visual_assets_20260820_183110",
+  "phase7PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase7_prechange_20260820_190200",
+  "phase7BackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase7_storyboard_dispatch_20260820_1920",
+  "phase8PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase8_prechange_20260820_191554",
+  "phase8CodeCompleteUntestedBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase8_code_complete_untested_20260820_1922",
+  "phase8TestedBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase8_tested_20260820_1935",
+  "phase9TestedBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase9_failure_recovery_tested_20260820_220149",
+  "phase10PrechangeBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase10_prechange_20260820_221047",
+  "phase10TestedBackupPath": "D:\\Lavans_Recovery\\canvas_agent_phase10_tested_20260820_2300",
+  "tests": [
+    { "name": "canvas-agent-foundation", "result": "16/16 passed", "at": "2026-08-20T15:40:00+08:00" },
+    { "name": "canvas-agent-foundation-ui", "result": "3/3 passed", "at": "2026-08-20T15:35:00+08:00" },
+    { "name": "existing-agent-and-canvas-regression", "result": "23/23 passed", "at": "2026-08-20T15:35:00+08:00" },
+    { "name": "combined-suite", "result": "42/42 passed", "at": "2026-08-20T15:40:00+08:00" },
+    { "name": "production-canvas-roundtrip", "result": "38 files, 164 nodes, 73 connections, 0 modified", "at": "2026-08-20T15:35:00+08:00" }
+    ,{ "name": "in-app-browser-visible-acceptance", "result": "3 projected nodes; review/approve/lock passed; reload recovery passed", "at": "2026-08-20T15:55:00+08:00" }
+    ,{ "name": "phase2-combined-suite", "result": "48/48 passed; production canvas files modified 0", "at": "2026-08-20T16:30:00+08:00" }
+    ,{ "name": "phase2-in-app-browser", "result": "4 projected nodes; real brand material; Chinese plain text; one-click submit-to-lock; blocked node has no submit action", "at": "2026-08-20T16:30:00+08:00" }
+    ,{ "name": "phase3-combined-suite", "result": "51/51 passed; production canvas files modified 0", "at": "2026-08-20T17:05:00+08:00" }
+    ,{ "name": "phase3-in-app-browser", "result": "3 creative choices; one-click direction lock; full plain-text script; V1 to V2 immutable revision; diff visible; one-click V2 lock; reload recovery passed", "at": "2026-08-20T17:05:00+08:00" }
+    ,{ "name": "phase4-combined-suite", "result": "54/54 passed; 40 production canvas files, 169 nodes, 77 connections, production files modified 0", "at": "2026-08-20T17:35:00+08:00" }
+    ,{ "name": "phase4-in-app-browser", "result": "5 plain-text shots; 7 anchored assets; 5/5 coverage; three one-submit reviews; reload recovery passed; no paid API and no media generation", "at": "2026-08-20T17:35:00+08:00" }
+    ,{ "name": "phase5-combined-suite", "result": "56/56 passed; 40 production canvas files, 169 nodes, 77 connections, production files modified 0", "at": "2026-08-20T18:20:00+08:00" }
+    ,{ "name": "phase5-in-app-browser", "result": "dynamic canvas provider/model settings; selectable ratios/counts/mode/budget/retry/fallback; 3 visible policy nodes; one submit locked all; reload recovery passed; no paid API and no media generation", "at": "2026-08-20T18:20:00+08:00" }
+    ,{ "name": "phase6-combined-suite", "result": "63/63 passed; 40 production canvas files, 169 nodes, 77 connections, production files modified 0", "at": "2026-08-20T18:31:00+08:00" }
+    ,{ "name": "phase6-in-app-browser", "result": "7 real-brand asset groups; product photo fidelity reference; 7 clearly labelled no-cost substitutes; grouped radio selection; one submit locked all 7 versions and package; reload recovery passed; phase7 nodes 0; no paid API", "at": "2026-08-20T18:31:00+08:00" }
+    ,{ "name": "phase7-combined-suite", "result": "67/67 passed; 40 production canvas files, 169 nodes, 77 connections, production files modified 0", "at": "2026-08-20T19:20:00+08:00" }
+    ,{ "name": "phase7-in-app-browser", "result": "5 real-brand shots; 10 clearly labelled no-cost frame substitutes; 5 local dispatch diagrams; grouped first/last radio selection; one submit locked all frames, storyboard, dispatch and package; reload recovery passed; phase8/audio/video nodes 0; no paid API", "at": "2026-08-20T19:20:00+08:00" }
+    ,{ "name": "phase8-combined-suite", "result": "72/72 passed; 41 production canvas files, 166 nodes, 74 connections, production files modified 0", "at": "2026-08-20T19:35:00+08:00" }
+    ,{ "name": "phase8-in-app-browser", "result": "1 plan, 5 shot production packages and 1 review node created; 12 radio choices with 4 defaults and no text inputs; choice switching passed; 6 review checks; one submit locked 9 phase8 nodes; reload recovery passed; browser errors 0; phase9 nodes 0; no paid API", "at": "2026-08-20T19:35:00+08:00" }
+    ,{ "name": "phase9-combined-suite", "result": "81/81 passed; 41 production canvas files, 171 nodes, 78 connections, production files modified 0", "at": "2026-08-20T21:58:00+08:00" }
+    ,{ "name": "phase9-in-app-browser", "result": "4 real playable video results preserved; 1 policy-blocked shot isolated; 5 checkbox-only safety directions; original/revised prompt comparison; fee confirmation blocked unpaid retry; reload recovery passed; browser errors 0; phase10 not started", "at": "2026-08-20T22:00:00+08:00" }
+    ,{ "name": "phase10-combined-suite", "result": "87/87 passed; 41 production canvas files, 171 nodes, 78 connections, production files modified 0", "at": "2026-08-20T23:00:00+08:00" }
+    ,{ "name": "phase10-in-app-browser", "result": "controlled plan clearly labelled; local FFmpeg produced playable 720x1280 5.11s MP4 and SRT; QC 7/7; unchecked submit blocked; one checked submit locked 5-file package; all files HTTP 200; reload and artifact deep-link recovery passed; no paid model API", "at": "2026-08-20T23:00:00+08:00" }
+  ],
+  "blockers": [],
+  "nextAction": { "taskId": "10.3", "action": "等待用户审核阶段十受控测试交付界面。受控测试通过不等于正式品牌成片完成；正式交付仍须先回到阶段 9.3 解决镜头 2 并锁定完整阶段九视频包" },
+  "updatedAt": "2026-08-20T23:00:00+08:00"
+}

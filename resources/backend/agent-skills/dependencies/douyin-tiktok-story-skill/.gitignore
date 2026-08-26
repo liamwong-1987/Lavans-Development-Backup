@@ -1,0 +1,8 @@
+skill/assets/*.sqlite3
+skill/assets/*.sqlite3-shm
+skill/assets/*.sqlite3-wal
+skill/assets/*.json
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

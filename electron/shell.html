@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lavans</title>
+<style>
+  :root {
+    --nav-bg: #17171b;
+    --nav-hover: #24242c;
+    --nav-active: #2b2b34;
+    --nav-border: #26262e;
+    --nav-text: #e6e7ea;
+    --nav-muted: #8b8b94;
+    --accent: #6366f1;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:100%; height:100%; overflow:hidden; background:var(--nav-bg); font-family:'Inter','Segoe UI',-apple-system,sans-serif; -webkit-font-smoothing:antialiased; }
+  .navbar {
+    height:40px; display:flex; align-items:center; gap:2px;
+    background:var(--nav-bg); border-bottom:1px solid var(--nav-border);
+    padding:0 6px; -webkit-app-region:drag; user-select:none;
+  }
+  .nav-btn {
+    -webkit-app-region:no-drag; width:32px; height:28px; border:none; border-radius:7px;
+    background:transparent; color:var(--nav-text); cursor:pointer;
+    display:flex; align-items:center; justify-content:center; transition:background .13s;
+    outline:none; flex-shrink:0;
+  }
+  .nav-btn:hover:not(:disabled) { background:var(--nav-hover); }
+  .nav-btn:active:not(:disabled) { background:var(--nav-active); }
+  .nav-btn:disabled { color:#45454d; cursor:default; }
+  .nav-btn svg { width:16px; height:16px; }
+  .nav-btn.nav-translate { font-size:12px; font-weight:700; }
+  .nav-btn.translating { background:var(--accent); color:#fff; }
+  .nav-btn.translating:hover { background:var(--accent); }
+  .addr-bar {
+    -webkit-app-region:no-drag; flex:1; max-width:680px; height:30px; margin:0 8px;
+    display:flex; align-items:center; gap:8px; background:var(--nav-hover);
+    border:1px solid var(--nav-border); border-radius:15px; padding:0 12px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .addr-bar:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px rgba(99,102,241,.15); }
+  .addr-bar svg { width:13px; height:13px; color:var(--nav-muted); flex-shrink:0; }
+  .addr-bar input {
+    flex:1; background:transparent; border:none; outline:none; color:var(--nav-text);
+    font-size:12px; font-family:inherit; min-width:0;
+  }
+  .addr-bar input::placeholder { color:var(--nav-muted); }
+  .spacer { flex:1; }
+  .win-controls { display:flex; -webkit-app-region:no-drag; flex-shrink:0; }
+  .win-btn {
+    width:44px; height:40px; border:none; background:transparent; color:var(--nav-text);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:background .13s; outline:none;
+  }
+  .win-btn:hover { background:var(--nav-hover); }
+  .win-btn.close:hover { background:#e81123; color:#fff; }
+  .win-btn svg { width:12px; height:12px; }
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <button class="nav-btn" id="nav-back" title="后退" aria-label="后退" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button class="nav-btn" id="nav-forward" title="前进" aria-label="前进" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+  <button class="nav-btn" id="nav-reload" title="刷新" aria-label="刷新">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+  </button>
+  <button class="nav-btn nav-translate" id="nav-translate" title="翻译成中文" aria-label="翻译成中文">译</button>
+  <div class="addr-bar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <input id="addr-input" placeholder="输入网址后回车跳转" spellcheck="false" autocomplete="off">
+  </div>
+  <div class="spacer"></div>
+  <div class="win-controls">
+    <button class="win-btn" id="win-min" title="最小化" aria-label="最小化">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 12h12"/></svg>
+    </button>
+    <button class="win-btn" id="win-max" title="最大化" aria-label="最大化">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>
+    </button>
+    <button class="win-btn close" id="win-close" title="关闭" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m7 7 10 10M17 7 7 17"/></svg>
+    </button>
+  </div>
+</nav>
+<script>
+  (function(){
+    const $ = id => document.getElementById(id);
+    const backBtn = $('nav-back'), fwdBtn = $('nav-forward'), reloadBtn = $('nav-reload'), addr = $('addr-input');
+
+    let currentUrl = '';
+    function applyState(s){
+      if(!s) return;
+      currentUrl = s.url || '';
+      backBtn.disabled = !s.canGoBack;
+      fwdBtn.disabled = !s.canGoForward;
+      if(document.activeElement !== addr) addr.value = currentUrl;
+      updateTranslateBtn();
+    }
+
+    backBtn.addEventListener('click', () => window.lavansNav && window.lavansNav.back());
+    fwdBtn.addEventListener('click', () => window.lavansNav && window.lavansNav.forward());
+    reloadBtn.addEventListener('click', () => window.lavansNav && window.lavansNav.reload());
+
+    // 翻译按钮：普通网页 → 整页翻译成中文；翻译页 → 回到原文
+    const translateBtn = $('nav-translate');
+    function isTranslated(url){
+      return !!(url && url.indexOf('translate.google.com') !== -1 && url.indexOf('/translate') !== -1);
+    }
+    function updateTranslateBtn(){
+      const t = isTranslated(currentUrl);
+      translateBtn.classList.toggle('translating', t);
+      translateBtn.title = t ? '回到原文' : '翻译成中文';
+      translateBtn.setAttribute('aria-label', translateBtn.title);
+    }
+    translateBtn.addEventListener('click', () => {
+      if(isTranslated(currentUrl)){
+        const m = currentUrl.match(/[?&]u=([^&]+)/);
+        if(m){ try { window.lavansNav && window.lavansNav.loadURL(decodeURIComponent(m[1])); } catch(_e){} }
+      } else if(currentUrl && /^https?:\/\//i.test(currentUrl)) {
+        const t = 'https://translate.google.com/translate?hl=zh-CN&sl=auto&tl=zh-CN&u=' + encodeURIComponent(currentUrl);
+        window.lavansNav && window.lavansNav.loadURL(t);
+      }
+    });
+
+    addr.addEventListener('focus', () => addr.select());
+    addr.addEventListener('keydown', e => {
+      if(e.key === 'Enter'){
+        let url = (addr.value || '').trim();
+        if(url){
+          if(!/^https?:\/\//i.test(url)) url = 'http://' + url;
+          window.lavansNav && window.lavansNav.loadURL(url);
+          addr.blur();
+        }
+      }
+      if(e.key === 'Escape'){ addr.blur(); }
+    });
+
+    $('win-min').addEventListener('click', () => window.lavansWindow && window.lavansWindow.minimize());
+    $('win-max').addEventListener('click', () => window.lavansWindow && window.lavansWindow.toggleMaximize());
+    $('win-close').addEventListener('click', () => window.lavansWindow && window.lavansWindow.close());
+
+    // 最大化图标切换
+    const maxSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="6" width="12" height="12" rx="1"/></svg>';
+    const restoreSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="8" width="11" height="11" rx="1"/><path d="M8 5h11v11"/></svg>';
+    const maxBtn = $('win-max');
+    if(window.lavansWindow && window.lavansWindow.onWindowState){
+      window.lavansWindow.onWindowState(state => {
+        maxBtn.innerHTML = (state && state.maximized) ? restoreSvg : maxSvg;
+        maxBtn.title = (state && state.maximized) ? '还原' : '最大化';
+      });
+    }
+
+    // 初始状态
+    if(window.lavansNav){
+      window.lavansNav.getState().then(applyState).catch(() => {});
+      window.lavansNav.onNavState(applyState);
+    }
+  })();
+</script>
+</body>
+</html>

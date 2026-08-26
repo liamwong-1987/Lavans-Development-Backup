@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "templateId": "ecommerce-video-director-with-brainstorming-v1",
+  "primaryMatch": {
+    "id": "ecommerce-video-director-skill",
+    "declaredVersion": "1.7.0",
+    "contentHash": "309a77b6e868809d99831a33e357fe585e67cab1c5284cb9a98abefd48e95f20",
+    "packageHash": "e37df59978f40ea94a75f006244d5f30fb77bd04832f1e418c108c23235303f1",
+    "contextFiles": [
+      "SKILL.md",
+      "references/core-instructions.md",
+      "references/creative-discovery.md",
+      "references/process-flow.md",
+      "references/asset-workflow.md",
+      "references/model-specs.md",
+      "references/prompt-delivery-contract.md",
+      "references/phase-checklist.md"
+    ],
+    "runtimeContract": {
+      "instructionOnly": true,
+      "executable": false
+    }
+  },
+  "dependencies": [
+    {
+      "id": "brainstorming-obra-share",
+      "displayName": "头脑风暴",
+      "role": "creative-discovery",
+      "required": true,
+      "declaredVersion": "1.0.0",
+      "entry": "SKILL.md",
+      "entrySha256": "03f6a3afa3f8f56fa348d31032a58c08cc973335b734e9b1940d5c9626c81b1a",
+      "contextFiles": [
+        "SKILL.md"
+      ],
+      "runtimeContract": {
+        "instructionOnly": true,
+        "executable": false
+      }
+    }
+  ],
+  "promptOrder": [
+    "host-safety",
+    "dependency:creative-discovery",
+    "primary"
+  ],
+  "limits": {
+    "maxDepth": 2,
+    "maxSkills": 4,
+    "maxContextBytes": 262144
+  }
+}

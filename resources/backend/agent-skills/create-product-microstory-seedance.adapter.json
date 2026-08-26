@@ -1,0 +1,372 @@
+{
+  "$schema": "./skill-adapter.schema.json",
+  "schemaVersion": "1.0",
+  "id": "create-product-microstory-seedance",
+  "legacyIds": ["pixar-video-ad"],
+  "displayName": "放入产品直出短视频",
+  "description": "放入产品信息和图片，生成微故事、角色与制作资产、Seedance 2.0 逐镜提示词，最后等待用户提供视频生成 CLI。",
+  "status": "partial",
+  "source": {
+    "kind": "local-folder",
+    "path": "./bundled/create-product-microstory-seedance",
+    "entry": "SKILL.md",
+    "readOnly": true,
+    "importMode": "copy-on-register"
+  },
+  "ui": {
+    "questionnaireVersion": "2.2",
+    "eyebrow": "PRODUCT VIDEO AGENT",
+    "title": "放入产品直出短视频",
+    "icon": "clapperboard",
+    "statusLabel": "部分可用",
+    "tags": ["产品资料直入", "9 个原生执行步骤", "故事数据库待补充"],
+    "questionGroups": [
+      {
+        "id": "product-facts",
+        "title": "产品事实",
+        "questions": [
+          {
+            "id": "productName",
+            "type": "text",
+            "required": true,
+            "title": "产品名称是什么？",
+            "hint": "请填写真实名称；如果包装上的品牌名不同，也请一并说明。",
+            "placeholder": "请输入产品名称与品牌名"
+          },
+          {
+            "id": "facts",
+            "type": "text",
+            "required": true,
+            "title": "必须准确呈现的真实卖点和产品事实有哪些？",
+            "hint": "只写可以确认的功能、材质、规格、使用方式或体验，不要填写无法证明的功效。",
+            "placeholder": "每行一条真实卖点或产品事实"
+          },
+          {
+            "id": "evidence",
+            "type": "multiple",
+            "required": false,
+            "title": "这些卖点有哪些证据或资料可以核对？",
+            "hint": "可多选；具体文件请点击下方“＋”上传，不需要手工输入文件名。",
+            "emptyValue": "用户未提供证据，不得自行证明或扩写卖点",
+            "choices": [
+              { "value": "产品实拍图", "label": "产品实拍图", "note": "包装、外观、使用状态或细节照片" },
+              { "value": "说明书或规格文档", "label": "说明书 / 规格文档", "note": "用于核对功能、材质、尺寸和使用方式" },
+              { "value": "检测或认证资料", "label": "检测 / 认证资料", "note": "用于核对可以公开表达的证明信息" },
+              { "value": "商品页或品牌资料", "label": "商品页 / 品牌资料", "note": "用于核对品牌口径与正式卖点" },
+              { "value": "暂无可核对资料", "label": "暂无资料", "note": "Agent 不得自行证明或扩写卖点", "exclusive": true },
+              { "value": "__custom__", "label": "其他资料类型", "custom": true }
+            ]
+          },
+          {
+            "id": "prohibitedClaims",
+            "type": "multiple",
+            "required": false,
+            "title": "有哪些禁说项、禁用画面或合规限制？",
+            "hint": "可多选；只有选择“其他限制”后才需要补充文字。",
+            "emptyValue": "用户未提供禁说项，执行前仍须做事实与合规检查",
+            "choices": [
+              { "value": "不能承诺未经证明的功效", "label": "不承诺未经证明的功效" },
+              { "value": "不能出现价格或促销信息", "label": "不出现价格 / 促销" },
+              { "value": "不能修改 Logo 或包装文字", "label": "不修改 Logo / 包装文字" },
+              { "value": "不能展示竞品或比较性画面", "label": "不展示竞品 / 比较画面" },
+              { "value": "无特别限制但仍需合规检查", "label": "无特别限制", "exclusive": true },
+              { "value": "__custom__", "label": "其他限制", "custom": true }
+            ]
+          },
+          {
+            "id": "audience",
+            "type": "multiple",
+            "required": true,
+            "title": "主要目标人群是谁？",
+            "hint": "可多选；只有选择“其他人群”后才需要补充文字。",
+            "choices": [
+              { "value": "年轻消费者", "label": "年轻消费者" },
+              { "value": "通勤或职场人群", "label": "通勤 / 职场人群" },
+              { "value": "家庭用户", "label": "家庭用户" },
+              { "value": "学生群体", "label": "学生群体" },
+              { "value": "专业或行业用户", "label": "专业 / 行业用户" },
+              { "value": "泛人群", "label": "泛人群", "exclusive": true },
+              { "value": "__custom__", "label": "其他人群", "custom": true }
+            ]
+          },
+          {
+            "id": "platforms",
+            "type": "multiple",
+            "required": true,
+            "title": "主要发布平台是哪些？",
+            "hint": "可多选，Agent 会据此安排比例、节奏和信息密度。",
+            "choices": [
+              { "value": "抖音", "label": "抖音" },
+              { "value": "小红书", "label": "小红书" },
+              { "value": "视频号", "label": "视频号" },
+              { "value": "B站", "label": "B站" },
+              { "value": "YouTube", "label": "YouTube" },
+              { "value": "电商详情页", "label": "电商详情页" },
+              { "value": "官网", "label": "官网" },
+              { "value": "__custom__", "label": "其他平台", "custom": true }
+            ]
+          },
+          {
+            "id": "cta",
+            "type": "single",
+            "required": false,
+            "title": "结尾希望观众采取什么行动？",
+            "hint": "请选择最主要的一个行动；只有选择“其他”后才需要补充文字。",
+            "emptyValue": "用户未指定 CTA",
+            "choices": [
+              { "value": "点击了解", "label": "点击了解" },
+              { "value": "立即购买", "label": "立即购买" },
+              { "value": "到店体验", "label": "到店体验" },
+              { "value": "关注账号", "label": "关注账号" },
+              { "value": "私信咨询", "label": "私信咨询" },
+              { "value": "无明确 CTA", "label": "无明确 CTA" },
+              { "value": "__custom__", "label": "其他行动", "custom": true }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "production-preferences",
+        "title": "制作偏好",
+        "questions": [
+          {
+            "id": "durationSeconds",
+            "type": "single",
+            "required": false,
+            "title": "期望视频时长是多少？",
+            "hint": "源 Skill 默认 45 秒；超过 15 秒会按自然停顿拆成多个 Seedance 镜头。",
+            "emptyValue": "45 秒（使用源 Skill 默认）",
+            "choices": [
+              { "value": "15 秒", "label": "15 秒", "note": "节奏紧凑，适合社媒投放" },
+              { "value": "30 秒", "label": "30 秒", "note": "适合较短的剧情式种草" },
+              { "value": "45 秒", "label": "45 秒（源 Skill 默认）", "note": "可承载完整的钩子、冲突和反转" },
+              { "value": "60 秒", "label": "60 秒", "note": "内容量大，可做多段衔接" },
+              { "value": "__custom__", "label": "其他，请直接输入", "custom": true }
+            ]
+          },
+          {
+            "id": "aspectRatio",
+            "type": "single",
+            "required": false,
+            "title": "视频画幅比例是？",
+            "hint": "源 Skill 默认使用 9:16。",
+            "emptyValue": "9:16（使用源 Skill 默认）",
+            "choices": [
+              { "value": "9:16（竖屏）", "label": "9:16（默认）", "note": "适合抖音 / 小红书" },
+              { "value": "16:9（横屏）", "label": "16:9（横屏）", "note": "适合官网 / B站 / YouTube" },
+              { "value": "1:1（方形）", "label": "1:1（方形）", "note": "适合信息流与商品展示" },
+              { "value": "__custom__", "label": "其他，请直接输入", "custom": true }
+            ]
+          },
+          {
+            "id": "visualStyle",
+            "type": "single",
+            "required": false,
+            "title": "希望采用哪种视觉风格？",
+            "hint": "源 Skill 默认生成原创、非真实可识别人物的 stylized 角色。",
+            "emptyValue": "原创 stylized 角色（使用源 Skill 默认）",
+            "choices": [
+              { "value": "原创 stylized 3D", "label": "原创 stylized 3D（默认）", "note": "适合角色微故事" },
+              { "value": "原创动画风格", "label": "原创动画风格", "note": "强调形体与表演" },
+              { "value": "原创插画风格", "label": "原创插画风格", "note": "适合平面化叙事" },
+              { "value": "__custom__", "label": "其他，请直接输入", "custom": true }
+            ]
+          },
+          {
+            "id": "characterDirection",
+            "type": "single",
+            "required": false,
+            "title": "对角色或剧情方向有特别要求吗？",
+            "hint": "请选择最接近的方向；只有选择“其他方向”后才需要补充文字。",
+            "emptyValue": "用户未指定，由故事 Skill 在不增加产品事实的前提下设计",
+            "choices": [
+              { "value": "由 Agent 自行设计", "label": "由 Agent 自行设计", "note": "根据产品事实选择最合适的原创角色与剧情" },
+              { "value": "温暖治愈", "label": "温暖治愈" },
+              { "value": "轻松喜剧", "label": "轻松喜剧" },
+              { "value": "戏剧冲突与反转", "label": "戏剧冲突 / 反转" },
+              { "value": "产品功能演示导向", "label": "产品功能演示导向" },
+              { "value": "__custom__", "label": "其他方向", "custom": true }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "defaults": {
+    "aspectRatio": "9:16",
+    "durationSeconds": 45,
+    "visualStyle": "原创 stylized 3D 或插画角色",
+    "seedanceVersion": "2.0",
+    "planningMode": true
+  },
+  "inputSchema": {
+    "type": "object",
+    "required": ["productName"],
+    "properties": {
+      "productName": { "type": "string", "minLength": 1 },
+      "facts": { "type": "array", "items": { "type": "string" } },
+      "evidence": { "type": "array", "items": { "type": "string" } },
+      "prohibitedClaims": { "type": "array", "items": { "type": "string" } },
+      "audience": { "type": "string" },
+      "platforms": { "type": "string" },
+      "cta": { "type": "string" },
+      "durationSeconds": { "type": "integer", "minimum": 4, "maximum": 180 },
+      "aspectRatio": { "enum": ["9:16", "16:9", "1:1"] },
+      "visualStyle": { "type": "string" },
+      "characterDirection": { "type": "string" }
+    }
+  },
+  "materialPolicy": {
+    "maxFiles": 20,
+    "maxBytesPerFile": 31457280,
+    "acceptedKinds": ["image", "video", "audio", "pdf", "text", "document", "archive"],
+    "productReferencePreferred": true,
+    "preserveOriginalFiles": true,
+    "neverInventPackagingText": true,
+    "stableMaterialIdRequired": true
+  },
+  "dependencies": [
+    { "id": "scripts/init_project.py", "kind": "local-script", "required": true, "status": "available" },
+    { "id": "scripts/validate_package.py", "kind": "local-script", "required": true, "status": "available" },
+    { "id": "douyin-tiktok-story-skill", "kind": "skill", "required": true, "status": "database-missing" },
+    { "id": "seedance-prompt-zh", "kind": "skill", "required": true, "status": "missing" },
+    { "id": "imagegen", "kind": "tool", "required": false, "status": "host-adapter-required" },
+    { "id": "video-generation-cli", "kind": "user-cli", "required": true, "status": "deferred" }
+  ],
+  "stages": [
+    {
+      "id": "init-project",
+      "order": 1,
+      "title": "产品事实与项目",
+      "canvasStage": "产品事实与项目",
+      "summary": "收集产品名称、真实卖点、证据、禁说项、受众、CTA 与制作偏好，并创建不覆盖旧文件的项目目录",
+      "executor": { "kind": "local-script", "ref": "scripts/init_project.py" },
+      "readiness": "ready",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": ["project.json", "brief/product-brief.md"]
+    },
+    {
+      "id": "microstory",
+      "order": 2,
+      "title": "抖音微故事成稿",
+      "canvasStage": "抖音微故事成稿",
+      "summary": "由 douyin-tiktok-story-skill 完成检索、选题、钩子、冲突、反转、产品植入和最终脚本",
+      "executor": { "kind": "skill", "ref": "douyin-tiktok-story-skill" },
+      "readiness": "blocked",
+      "costClass": "free",
+      "approvalRequired": true,
+      "outputArtifacts": ["story/concept-options.md", "story/final-script.md"]
+    },
+    {
+      "id": "shot-and-asset-plan",
+      "order": 3,
+      "title": "分镜与资产台账",
+      "canvasStage": "分镜与资产台账",
+      "summary": "从最终脚本提取镜头、角色、场景、产品、道具、首尾帧与不可变化特征，不改写故事",
+      "executor": { "kind": "transform", "ref": "final-script-to-production-package" },
+      "readiness": "adapter-required",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": ["production/shot-list.md", "assets/asset-manifest.json"]
+    },
+    {
+      "id": "image-assets",
+      "order": 4,
+      "title": "角色 · 场景 · 产品 · 道具资产",
+      "canvasStage": "图片资产生成",
+      "summary": "按实际镜头需要生成并验收角色锚点、场景、产品、道具和关键帧；已有产品实拍图优先保真使用",
+      "executor": { "kind": "tool", "ref": "imagegen" },
+      "readiness": "adapter-required",
+      "costClass": "potentially-paid",
+      "approvalRequired": true,
+      "outputArtifacts": ["assets/characters/*", "assets/scenes/*", "assets/products/*", "assets/props/*", "assets/keyframes/*", "prompts/image-prompts.md"]
+    },
+    {
+      "id": "seedance-prompts",
+      "order": 5,
+      "title": "Seedance 2.0 逐镜提示词",
+      "canvasStage": "Seedance 2.0 逐镜提示词",
+      "summary": "由 seedance-prompt-zh 按 @图片N / @视频N / @音频N 语法输出 4–15 秒逐镜提示词与素材映射",
+      "executor": { "kind": "skill", "ref": "seedance-prompt-zh" },
+      "readiness": "blocked",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": ["prompts/seedance-prompts.md", "project.json#shots"]
+    },
+    {
+      "id": "validate-package",
+      "order": 6,
+      "title": "制作包校验",
+      "canvasStage": "制作包校验",
+      "summary": "运行 validate_package.py，修复 errors，并如实保留未生成资产或未执行 CLI 的 warnings",
+      "executor": { "kind": "local-script", "ref": "scripts/validate_package.py" },
+      "readiness": "ready",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": ["制作包校验结果"]
+    },
+    {
+      "id": "cli-handoff",
+      "order": 7,
+      "title": "等待视频 CLI",
+      "canvasStage": "等待视频 CLI",
+      "summary": "暂停并向用户索取其现有的单条完整视频生成 CLI；不得猜测、内置或包装任何生成器命令",
+      "executor": { "kind": "user-input", "ref": "references/cli-handoff.md" },
+      "readiness": "blocked",
+      "costClass": "free",
+      "approvalRequired": true,
+      "outputArtifacts": ["用户授权的脱敏 CLI 交接信息"]
+    },
+    {
+      "id": "video-generation",
+      "order": 8,
+      "title": "视频生成与验收",
+      "canvasStage": "视频生成与验收",
+      "summary": "在项目目录原样执行用户授权的 CLI，检查退出码、真实视频文件、媒体可读性与输出范围",
+      "executor": { "kind": "user-cli", "ref": "video-generation-cli" },
+      "readiness": "blocked",
+      "costClass": "potentially-paid",
+      "approvalRequired": true,
+      "outputArtifacts": ["production/video-run.md", "video/*"]
+    },
+    {
+      "id": "final-receipt",
+      "order": 9,
+      "title": "最终回执",
+      "canvasStage": "最终回执",
+      "summary": "如实汇总故事 Skill、图片资产、Seedance 镜头、CLI 状态、视频路径和仍需后期完成的项目",
+      "executor": { "kind": "transform", "ref": "production-package-to-final-receipt" },
+      "readiness": "adapter-required",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": ["最终交付回执"]
+    }
+  ],
+  "runtimeContract": {
+    "authority": "backend",
+    "createNodeBeforeExecute": true,
+    "persistAfterEveryTransition": true,
+    "supportsPause": true,
+    "supportsResume": true,
+    "supportsCancel": true,
+    "supportsRetry": true,
+    "preserveCompletedArtifactsOnCancel": true,
+    "paidStageRequiresApproval": true
+  },
+  "capabilities": {
+    "planning": true,
+    "textStages": true,
+    "materialUpload": true,
+    "imageGeneration": false,
+    "videoGeneration": false,
+    "finalComposition": false
+  },
+  "blockers": [
+    "douyin-tiktok-story-skill 的 MIT 代码已经接入，但其公开仓库不包含独立授权的 douyin-story.sqlite3；补充合法数据库前，选题、检索、防复刻和最终故事脚本保持阻塞。",
+    "缺少 seedance-prompt-zh，逐镜 Seedance 提示词不能按原 Skill 约束真实生成。",
+    "Lavans 尚未把 imagegen 或现有图片任务 API 注册为受控 Agent 工具。",
+    "最终视频生成器被源 Skill 明确留给用户提供的单条完整 CLI，目前不能宣称已经生成最终视频。",
+    "源 Skill 明确禁止内置、猜测或包装视频生成 CLI，必须保留用户授权与安全检查节点。"
+  ]
+}

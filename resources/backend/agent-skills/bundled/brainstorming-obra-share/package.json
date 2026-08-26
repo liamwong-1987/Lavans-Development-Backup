@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "id": "brainstorming-obra-share",
+  "entry": "SKILL.md",
+  "contentHash": "b4dee412f57455686b542c7cce3c05369405eb5bab5ef5e23ec9a50cfa095c9c",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "size": 16795,
+      "sha256": "03f6a3afa3f8f56fa348d31032a58c08cc973335b734e9b1940d5c9626c81b1a"
+    }
+  ],
+  "metadata": {
+    "name": "头脑风暴",
+    "slug": "brainstorming-obra-share",
+    "description": "在开始创意工作、功能开发或行为变更前使用。通过澄清需求、比较方案并在实施前取得确认，把想法转化为可执行的设计；输入“调用BS”也会触发。",
+    "version": "1.0.0",
+    "publisher": "local-import",
+    "usageScenario": "",
+    "howToUse": "",
+    "outputContent": "",
+    "skillType": "other"
+  },
+  "signatureStatus": "unsigned-local",
+  "executionStatus": "adapter-required",
+  "trust": {
+    "kind": "unsigned-local",
+    "signed": false,
+    "verified": false
+  },
+  "capabilities": {
+    "instructionOnly": true,
+    "executable": false
+  },
+  "packageHash": "25cc90023302f0371d7a5a84078293608d8e5bfd94f2094c7cce6b086707734a"
+}

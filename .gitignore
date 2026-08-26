@@ -1,0 +1,86 @@
+# ============ 密钥(绝不能提交) ============
+# 所有环境变量文件
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# 含 Provider API Key 的配置文件
+resources/backend/canvas-config.json
+resources/backend/config.json
+resources/backend/creative-config.json
+resources/backend/routes/creative-history.json
+resources/backend/config.json.before-*
+resources/backend/*.before-*
+
+# 含密钥的历史复盘报告
+outputs/*根因修复报告*.md
+outputs/*验证协议*.md
+outputs/*OpenLux*.md
+
+# ============ 依赖 ============
+node_modules/
+**/node_modules/
+
+# ============ 打包产物与 Electron 运行时 ============
+app.asar
+*.asar
+*.exe
+*.dll
+*.pak
+*.dat
+*.bin
+locales/
+dist/
+release/
+snapshot_blob.bin
+v8_context_snapshot.bin
+*.pak
+
+# ============ 运行数据(用户上传、生成图、日志) ============
+uploads/
+output/
+logs/
+log/
+*.log
+*.log.*
+User Data/
+Cache/
+GPUCache/
+DawnCache/
+.cache/
+
+# ============ 历史备份(手工复制,无提交价值) ============
+backup_before_*/
+**/backup_before_*/
+*.bak
+*.bak-*
+*.bak.*
+
+# ============ asar 解包工作目录与临时文件 ============
+_asar_main_extracted.js
+asar-refresh-work-*/
+working_app_asar_*/
+_generator_*.json
+_generator_*.log
+_generator_*_canvas_list.json
+
+# ============ 测试截图与坏配置 ============
+expand_mention_test.png
+ratio-source-*.png
+outputs/_broken_*.json
+outputs/_*.json
+
+# ============ 系统与编辑器 ============
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Electron 运行时自带文件(非源码)
+vk_swiftshader_icd.json
+LICENSE.electron.txt
+LICENSES.chromium.html

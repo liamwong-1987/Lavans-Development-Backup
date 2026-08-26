@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0",
+  "id": "brainstorming-obra-share",
+  "displayName": "头脑风暴",
+  "description": "在开始创意工作、功能开发或行为变更前使用。通过澄清需求、比较方案并在实施前取得确认，把想法转化为可执行的设计；输入“调用BS”也会触发。",
+  "status": "partial",
+  "source": {
+    "kind": "bundled-folder",
+    "path": "./bundled/brainstorming-obra-share",
+    "entry": "SKILL.md",
+    "readOnly": true,
+    "importMode": "bundled-read-only",
+    "signatureStatus": "unsigned-local"
+  },
+  "defaults": {},
+  "inputSchema": {
+    "type": "object",
+    "additionalProperties": true
+  },
+  "materialPolicy": {
+    "workspaceScope": "canvas-agent",
+    "shareWithRecolor": false
+  },
+  "dependencies": [],
+  "stages": [
+    {
+      "id": "skill-chat",
+      "order": 1,
+      "title": "Skill 对话",
+      "canvasStage": "skill-chat",
+      "summary": "读取内置 Skill 指令；执行器绑定后才能运行工具",
+      "executor": {
+        "kind": "skill",
+        "ref": "unbound"
+      },
+      "readiness": "adapter-required",
+      "costClass": "free",
+      "approvalRequired": false,
+      "outputArtifacts": []
+    }
+  ],
+  "runtimeContract": {
+    "instructionOnly": true,
+    "executable": false
+  },
+  "capabilities": {
+    "chat": true,
+    "instructionOnly": true,
+    "executable": false
+  },
+  "blockers": [
+    "未绑定执行器"
+  ],
+  "integrity": {
+    "algorithm": "sha256",
+    "contentHash": "b4dee412f57455686b542c7cce3c05369405eb5bab5ef5e23ec9a50cfa095c9c",
+    "packageHash": "25cc90023302f0371d7a5a84078293608d8e5bfd94f2094c7cce6b086707734a"
+  },
+  "trust": {
+    "kind": "unsigned-local",
+    "signed": false,
+    "verified": false
+  },
+  "ui": {
+    "version": "1.0.0",
+    "publisher": "bundled",
+    "iconAsset": "",
+    "usageScenario": "",
+    "howToUse": "",
+    "outputContent": "",
+    "skillType": "other"
+  }
+}

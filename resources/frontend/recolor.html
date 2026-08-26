@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-studio-scale="off" data-studio-fit-scale="off">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lavans — AI Creative Canvas</title>
+<link rel="stylesheet" href="style.css">
+<script src="brand-config.js"></script>
+<script src="/smart-canvas-core/theme.js"></script>
+<script src="/smart-canvas-core/i18n.js"></script>
+  <link rel="stylesheet" href="/lanvas-tokens.css?v=2026.08.21.2">
+  <link rel="stylesheet" href="/lanvas-components.css?v=2026.08.21.2">
+  <link rel="stylesheet" href="/lanvas-recolor-v3.css?v=2026.08.23.31">
+</head>
+<body data-lanvas-page="recolor">
+
+<!-- ===== 窗口控制由主壳统一提供，recolor 不再自带 window-titlebar ===== -->
+
+<!-- ===== 一键复色完整工作台：页头与三栏必须属于同一个外壳 ===== -->
+<section class="recolor-workbench workspace" id="recolor-workbench">
+
+<!-- ===== 顶部状态栏：主壳提供品牌与主题；此处只保留运行状态 ===== -->
+<div class="tb workspace-head">
+  <div class="tb-title" aria-label="一键复色工作台">
+    <strong>一键复色</strong><span>批量创作工作台</span>
+  </div>
+  <div class="tb-actions">
+    <div class="st"><span class="dot ok" id="dot"></span><span id="stxt">就绪</span></div>
+  </div>
+</div>
+
+<!-- ===== 主布局：三栏工作台 ===== -->
+<div class="app-shell body" id="app-shell">
+
+  <!-- 左侧窄栏：八个真实快捷操作，不再保留旧的步骤式入口 -->
+  <nav class="sidebar rail" id="sidebar">
+    <div class="recolor-sidebar-tools" id="recolor-sidebar-tools">
+      <button class="sidebar-link rail-btn rail-prompt" onclick="togglePromptPanel()" title="提示词设置" aria-label="提示词设置"><span class="s-icon rail-aa" aria-hidden="true">Aa</span></button>
+      <button class="sidebar-link rail-btn" onclick="openRecolorHistory()" title="历史结果" aria-label="历史结果"><i class="s-icon ph-duotone ph-clock-counter-clockwise" aria-hidden="true"></i><span class="rail-badge badge" id="recolor-history-badge" hidden>0</span></button>
+      <span class="rail-divider rail-sep" aria-hidden="true"></span>
+      <button class="sidebar-link rail-btn active" id="rail-upload" onclick="toggleUploadCompact()" title="展开或收起上传区" aria-label="展开或收起上传区" aria-pressed="true"><i class="s-icon ph-duotone ph-upload-simple" aria-hidden="true"></i></button>
+      <button class="sidebar-link rail-btn" id="rail-search" onclick="focusTaskSearch()" title="搜索任务" aria-label="搜索任务"><i class="s-icon ph-duotone ph-magnifying-glass" aria-hidden="true"></i></button>
+      <button class="sidebar-link rail-btn" id="rail-running" onclick="setTaskFilterFromRail('running')" title="只看生成中" aria-label="只看生成中"><i class="s-icon ph-duotone ph-spinner-gap" aria-hidden="true"></i></button>
+      <button class="sidebar-link rail-btn" id="rail-failed" onclick="setTaskFilterFromRail('failed')" title="只看失败" aria-label="只看失败"><i class="s-icon ph-duotone ph-warning-circle" aria-hidden="true"></i></button>
+      <button class="sidebar-link rail-btn" id="rail-latest" onclick="openLatestGeneratedPreview()" title="查看最新生成结果" aria-label="查看最新生成结果"><i class="s-icon ph-duotone ph-image-square" aria-hidden="true"></i></button>
+      <button class="sidebar-link rail-btn active rail-inspector bottom" id="rail-inspector" onclick="toggleRightSidebar()" title="右侧检查栏开关" aria-label="右侧检查栏开关" aria-pressed="true"><i class="s-icon ph-duotone ph-sidebar-simple" aria-hidden="true"></i></button>
+    </div>
+    <div class="sidebar-status" id="store-info"></div>
+  </nav>
+
+  <!-- 中间主工作区 -->
+  <main class="workspace-main main" id="workspace-main">
+
+    <!-- ===== 区1：批次概览（仅在有批次时显示） ===== -->
+    <div class="batch-overview summary" id="batch-overview" style="display:none">
+      <div class="bo-stats" id="bo-stats">
+        <div class="bo-stat"><span class="bo-stat-v">0</span><span class="bo-stat-l">模板</span></div>
+        <div class="bo-stat"><span class="bo-stat-v">0</span><span class="bo-stat-l">颜色</span></div>
+        <div class="bo-stat"><i class="bo-stat-icon ph-duotone ph-stack" aria-hidden="true"></i><span class="bo-stat-copy"><span class="bo-stat-v" id="bo-pairs">0</span><span class="bo-stat-l">任务总数</span></span></div>
+        <div class="bo-stat ok"><i class="bo-stat-icon ph-duotone ph-check-circle" aria-hidden="true"></i><span class="bo-stat-copy"><span class="bo-stat-v" id="bo-done">0</span><span class="bo-stat-l">已生成</span></span></div>
+        <div class="bo-stat run"><i class="bo-stat-icon ph-duotone ph-spinner-gap" aria-hidden="true"></i><span class="bo-stat-copy"><span class="bo-stat-v" id="bo-running">0</span><span class="bo-stat-l">生成中</span></span></div>
+        <div class="bo-stat ng"><i class="bo-stat-icon ph-duotone ph-warning-circle" aria-hidden="true"></i><span class="bo-stat-copy"><span class="bo-stat-v" id="bo-failed">0</span><span class="bo-stat-l">失败</span></span></div>
+      </div>
+      <!-- 进度条（生成中时显示） -->
+      <div class="bo-progress" id="bo-progress" style="display:none">
+        <div class="po"><div class="pi" id="gbar" style="width:0%"></div></div>
+        <div class="bo-progress-text">
+          <span id="gtitle">就绪</span>
+          <span id="gtext">0 / 0</span>
+        </div>
+      </div>
+      <!-- 费用（可点击） -->
+      <button class="cost-note batch-cost clickable" id="cost-note" type="button" style="display:none" onclick="openCostModal()"><i class="ph-duotone ph-receipt" aria-hidden="true"></i><span class="batch-cost-copy"><strong>¥0.00 · 0 次 API 调用</strong><span>查看任务执行汇总</span></span><i class="ph-duotone ph-caret-right open" aria-hidden="true"></i></button>
+      <!-- 性能提示条 -->
+      <div class="perf-topbar" id="perf-topbar" style="display:none">建议单次处理 100～150 项，超过可能影响界面响应</div>
+    </div>
+
+    <section class="recolor-pause-banner" id="recolor-pause-banner" hidden aria-live="polite">
+      <i class="ph-duotone ph-warning-circle" aria-hidden="true"></i>
+      <div class="recolor-pause-copy">
+        <strong id="recolor-pause-title">队列已暂停</strong>
+        <span id="recolor-pause-detail"></span>
+        <em id="recolor-pause-check-state"></em>
+      </div>
+      <div class="recolor-pause-actions">
+        <button class="btn bs" id="recolor-pause-check" type="button" onclick="checkRecolorPauseNow()" hidden>立即检测</button>
+        <button class="btn bs" id="recolor-pause-rebind" type="button" onclick="openPendingModelRebind()" hidden>改绑待生成任务</button>
+      </div>
+    </section>
+
+    <!-- ===== 区2：紧凑上传入口 ===== -->
+    <div class="upload-compact uploads" id="upload-compact">
+      <!-- 模板上传 -->
+      <div class="uc-card drop is-target" id="uc-tpl" tabindex="0">
+        <span class="uc-icon upload-thumb template-upload" aria-hidden="true"><i class="ph-duotone ph-images"></i></span>
+        <div class="uc-body drop-copy">
+          <strong class="uc-title">模板图</strong>
+          <span class="uc-copy">整卡支持点击、拖放与粘贴 JPG / PNG / WEBP</span>
+          <em class="uc-target-copy">当前粘贴目标 · 点击首图查看全部</em>
+        </div>
+        <div class="uc-info drop-meta" onclick="event.stopPropagation()">
+          <strong id="tpl-count-text">0 张</strong>
+          <span id="tpl-state-text">等待添加</span>
+        </div>
+        <div class="drop-actions">
+          <button class="mini" type="button" onclick="event.stopPropagation();document.getElementById('tpl-input').click()" id="tpl-add-btn">继续添加</button>
+          <button class="mini quiet uc-clear" type="button" onclick="event.stopPropagation();clearUpload('template')" id="tpl-clear-btn" style="display:none">移除全部</button>
+        </div>
+        <div class="uz" id="tuz">
+          <span>整卡支持点击、拖放与粘贴<br>JPG / PNG / WEBP</span>
+          <input type="file" id="tpl-input" multiple accept=".jpg,.jpeg,.png,.webp,.bmp"
+                 style="position:absolute;inset:0;opacity:0;cursor:pointer"
+                 onchange="handleFilePick(this, 'template')">
+        </div>
+      </div>
+
+      <!-- 颜色上传 -->
+      <div class="uc-card drop" id="uc-clr" tabindex="0">
+        <span class="uc-icon upload-thumb color-upload" aria-hidden="true"><i class="ph-duotone ph-palette"></i></span>
+        <div class="uc-body drop-copy">
+          <strong class="uc-title">参考色</strong>
+          <span class="uc-copy">整卡支持点击、拖放与粘贴；拖入或粘贴后选择直接添加／裁剪后添加</span>
+          <em class="uc-target-copy">点击后切换为粘贴目标</em>
+        </div>
+        <div class="uc-info drop-meta" onclick="event.stopPropagation();openReferenceColorManager()" title="点击管理本机色号">
+          <strong id="clr-count-text">0 张</strong>
+          <span id="clr-state-text">等待添加</span>
+        </div>
+        <div class="drop-actions">
+          <button class="mini" type="button" onclick="event.stopPropagation();document.getElementById('clr-input').click()" id="clr-add-btn">继续添加</button>
+          <button class="mini quiet uc-clear" type="button" onclick="event.stopPropagation();clearUpload('color')" id="clr-clear-btn" style="display:none">移除全部</button>
+          <button class="mini uc-crop" type="button" onclick="event.stopPropagation();document.getElementById('clr-crop-input').click()" id="clr-crop-btn" aria-label="裁剪后添加参考色" title="先裁剪预览，确认后再添加">裁剪后添加</button>
+          <button class="uc-manage" type="button" onclick="event.stopPropagation();openReferenceColorManager()" id="clr-manage-btn" style="display:none" aria-label="管理色号" title="管理色号"></button>
+        </div>
+        <div class="uz" id="cuz">
+          <span>拖放后选择添加方式</span>
+          <input type="file" id="clr-input" multiple accept=".jpg,.jpeg,.png,.webp,.bmp"
+                 style="position:absolute;inset:0;opacity:0;cursor:pointer"
+                 onchange="handleFilePick(this, 'color')">
+          <input type="file" id="clr-crop-input" multiple accept=".jpg,.jpeg,.png,.webp,.bmp"
+                 hidden onchange="handleReferenceCropPick(this)">
+        </div>
+      </div>
+
+      <!-- 扫描由上传完成后自动接续；保留控件仅供现有逻辑调用 -->
+      <button class="btn bp uc-scan-btn" onclick="doScan()" id="btn-scan" disabled title="扫描配对">
+        <span>扫描配对</span>
+      </button>
+      <button class="btn bp uc-togen-btn" onclick="handleStartGen()" id="btn-togen" disabled title="一键生成（需先扫描配对）">
+        <span>开始生成</span>
+      </button>
+
+      <!-- 隐藏的状态和预览区（JS需要但视觉不可见） -->
+      <div id="tpl-status" style="display:none"></div>
+      <div id="clr-status" style="display:none"></div>
+      <div id="tpl-preview" class="preview-grid" style="display:none"></div>
+      <div id="clr-preview" class="preview-grid" style="display:none"></div>
+          <span class="file-count-badge" id="tpl-count-badge" style="display:none">已选择 <strong id="tpl-file-count">0</strong> 张</span>
+      <span class="file-count-badge" id="clr-count-badge" style="display:none">已选择 <strong id="clr-file-count">0</strong> 张</span>
+      <div id="pairs-box" style="display:none"></div>
+    </div>
+
+    <!-- ===== 区3：任务列表（页面最大模块） ===== -->
+    <div class="task-table-panel task-panel" id="task-table-panel">
+      <div class="task-table-header-bar task-tools">
+        <span class="ttb-title"><i class="ph-duotone ph-list-checks" aria-hidden="true"></i>任务列表</span>
+        <span class="ttb-count" id="ttb-count">无任务</span>
+      </div>
+
+      <!-- 固定表头 -->
+      <div class="task-table-head thead" id="task-table-head">
+        <div class="tth-col tth-id">编号</div>
+        <div class="tth-col tth-thumb">模板图</div>
+        <div class="tth-col tth-arrow" aria-hidden="true"></div>
+        <div class="tth-col tth-thumb">生成图</div>
+        <div class="tth-col tth-name">任务</div>
+        <div class="tth-col tth-status">状态</div>
+        <div class="tth-col tth-actions">操作</div>
+      </div>
+
+      <!-- 旧批量操作工具栏：兼容现有脚本，正式界面不显示 -->
+      <div class="batch-toolbar" id="batch-toolbar">
+        <span class="bt-selected" id="selected-count-label">已选 <b id="selected-count">0</b> 项</span>
+        <button class="btn bp bt-btn-main" onclick="generateAllPending()" id="bt-generate-all" title="一键生图：仅生成未完成的任务，已完成的自动跳过"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"></path></svg></span><span>生成全部</span></button>
+        <button class="prompt-type-badge" id="home-prompt-type-badge" onclick="togglePromptPanel()" title="点击切换提示词类型" aria-label="提示词设置">
+          <span class="prompt-type-badge-label">提示词</span>
+          <strong id="home-prompt-type-name">床品</strong>
+          <span class="prompt-type-badge-action">切换</span>
+        </button>
+        <span class="bt-generate-status" id="bt-generate-status" style="display:none"></span>
+        <button class="btn bs bt-btn" onclick="batchDownloadSelected()" id="bt-dl">下载选中</button>
+        <button class="btn bp bt-btn" onclick="continueGen()" id="bt-continue">继续生成</button>
+        <button class="btn bg bt-btn" onclick="batchRetrySelected()" id="bt-retry" style="display:none">重试选中</button>
+        <button class="btn bd bt-btn" onclick="batchClearSelected()" id="bt-clear" style="display:none">移除选中</button>
+      </div>
+
+      <!-- 任务行容器 -->
+      <div class="task-table-body list" id="task-table-body">
+        <div id="task-list" class="task-list"></div>
+        <!-- 空状态 -->
+        <div class="task-table-empty" id="task-table-empty">
+          <button class="empty-prompt-watermark" id="empty-prompt-watermark" onclick="togglePromptPanel()" title="点击切换当前提示词类型">
+            <span class="empty-prompt-watermark-label">当前提示词类型</span>
+            <strong id="empty-prompt-type-name">加载中</strong>
+            <span class="empty-prompt-watermark-action">点击切换</span>
+          </button>
+          <i class="task-table-empty-icon ph-duotone ph-upload-simple" aria-hidden="true"></i>
+          <p class="task-table-empty-title">先添加模板图和参考色</p>
+          <p class="task-table-empty-hint">请使用上方两张上传卡；支持点击、拖放和粘贴 JPG / PNG / WEBP，两类素材齐备后自动建立任务。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 区4：底部快捷操作 ===== -->
+    <div class="bottom-actions bottom-bar" id="bottom-actions">
+      <span class="bottom-run-state queue-note" id="bottom-run-state">上传素材后将自动建立任务</span>
+      <button class="btn ba-btn lanvas-primary primary" onclick="handleBottomRun()" id="ba-run" title="开始生成"><i class="ph-duotone ph-play" aria-hidden="true"></i><span id="ba-run-label">开始生成</span></button>
+      <button class="btn ba-btn bs icon-only setting" onclick="openRecolorConcurrency()" id="ba-concurrency" title="并发设置：默认 8" aria-label="并发设置"><i class="ph-duotone ph-sliders-horizontal" aria-hidden="true"></i></button>
+      <button class="btn ba-btn bs" onclick="openRecolorExportModal()" id="ba-export" title="导出结果"><i class="ph-duotone ph-file-zip" aria-hidden="true"></i><span>导出结果</span></button>
+      <button class="btn ba-btn bp" onclick="continueGen()" id="ba-continue" style="display:none" title="继续生成未完成">继续生成</button>
+      <button class="btn ba-btn ba-primary icon-only" onclick="handleStartGen()" id="ba-gen" title="开始生成" aria-label="开始生成"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"></path></svg></span></button>
+      <button class="btn ba-btn bd" onclick="cancelGen()" id="ba-cancel" style="display:none" title="暂停或取消">暂停</button>
+      <button class="btn ba-btn bg" onclick="retryFailed()" id="ba-retry" style="display:none" title="失败重试">重试失败</button>
+      <button class="btn ba-btn bg" onclick="retryCancelled()" id="ba-retry-cancel" style="display:none" title="重新生成已取消任务">重试取消</button>
+      <button class="btn ba-btn bs icon-only" onclick="downloadZip()" id="ba-zip" style="display:none" title="下载全部" aria-label="下载全部"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v11"></path><path d="m8 10 4 4 4-4"></path><path d="M5 19h14"></path></svg></span></button>
+      <button class="btn ba-btn bs redundant-bottom-action" onclick="downloadByColor()" id="ba-color-dl" style="display:none" title="按颜色下载">按色下载</button>
+      <button class="btn ba-btn bs redundant-bottom-action" onclick="viewOutputs()" id="ba-outputs" style="display:none" title="查看输出">查看输出</button>
+      <div class="task-cleanup-menu clr-btn" id="task-cleanup-menu" style="display:none">
+        <button class="btn ba-btn bs task-cleanup-trigger" onclick="toggleTaskCleanupMenu(event)" id="task-cleanup-trigger" aria-expanded="false" title="清理任务"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M7 7l1 13h8l1-13"></path></svg></span><span>清理任务</span><span class="task-cleanup-caret">▾</span></button>
+        <div class="task-cleanup-dropdown" id="task-cleanup-dropdown" hidden>
+          <button class="task-cleanup-item" onclick="clearCompleted()" id="ba-clear-done" title="仅移除已完成任务记录">清理已完成</button>
+          <button class="task-cleanup-item" onclick="clearFailed()" id="ba-clear-fail" title="仅移除失败任务记录">清理失败</button>
+          <button class="task-cleanup-item" onclick="clearCancelled()" id="ba-clear-cancel" title="仅移除已取消或中断任务记录">清理已取消</button>
+          <div class="task-cleanup-divider"></div>
+          <button class="task-cleanup-item danger" onclick="clearAllTasks()" id="ba-clear-all" title="清空当前批次全部任务记录">清空任务</button>
+        </div>
+      </div>
+      <button class="btn ba-btn clr-btn ba-danger danger" onclick="softReset()" id="ba-soft-reset" title="停止所有任务并清空上传、扫描和批次缓存"><i class="ph-duotone ph-trash" aria-hidden="true"></i><span>彻底清空</span></button>
+      <span id="bottom-selected-count" style="font-size:11px;color:var(--t2);margin:0 6px;display:none">0</span>
+      <button class="btn ba-btn bd" onclick="batchClearSelected()" id="ba-batch-clear" style="display:none" title="仅移除已勾选的任务">移除选中</button>
+    </div>
+
+    <!-- ===== 隐藏元素：兼容旧 JS ===== -->
+    <!-- 旧步骤导航（隐藏） -->
+    <div class="steps" style="display:none">
+      <div class="step ac" data-s="1" onclick="go(1)"><span class="sn">1</span>上传</div>
+      <div class="step" data-s="2" onclick="go(2)"><span class="sn">2</span>检查</div>
+      <div class="step" data-s="3" onclick="go(3)"><span class="sn">3</span>生成</div>
+      <div class="step" data-s="4" onclick="go(4)"><span class="sn">4</span>结果</div>
+    </div>
+
+    <!-- 旧快捷导航（隐藏） -->
+    <div class="quick-nav" id="quick-nav" style="display:none">
+      <a href="#" class="act" data-s="1" onclick="navTo(1);return false">上传素材</a>
+      <a href="#" data-s="2" onclick="navTo(2);return false">检查配对</a>
+      <a href="#" data-s="3" onclick="navTo(3);return false">批量生成</a>
+      <a href="#" data-s="4" onclick="navTo(4);return false">生成结果</a>
+    </div>
+
+    <!-- 旧面板（隐藏兼容） -->
+    <div class="panel show" id="p1" data-anchor="sec-upload" style="display:none"><a class="sec-anchor" id="sec-upload"></a></div>
+    <div class="panel" id="p2" data-anchor="sec-check" style="display:none"><a class="sec-anchor" id="sec-check"></a></div>
+    <div class="panel" id="p3" data-anchor="sec-generate" style="display:none"><a class="sec-anchor" id="sec-generate"></a></div>
+    <div class="panel" id="p4" data-anchor="sec-results" style="display:none"><a class="sec-anchor" id="sec-results"></a></div>
+
+    <!-- 旧生成控件（隐藏，JS 会引用） -->
+    <div id="gen-ctl" style="display:none">
+      <select id="prompt-preset" onchange="switchPrompt()" style="display:none">
+        <option value="recolor">TEMU复色专用提示词</option>
+        <option value="creative">TEMU创意图专用提示词</option>
+      </select>
+      <textarea id="user-prompt" style="display:none">只改图1的床品颜色为图2的床品颜色，禁止修改图中任何文字（内容、字体、颜色一概不动）。必须保持原摄影光照、阴影、布料纹理与细节完全不变，不新增任何元素，不改变结构。8K，超真实感，细节丰富。</textarea>
+    </div>
+
+    <!-- 旧生成进度容器（隐藏，供旧进度统计元素引用） -->
+    <div id="gen-pw" style="display:none">
+      <div class="ps" style="display:none">
+        <div class="pst cu"><div class="v" id="sg1">-</div></div>
+        <div class="pst ok"><div class="v" id="sg2">0</div></div>
+        <div class="pst ng"><div class="v" id="sg3">0</div></div>
+      </div>
+    </div>
+
+    <!-- 旧按钮（隐藏） -->
+    <button class="btn bd" id="btn-cancel" onclick="cancelGen()" style="display:none">停止</button>
+    <button class="btn bg" id="btn-resume" onclick="resumeBatch()" style="display:none">继续未完成任务</button>
+    <button class="btn bp btn-lg bw" onclick="startGen()" id="btn-gen" style="display:none">一键批量生成</button>
+    <button class="btn bs btn-lg bw" onclick="restoreAndGo()" id="btn-restore" style="display:none">继续上次任务</button>
+
+  </main>
+
+  <!-- 右侧检查器 -->
+  <aside class="right-inspector inspector" id="right-inspector">
+    <!-- 右上：实时预览（45%） -->
+    <div class="inspector-card compare-panel preview" id="compare-panel">
+      <div class="inspector-header panel-head"><i class="ph-duotone ph-columns" aria-hidden="true"></i>结果对比<button class="inspector-collapse-btn icon-only" onclick="toggleRightSidebar()" title="收起右侧检查栏" aria-label="收起右侧检查栏"><i class="ph-duotone ph-caret-double-right" aria-hidden="true"></i></button></div>
+      <div class="compare-body" id="compare-body">
+        <div class="compare-empty" id="compare-empty">
+          <i class="ph-duotone ph-image-square compare-empty-icon" aria-hidden="true"></i>
+          <p>请选择任务查看对比</p>
+          <p style="font-size:10px;color:var(--t3)">点击任务行查看详情</p>
+        </div>
+        <div class="compare-content" id="compare-content" style="display:none">
+          <div class="compare-labels" aria-hidden="true"><span>模板图</span><span>生成图</span></div>
+          <div class="compare-split">
+            <div class="compare-stage" id="compare-stage" style="--compare-position:50%">
+              <img class="compare-layer compare-before-layer" id="compare-before-img" src="" alt="模板图">
+              <img class="compare-layer compare-after-layer" id="compare-after-img" src="" alt="生成图">
+              <span class="compare-stage-label before">模板图</span>
+              <span class="compare-stage-label after">生成图</span>
+              <div class="compare-img-empty preview-missing" id="compare-missing-before" hidden></div>
+              <div class="compare-img-empty" id="compare-missing-after" hidden></div>
+              <button class="compare-slider" id="compare-slider" type="button" role="slider" aria-label="拖动对比模板图和生成图" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" title="拖动查看改色前后">
+                <span class="compare-slider-grip" aria-hidden="true"><i class="ph-duotone ph-arrows-left-right"></i></span>
+              </button>
+            </div>
+            <div class="compare-meta" id="compare-before-meta"></div>
+            <div class="compare-meta" id="compare-after-meta"></div>
+          </div>
+          <div class="compare-ref-row" id="compare-ref-row">
+            <span class="compare-ref-swatch" id="compare-ref-swatch" aria-hidden="true"></span>
+            <span class="compare-ref-copy"><strong id="compare-ref-name">参考色</strong><span id="compare-ref-meta">颜色参考图</span></span>
+            <span class="compare-ref-technical" aria-label="任务技术信息"><b id="compare-ref-model">—</b><small id="compare-ref-task-id">—</small></span>
+            <div class="compare-retry" id="compare-retry" style="display:none">
+              <button id="compare-retry-btn" class="task-row-btn retry" onclick="event.stopPropagation();clickCompareRetry()">重做</button>
+              <span id="compare-retry-status" style="display:none">排队中...</span>
+            </div>
+          </div>
+          <div class="compare-detail" id="compare-detail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右下：系统日志（55%） -->
+    <div class="inspector-card log-panel logs" id="log-panel">
+      <div class="inspector-header panel-head"><i class="ph-duotone ph-file-text" aria-hidden="true"></i>任务日志</div>
+      <div class="log-body" id="log-body">
+        <div class="log-empty">
+          <i class="ph-duotone ph-file-text log-empty-icon" aria-hidden="true"></i>
+          <p>暂无日志</p>
+          <p style="font-size:10px;color:var(--t3)">生成任务后显示运行记录</p>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<button class="inspector-restore-btn icon-only" onclick="restoreRightSidebar()" title="展开右侧检查栏" aria-label="展开右侧检查栏"><i class="ph-duotone ph-caret-double-left" aria-hidden="true"></i></button>
+
+</section>
+
+<!-- 回到顶部 -->
+<button class="btn-back-top icon-only" id="btn-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" aria-label="回到顶部"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5"></path><path d="m6 11 6-6 6 6"></path></svg></span></button>
+
+<script src="storage.js"></script>
+<script src="creativeStudio.js"></script>
+<script src="canvasStudio.js"></script>
+<script src="app.js?v=2026.08.23.29"></script>
+<!-- system-switcher.js 已弃用：主壳 iframe 架构下浮动跳转菜单不再需要 -->
+
+<!-- 图片预览弹窗 -->
+<div id="preview-modal" class="pv-overlay" style="display:none" onclick="closePreview()">
+  <div class="pv-body" onclick="event.stopPropagation()">
+    <button class="pv-close" onclick="closePreview()" title="关闭"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></span></button>
+    <img id="preview-img" src="" alt="预览">
+    <div class="pv-info" id="preview-info"></div>
+    <div class="pv-actions">
+      <a id="preview-download" class="btn bp" download>下载图片</a>
+      <button class="btn bs" onclick="closePreview()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- 费用统计弹窗 -->
+<div class="cost-modal-overlay" id="cost-modal" style="display:none" onclick="closeCostModal(event)">
+  <div class="cost-modal" role="dialog" aria-modal="true" aria-label="任务执行汇总" onclick="event.stopPropagation()">
+    <div class="cost-modal-header">
+      <div class="cost-modal-heading"><strong>任务执行汇总</strong><em id="cost-modal-live">批次汇总</em></div>
+      <button class="cost-modal-close" data-safe-focus onclick="closeCostModal()" title="关闭" aria-label="关闭"><span class="ui-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"></path></svg></span></button>
+    </div>
+    <div class="cost-modal-body" id="cost-modal-body"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function syncModeSwitch() {
+    var mode = document.body.getAttribute('data-active-system') || document.body.getAttribute('data-active-mode') || 'recolor';
+    document.querySelectorAll('.mode-switch-btn').forEach(function (btn) {
+      var active = btn.dataset.mode === mode;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+  window.lavansSetMode = function (mode) {
+    var main = document.getElementById('workspace-main');
+    if (mode === 'recolor') {
+      if (main && main.classList.contains('creative-mode-active') && typeof exitCreativeMode === 'function') exitCreativeMode();
+      if (main && main.classList.contains('canvas-studio-active') && typeof canvasStudioExit === 'function') canvasStudioExit();
+      if (typeof switchToRecolorMode === 'function') switchToRecolorMode();
+    }
+    syncModeSwitch();
+  };
+  window.addEventListener('load', syncModeSwitch);
+})();
+</script>
+<script src="/external-link.js"></script>
+
+<!-- 占位元素：主壳已统一处理窗口控制，app.js 中对 #window-maximize 的引用保留以避免 null 报错 -->
+<div hidden style="display:none"><button id="window-maximize"></button></div>
+
+  <script src="/lanvas-unified.js?v=2026.08.21.1"></script>
+</body>
+</html>

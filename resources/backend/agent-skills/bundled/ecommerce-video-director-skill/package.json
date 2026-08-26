@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ecommerce-video-director-skill",
+  "entry": "SKILL.md",
+  "contentHash": "309a77b6e868809d99831a33e357fe585e67cab1c5284cb9a98abefd48e95f20",
+  "files": [
+    {
+      "path": "_meta.json",
+      "size": 124,
+      "sha256": "f1123c994316dc2b1308ffb9b03a50f64fab6db362ffaf458d105b1512d9a26d"
+    },
+    {
+      "path": "_skillhub_meta.json",
+      "size": 124,
+      "sha256": "72db0802e43b0cf4bed1fbad4e07ea4c79a90152b1ff0e7fcd71f76bd12ea5f9"
+    },
+    {
+      "path": "examples/README.md",
+      "size": 1894,
+      "sha256": "c057db5d7ba08ea9ee557ca93047f01dfadc479b1759d7ab10e61a437385a40d"
+    },
+    {
+      "path": "README.md",
+      "size": 6756,
+      "sha256": "86c78665a1d2894a860ff443b90d3686c5162f0d96cb4b05d7633c262e9d23db"
+    },
+    {
+      "path": "references/asset-workflow.md",
+      "size": 41794,
+      "sha256": "2e0a5f263b9474870d44bff96eb0c7be28630c5547f487025ffe08b6a36fd7f7"
+    },
+    {
+      "path": "references/copywriting-library.md",
+      "size": 9349,
+      "sha256": "3be10940fdfddc951e01c20008c674d429c680d0edc9f99997e58264cbfcbfec"
+    },
+    {
+      "path": "references/core-instructions.md",
+      "size": 22620,
+      "sha256": "d04949f176fc744c0e3ef021937217c1289e66708967be200d78ff694568dcf5"
+    },
+    {
+      "path": "references/creative-discovery.md",
+      "size": 7072,
+      "sha256": "b131684f0d1f8645e48e9cc70f3b74ff51cdbcc3260b3b83a5800230fd315ff0"
+    },
+    {
+      "path": "references/faq.md",
+      "size": 8798,
+      "sha256": "ce5a3466f24a1ebde5711bae410fd2283b0a26877df94eb091f761c502142189"
+    },
+    {
+      "path": "references/h3-prompt.md",
+      "size": 8735,
+      "sha256": "9ddd5813274996e9e901d8be86d874464c6cff7369faa48871b281b982498dac"
+    },
+    {
+      "path": "references/kling-prompt.md",
+      "size": 13777,
+      "sha256": "8794b0fd80215db0ba724c5d562544062b0f251a389b2e157786f7d494a33d1f"
+    },
+    {
+      "path": "references/model-specs.md",
+      "size": 25821,
+      "sha256": "e26723d01ce0f1ea4901ef0e25887c735c07749aa500fb402ae099d54dec7edb"
+    },
+    {
+      "path": "references/phase-checklist.md",
+      "size": 9574,
+      "sha256": "e5d14b7e2104a8fc29fbc538756facac8aaf6b52a8712bccab067c6bafb15c1c"
+    },
+    {
+      "path": "references/platform-strategies.md",
+      "size": 14630,
+      "sha256": "d810c99e7d5b6d9535e072c9842efb773c7501eb8ccec4f75362a8b398404693"
+    },
+    {
+      "path": "references/process-flow.md",
+      "size": 78128,
+      "sha256": "eb67fd4a779a48de89c1dc7aa444efdaa043f7771997a6e3158224196c0fee4e"
+    },
+    {
+      "path": "references/prompt-delivery-contract.md",
+      "size": 8710,
+      "sha256": "a22785c6c0d946e27a1bf36d1b1c8b99afd94bfbc2615d7d4d6a3ddc84da1728"
+    },
+    {
+      "path": "references/seedance-mini-prompt.md",
+      "size": 8575,
+      "sha256": "bc1eda377f5a1d1ac8cea810fe255ed387f134551c38c41d1c08d749eeb85506"
+    },
+    {
+      "path": "references/seedance-prompt.md",
+      "size": 24658,
+      "sha256": "8ae038523532db3c99ba925a22b14d768921893b2ca0b4486b5deabcfa7e9d95"
+    },
+    {
+      "path": "references/standup-copywriting.md",
+      "size": 5903,
+      "sha256": "615aff69a826ad19b63bdfb54844df6d6f168a695903e72a3a9bbff911e78e0d"
+    },
+    {
+      "path": "references/style-guide.md",
+      "size": 12238,
+      "sha256": "90396123a6b7822f185040a113ba6c6e35e30a08005ad43b5862b3e533581e0f"
+    },
+    {
+      "path": "references/video-types.md",
+      "size": 8570,
+      "sha256": "03e2a65d1ed3fc4b0b63a55d846e9ad5a66f4f408fa801359899c64d4e053c94"
+    },
+    {
+      "path": "references/viral-replicate.md",
+      "size": 8482,
+      "sha256": "5ea8f8aa0a31cbf1d54cd381c24a63995838007ecb9caf03f59f9d399880e1e9"
+    },
+    {
+      "path": "SKILL.md",
+      "size": 10661,
+      "sha256": "f26c0401128b2c8e6f7f6a775a2e46ea27835c1eeff5755a8680e044e93fdfef"
+    },
+    {
+      "path": "video_api.cjs",
+      "size": 8727,
+      "sha256": "f9d3451c1813a9458e397779c5955d82522e42a534fb0bfb9200fe81db8ea91c"
+    }
+  ],
+  "metadata": {
+    "name": "电商带货 | AI 视频一条龙",
+    "description": "电商带货 | AI 视频一条龙。用户要做电商短视频策划、带货脚本、3×3 九宫格分镜、人物/产品/场景资产、Seedance/可灵/MiniMax 视频提示词、成本预估或发布合规检查时使用；正式生产前必须调用头脑风暴 Skill，把每个客户不同的意图、钩子、叙事、卖点证明、人物关系、视觉语法、声音和转化方式整理为用户确认的视频创意蓝图，不用有限视频类型替代创意判断。覆盖国内外主流平台，支持纯提示词与配置接口两种工作模式。",
+    "version": "1.7.0",
+    "publisher": "local-import",
+    "usageScenario": "",
+    "howToUse": "",
+    "outputContent": "",
+    "skillType": "other"
+  },
+  "signatureStatus": "unsigned-local",
+  "executionStatus": "adapter-required",
+  "trust": {
+    "kind": "unsigned-local",
+    "signed": false,
+    "verified": false
+  },
+  "capabilities": {
+    "instructionOnly": true,
+    "executable": false
+  },
+  "packageHash": "e37df59978f40ea94a75f006244d5f30fb77bd04832f1e418c108c23235303f1"
+}
