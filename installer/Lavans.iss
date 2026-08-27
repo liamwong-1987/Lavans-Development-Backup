@@ -1,5 +1,5 @@
 #define MyAppName "Lavans"
-#define MyAppVersion "1.1.0"
+#define MyAppVersion "1.1.1"
 #define MyAppExeName "Lavans.exe"
 
 [Setup]
@@ -23,7 +23,7 @@ WizardStyle=modern
 CloseApplications=yes
 RestartApplications=no
 UsePreviousAppDir=yes
-VersionInfoVersion=1.1.0.0
+VersionInfoVersion=1.1.1.0
 VersionInfoProductName={#MyAppName}
 VersionInfoDescription={#MyAppName} Windows Installer
 VersionInfoCompany={#MyAppName}

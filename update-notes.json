@@ -1,9 +1,11 @@
 {
   "schemaVersion": 1,
-  "version": "1.1.0",
-  "title": "Lavans 1.1.0",
+  "version": "1.1.1",
+  "title": "Lavans 1.1.1",
   "notes": [
-    "新增连接 Lavans 自有 GitHub 仓库的安全更新入口。",
-    "更新只替换经过清单校验的第一方程序文件，保留 API 设置、素材、提示词、Skill 与画布数据。"
+    "修复启用 Windows 系统代理时 API 地址与协议验证可能显示 fetch failed 的问题。",
+    "APIMART 继续使用异步协议和原有地址、平台、模型与图片接口，不改变 Provider 绑定。",
+    "修复 GitHub 更新下载对压缩响应长度的误判，继续保留哈希校验、失败回滚和确认门。",
+    "更新只替换清单允许的第一方程序文件，保留本机 API Key、素材、提示词、Skill 与画布数据。"
   ]
 }

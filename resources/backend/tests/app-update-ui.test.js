@@ -15,7 +15,7 @@ test('外壳显示版本入口和明确确认窗口且保留原项目主页与�
   assert.match(html, /id="app-update-label">版本 --/);
   assert.match(html, /id="app-update-dialog"/);
   assert.match(html, /安全更新并重启/);
-  assert.match(html, /\/app-update\.js\?v=1\.1\.0/);
+  assert.match(html, /\/app-update\.js\?v=1\.1\.1/);
   assert.match(html, /onclick="openProjectPage\(\)"/);
   assert.match(html, /https:\/\/github\.com\/hero8152\/Infinite-Canvas/);
   assert.match(css, /\.app-update-dialog/);

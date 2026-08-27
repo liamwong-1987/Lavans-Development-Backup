@@ -26,7 +26,7 @@ function readPublishedFile(relativePath) {
 }
 
 test('版本来源、包版本与更新说明保持一致', () => {
-  assert.equal(version, '1.1.0');
+  assert.equal(version, '1.1.1');
   assert.equal(pkg.version, version);
   assert.equal(electronPkg.version, version);
   assert.equal(manifest.version, version);

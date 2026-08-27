@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "repository": "liamwong-1987/Lavans-Development-Backup",
   "branch": "main",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "files": [
     {
       "path": "resources/backend/agent-skills/brainstorming-obra-share.adapter.json",
@@ -827,7 +827,7 @@
     {
       "path": "resources/frontend/index.html",
       "size": 27520,
-      "sha256": "ef768a74380731e98ab4155ecd6bace8da96ba20e6b6c434f66602ca84f89268"
+      "sha256": "ba9d334ab392aeb36908904ca9ebf59b94d0c56802a71693ddc43e265404c0ce"
     },
     {
       "path": "resources/frontend/klein.html",
@@ -1092,7 +1092,7 @@
     {
       "path": "VERSION",
       "size": 6,
-      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
+      "sha256": "cc52f678848b814373757b460383bf61960e4943c203735adde0a350b3e50989"
     }
   ]
 }
