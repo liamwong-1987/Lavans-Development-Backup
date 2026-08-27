@@ -11,6 +11,12 @@ const releaseRoot = path.join(projectRoot, 'release');
 const appStage = path.join(distRoot, 'package-source');
 const dependencyStage = path.join(distRoot, 'runtime-dependencies');
 const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
+const electronZipDir = process.env.ELECTRON_ZIP_DIR;
+
+if (electronZipDir) {
+  const electronZip = path.join(electronZipDir, `electron-v${packageJson.devDependencies.electron}-win32-x64.zip`);
+  if (!fs.existsSync(electronZip)) throw new Error(`Missing cached Electron ZIP: ${electronZip}`);
+}
 
 function assertInside(base, target) {
   const relative = path.relative(base, target);
@@ -86,6 +92,7 @@ const outputPaths = await packager({
   appVersion: packageJson.version,
   buildVersion: packageJson.version,
   electronVersion: packageJson.devDependencies.electron,
+  ...(electronZipDir ? { electronZipDir } : {}),
   platform: 'win32',
   arch: 'x64',
   out: releaseRoot,
