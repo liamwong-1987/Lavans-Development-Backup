@@ -725,3 +725,15 @@
 - 安装器：`D:\Lavans备份\release\installer\Lavans-Setup-1.0.7-x64.exe`，大小 `83442417` 字节，SHA-256 `90932970F670E7705929BBCE37A31BF302B4E256740663B62F63D3CBA8F8C4B7`。未对同 AppId 做第二次沙箱安装，以免改写用户当前正式安装的卸载注册信息；最终负载与安装器编译清单作为本轮首装证据。
 - GitHub 状态：本地 GitHub 登录与仓库地址有效，但 `git push` 和只读 `git ls-remote` 均在 HTTPS 连接阶段收到 `Recv failure: Connection was reset`；远端没有接收本批提交，也未切换协议、仓库或凭据。网络恢复后只需推送当前 `main`，不得重做修复。
 - 安全边界：没有调用 Provider、模型或付费 API，没有生成媒体、写正式画布或更改系统设置。一次早期本地脱敏辅助函数报错可能把一个目标 Key 写入 Codex 本地任务日志，未发送给外部服务；迁移完成后建议轮换该 Key。
+
+### 项目主页仓库地址与 Lavans 更新源边界（2026-08-27，项目主页通过；自动更新待设计确认）
+
+- 项目主页：把 `resources/frontend/index.html` 中无运行时配置时实际生效的旧仓库回退地址，从 `liamwong-1987/LANVAS` 改为用户自己的 `liamwong-1987/Lavans-Development-Backup`。没有新增配置层或修改外链行为；对 `hero8152/Infinite-Canvas` 的原作致敬链接保持不变。
+- 回归合同：源码入口与壳层聚焦测试 16/16 通过；新增断言要求 Lavans 项目主页存在并拒绝旧 `liamwong-1987/LANVAS` 地址。成品包可独立运行的 Provider、Skill 与壳层测试 30/30 通过。源码目录结构专用的 `lavans-repo-entry.test.js` 不适用于解包根目录，其 3 个 `ENOENT` 不计为成品失败；同一测试在源码根目录 7/7 通过。
+- 正式安装同步：确认 Lavans/ChromaOS 进程为 0、`43127-43147` 监听为 0 后，只同步正式安装目录的 `resources/frontend/index.html`。覆盖前文件与说明保存在 `D:\软件\Lavans\.migration-backup\20260827-112348`；同步后源码与目标哈希一致，新仓库地址存在、旧项目地址不存在、原作致敬链接存在。
+- 最终负载：离线重建后的 288 个第一方前后端文件与源码逐文件 SHA-256 一致，缺失 0、漂移 0、额外 0；运行期 API 配置文件为 0。公开默认目录仍包含 8 个 Provider，内置脑暴与电商 Skill 均存在。
+- 安装器：`D:\Lavans备份\release\installer\Lavans-Setup-1.0.7-x64.exe`，大小 `83439904` 字节，SHA-256 `32EF10899042C994A2A5CF57C9D31812FCDA3C1C9637CEAE4D9B6405F7825973`。本轮没有覆盖用户当前正式安装，也没有启动桌面程序。
+- 恢复点：项目主页代码提交为 `7c5cd14d6f33836eeaa7bb15d6ca2e93536261c0`。需要回退时选择性 `git revert 7c5cd14`；正式安装目录可从上述单文件备份恢复，不得覆盖 API、素材、Skill 或画布数据。
+- GitHub 状态：再次执行 `git push origin main` 仍在 HTTPS 接收阶段得到 `Recv failure: Connection was reset`。远端没有接收本轮提交；不切换仓库、协议或凭据，网络恢复后只推送当前 `main`。
+- 自动更新硬边界：未来 Lavans 的版本号、更新检查、Release 元数据、安装包下载和自动更新只允许使用 `https://github.com/liamwong-1987/Lavans-Development-Backup`。大雄/原作仓库只可作为只读实现参考和署名来源，绝不能成为版本源、下载源或更新端点。更新必须保留本机 API 设置、素材、提示词库、内置 Skill、画布数据与恢复语义；本节尚未实施自动更新，需先完成架构评审和用户确认。
+- 安全边界：没有调用 Provider、模型或付费 API，没有生成媒体、写正式画布、安装更新、修改注册表或启动/停止任何正式软件。
