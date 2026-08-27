@@ -803,3 +803,11 @@
 - 普通非强制 `git push origin main` 使用 HTTPS/1.1 后仍在传输阶段失败：`Recv failure: Connection was reset`。GitHub CLI API 登录、仓库读取和 ref 查询均正常，因此不是私有仓库 404 或权限不足；没有切换仓库、协议、凭据，也没有强推。
 - 失败后再次通过 GitHub CLI API 确认远端 `main` 仍为 `b2be2a6`，没有收到部分更新。根据二次失败上限停止重试；软件中的真实更新检查仍会 HTTP 404，匿名更新验收尚不能执行。
 - 恢复：本地 `main` 保留全部已验收提交；远端恢复点仍为 `b2be2a6`。网络恢复后只需重新执行一次普通 `git push origin main`，成功后再做匿名 GitHub 更新检查，不得重做代码或清单。
+
+#### GitHub main 发布成功；匿名浏览器检查受网络阻塞（2026-08-27）
+
+- 网络恢复后再次确认远端 `main=b2be2a6`、本地 `main=824b78a` 且工作树干净；普通非强制 `git push origin main` 成功，远端明确返回 `b2be2a6..824b78a main -> main`。
+- 发布后 GitHub CLI API 确认远端 `main=824b78a2f23fafb077540aa41eb521e1b9e0ac35`。远端 Git tree 中 `VERSION`、`update-manifest.json`、`update-notes.json` 均存在，大小分别为 6、41679、296 字节；更新清单 blob 为 `fca8890c3d967aa0d0356b63d8e0571a16efd477`。
+- 匿名证据：未带凭据的 Raw URL 已成功读取 `VERSION`（HTTP 200）；读取更新清单时当前网络再次 `Recv failure: Connection was reset`。隔离 Lavans 内的软件检查对应显示“读取仓库版本失败: fetch failed”，确认按钮保持隐藏，未写入或安装。
+- 内置浏览器纠正重试：直接匿名读取三个 Raw 文件的浏览器循环在网络等待中超时并重置控制连接。按二次失败上限停止，不把 GitHub API 的登录态读取冒充匿名浏览器通过。
+- 当前结论：代码和更新文件已经发布到公开仓库 `main`；匿名软件更新仍需在网络稳定后重做一次可见检查。不得重新生成代码、清单或重复发布，仅需打开版本入口验证“已经是最新版本”或对旧版夹具显示可更新。
