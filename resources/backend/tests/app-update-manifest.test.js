@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const { execFileSync } = require('node:child_process');
 const { isAllowedUpdatePath } = require('../services/appUpdatePolicy');
 
 const root = path.resolve(__dirname, '..', '..', '..');
@@ -14,6 +15,14 @@ const notes = JSON.parse(fs.readFileSync(path.join(root, 'update-notes.json'), '
 
 function sha256(buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
+}
+
+function readPublishedFile(relativePath) {
+  return execFileSync('git', ['show', `:${relativePath}`], {
+    cwd: root,
+    encoding: null,
+    maxBuffer: 64 * 1024 * 1024
+  });
 }
 
 test('版本来源、包版本与更新说明保持一致', () => {
@@ -37,7 +46,7 @@ test('更新清单只包含允许的第一方普通文件且哈希完整', () =>
     const stat = fs.lstatSync(absolutePath);
     assert.equal(stat.isFile(), true);
     assert.equal(stat.isSymbolicLink(), false);
-    const content = fs.readFileSync(absolutePath);
+    const content = readPublishedFile(entry.path);
     assert.equal(entry.size, content.length, entry.path);
     assert.equal(entry.sha256, sha256(content), entry.path);
   }

@@ -24,6 +24,14 @@ function sha256(buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 
+function readPublishedFile(relativePath) {
+  return execFileSync('git', ['show', `:${relativePath}`], {
+    cwd: projectRoot,
+    encoding: null,
+    maxBuffer: 64 * 1024 * 1024
+  });
+}
+
 const version = normalizeVersion(fs.readFileSync(path.join(projectRoot, 'VERSION'), 'utf8'));
 const files = ['VERSION', ...trackedFiles().filter(isAllowedUpdatePath)]
   .sort((left, right) => left.localeCompare(right, 'en'))
@@ -31,7 +39,7 @@ const files = ['VERSION', ...trackedFiles().filter(isAllowedUpdatePath)]
     const absolutePath = path.join(projectRoot, ...relativePath.split('/'));
     const stat = fs.lstatSync(absolutePath);
     if (!stat.isFile() || stat.isSymbolicLink()) throw new Error(`更新文件必须是普通文件: ${relativePath}`);
-    const content = fs.readFileSync(absolutePath);
+    const content = readPublishedFile(relativePath);
     return { path: relativePath, size: content.length, sha256: sha256(content) };
   });
 
