@@ -3,6 +3,7 @@ const path = require('path');
 
 const CONFIG_ROOT = path.resolve(__dirname);
 const LEGACY_CONFIG_PATH = path.join(CONFIG_ROOT, 'config.json');
+const CANVAS_EXAMPLE_CONFIG_PATH = path.join(CONFIG_ROOT, 'canvas-config.example.json');
 const MODULE_CONFIGS = {
   creative: path.join(CONFIG_ROOT, 'creative-config.json'),
   canvas: path.join(CONFIG_ROOT, 'canvas-config.json')
@@ -281,8 +282,11 @@ function getModuleConfig(moduleName) {
   if (moduleName === 'creative') return getCreativeConfig();
   if (moduleName === 'canvas') {
     const configPath = MODULE_CONFIGS.canvas;
-    const current = normalizeCanvasConfig(readJson(configPath));
-    const stored = readJson(configPath);
+    const stored = readJson(configPath, null);
+    const source = stored && typeof stored === 'object' && Object.keys(stored).length
+      ? stored
+      : readJson(CANVAS_EXAMPLE_CONFIG_PATH);
+    const current = normalizeCanvasConfig(source);
     if (JSON.stringify(stored) !== JSON.stringify(current)) writeJson(configPath, current);
     return current;
   }

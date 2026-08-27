@@ -1,6 +1,461 @@
 {
   "version": 2,
-  "primaryProviderId": "",
-  "providers": [],
+  "primaryProviderId": "apimart",
+  "providers": [
+    {
+      "id": "apimart",
+      "name": "APIMART",
+      "protocol": "apimart",
+      "base_url": "https://api.apimart.ai/v1",
+      "enabled": true,
+      "primary": true,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "gpt-image-2",
+        "midjourney",
+        "qwen-image-3.0-pro"
+      ],
+      "chat_models": [
+        "deepseek-v4-pro",
+        "gemini-3.6-flash",
+        "glm-5.2",
+        "gpt-4o"
+      ],
+      "vision_models": [],
+      "video_models": [
+        "seedance-2.0",
+        "seedance-2.5",
+        "flux-3-video",
+        "gemini-omni-flash-preview",
+        "kling-3.0-turbo",
+        "kling-v3",
+        "kling-v3-omni",
+        "MiniMax-H3",
+        "veo3.1-quality"
+      ],
+      "audio_models": [
+        "flowmusic",
+        "suno"
+      ],
+      "unknown_models": [],
+      "video_model_durations": {
+        "seedance-2.0": {
+          "min": 4,
+          "max": 30
+        },
+        "seedance-2.5": {
+          "min": 4,
+          "max": 30
+        },
+        "flux-3-video": {
+          "min": 5,
+          "max": 20
+        },
+        "kling-3.0-turbo": {
+          "min": 3,
+          "max": 15
+        },
+        "kling-v3": {
+          "min": 3,
+          "max": 15
+        },
+        "kling-v3-omni": {
+          "min": 3,
+          "max": 15
+        },
+        "veo3.1-quality": {
+          "min": 4,
+          "max": 8
+        }
+      },
+      "video_model_resolutions": {
+        "flux-3-video": [
+          "hd",
+          "fhd"
+        ],
+        "kling-3.0-turbo": [
+          "720p",
+          "1080p"
+        ]
+      },
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "modelscope",
+      "name": "ModelScope",
+      "protocol": "modelscope",
+      "base_url": "https://api-inference.modelscope.cn/v1",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "Tongyi-MAI/Z-Image-Turbo",
+        "Qwen/Qwen-Image-2512",
+        "Qwen/Qwen-Image-Edit-2511",
+        "black-forest-labs/FLUX.2-klein-9B"
+      ],
+      "chat_models": [
+        "Qwen/Qwen3-235B-A22B",
+        "Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "MiniMax/MiniMax-M2.7:MiniMax"
+      ],
+      "vision_models": [],
+      "video_models": [],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [
+        {
+          "id": "Daniel8152/2512-film",
+          "name": "Z-Image Film",
+          "target_model": "Qwen/Qwen-Image-2512",
+          "strength": 0.8,
+          "enabled": true,
+          "note": ""
+        },
+        {
+          "id": "Daniel8152/Qwen-Image-2512-Film",
+          "name": "Qwen Image 2512 Film",
+          "target_model": "Qwen/Qwen-Image-2512",
+          "strength": 0.8,
+          "enabled": true,
+          "note": ""
+        },
+        {
+          "id": "Daniel8152/Klein-enhance",
+          "name": "Klein enhance",
+          "target_model": "black-forest-labs/FLUX.2-klein-9B",
+          "strength": 0.8,
+          "enabled": true,
+          "note": ""
+        }
+      ],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "runninghub",
+      "name": "RunningHub",
+      "protocol": "runninghub",
+      "base_url": "https://www.runninghub.ai",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "nano-banana-pro/text-to-image-channel-low-price",
+        "gpt-image-2.0/edit-channel-low-price",
+        "gpt-image-2/image-to-image-official-stable",
+        "seedream-v5-pro/layer-decomposition"
+      ],
+      "chat_models": [
+        "openai/gpt-5.6-terra",
+        "google/gemini-3.5-flash",
+        "deepseek/deepseek-v4-pro"
+      ],
+      "vision_models": [],
+      "video_models": [
+        "kling-video-o3-pro/video-edit",
+        "kling-v3.0-pro-motion-control",
+        "Vidu-reference-to-video-q3",
+        "Seedance2.0 Multimodal Video",
+        "gemini-omni-flash/text-to-video/channel-low-price",
+        "gemini-omni-flash/image-to-video/channel-low-price",
+        "gemini-omni-flash/video-edit/channel-low-price",
+        "MiniMax-H3 Multimodal Reference-to-Video",
+        "seedance-2.5/multimodal-video Token"
+      ],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {
+        "nano-banana-pro/text-to-image-channel-low-price": "全能图片PRO-文生图-低价渠道版",
+        "gpt-image-2.0/edit-channel-low-price": "全能图片G-2.0-图生图-低价渠道版",
+        "gpt-image-2/image-to-image-official-stable": "全能图片G-2-图生图-官方稳定版",
+        "seedream-v5-pro/layer-decomposition": "seedream-v5-pro-图层拆分",
+        "kling-video-o3-pro/video-edit": "可灵 3 · 图片编辑",
+        "kling-v3.0-pro-motion-control": "可灵动作控制V3.0-pro",
+        "Vidu-reference-to-video-q3": "Vidu-参考生视频-q3",
+        "Seedance2.0 Multimodal Video": "Seedance2.0/全能参考视频",
+        "gemini-omni-flash/text-to-video/channel-low-price": "全能视频 Omni Flash 文生视频-低价渠道版",
+        "gemini-omni-flash/image-to-video/channel-low-price": "全能视频 Omni Flash 图生视频-低价渠道版",
+        "gemini-omni-flash/video-edit/channel-low-price": "全能视频 Omni Flash 视频编辑-低价渠道版",
+        "MiniMax-H3 Multimodal Reference-to-Video": "MiniMax-H3 多模态参考生视频",
+        "seedance-2.5/multimodal-video Token": "seedance2.5/多模态视频 Token"
+      },
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "volcengine",
+      "name": "火山引擎",
+      "protocol": "volcengine",
+      "base_url": "https://ark.cn-beijing.volces.com/api/v3",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [],
+      "chat_models": [],
+      "vision_models": [],
+      "video_models": [],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "default",
+      "volcengine_region": "cn-beijing",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "jimeng",
+      "name": "即梦 CLI",
+      "protocol": "jimeng",
+      "base_url": "",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "5.0Pro",
+        "5.0",
+        "4.7",
+        "4.6",
+        "4.5",
+        "4.1",
+        "4.0",
+        "3.1",
+        "3.0"
+      ],
+      "chat_models": [],
+      "vision_models": [],
+      "video_models": [
+        "seedance2.0fast_vip",
+        "seedance2.0_vip",
+        "seedance2.0",
+        "seedance2.0fast",
+        "seedance2.0mini"
+      ],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "codex",
+      "name": "GPT CLI",
+      "protocol": "codex",
+      "base_url": "",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "gpt-image-2"
+      ],
+      "chat_models": [
+        "gpt-5.5"
+      ],
+      "vision_models": [],
+      "video_models": [],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "gemini-cli",
+      "name": "Antigravity CLI",
+      "protocol": "gemini-cli",
+      "base_url": "",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "auto"
+      ],
+      "chat_models": [
+        "auto"
+      ],
+      "vision_models": [],
+      "video_models": [],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {},
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    },
+    {
+      "id": "custom-api",
+      "name": "OpneLuxAPI",
+      "protocol": "openai",
+      "base_url": "https://api.openlux.ai/v1",
+      "enabled": true,
+      "primary": false,
+      "image_request_mode": "openai",
+      "image_generation_endpoint": "",
+      "image_edit_endpoint": "",
+      "image_models": [
+        "qwen-image-3.0",
+        "gemini-3-pro-image",
+        "gpt-image-1",
+        "gpt-image-2",
+        "grok-imagine-image",
+        "flux.1-kontext-pro"
+      ],
+      "chat_models": [
+        "deepseek-v4-pro",
+        "glm-5.2",
+        "deepseek-v4-flash"
+      ],
+      "vision_models": [
+        "deepseek-v4-flash",
+        "deepseek-v4-pro"
+      ],
+      "video_models": [
+        "wan2.7-image-pro",
+        "MiniMax-Hailuo-2.3",
+        "kling-3.0-turbo",
+        "doubao-seedance-2-0-260128",
+        "grok-3-mini",
+        "veo_3_1"
+      ],
+      "audio_models": [],
+      "unknown_models": [],
+      "video_model_durations": {},
+      "video_model_resolutions": {},
+      "model_names": {},
+      "model_protocols": {},
+      "model_category_overrides": {
+        "grok-3-mini": "video"
+      },
+      "api_key": "",
+      "comfy_url": "",
+      "runninghub_key": "",
+      "runninghub_wallet_key": "",
+      "modelscope_key": "",
+      "volcengine_key": "",
+      "volcengine_access_key": "",
+      "volcengine_secret_key": "",
+      "volcengine_project_name": "",
+      "volcengine_region": "",
+      "ms_loras": [],
+      "rh_apps": [],
+      "rh_workflows": []
+    }
+  ],
   "comfy_instances": []
 }

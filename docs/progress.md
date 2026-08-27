@@ -702,3 +702,15 @@
 - 重装与卸载：在 `resources/backend/output` 放入独立测试标记后，同版本静默重装退出码 0；2190 个程序文件仍全部哈希一致，标记字节不变。静默卸载退出码 0，程序、卸载器和 HKCU 卸载注册项均移除；测试标记、运行期 `canvas-config.json` 与 `runtime-error.log` 被保留，证明卸载不会误删用户运行数据。
 - 临时残留：自动清理专用目录两次都被 Codex 平台的递归删除策略拒绝，未发生部分删除，也不再更换删除手段。当前仅残留 `C:\Users\Administrator\AppData\Local\Temp\Lavans-Installer-Acceptance-20260827-095600`（219 个文件、83 个目录、34414894 字节）；Lavans 进程为 0，`43127-43147` 监听为 0。该目录不在仓库或正式安装位置，后续可由用户手动删除。
 - 安全边界：没有调用真实/付费 Provider，没有创建或修改正式画布，没有推送安装包或当前提交；`D:\ChromaOS` 全程未启动、停止、修改或删除。恢复点以本节完成后的仓库当前 `HEAD` 为准。
+
+### API 平台目录与内置 Skill 恢复（2026-08-27，源码门通过）
+
+- 用户硬门：Lavans 必须保留 ChromaOS 的完整 API 平台、协议、模型分类和非密钥设置；公开 GitHub 只清空 Key/Token/Secret。安装后必须自带“头脑风暴”和“电商带货 | AI 视频一条龙”两个 Skill，AGENT 可直接发现，不要求用户重新填写或关联外部 Skill 地址。
+- API 根因：打包流程为防止泄密会排除运行期 `canvas-config.json`，但原 `canvas-config.example.json` 是空 Provider 列表，且首次读取没有使用示例目录，导致新安装只得到一个空 OpenAI 兼容项。现已把 ChromaOS 的 8 个 Provider 非敏感配置原样脱敏写入公开示例，并让首次启动从该示例建立本机配置；已有非空本机配置仍具有最高优先级，不会被覆盖。
+- API 等价证据：默认主平台仍为 `apimart`；Provider/协议依次为 `apimart:apimart`、`modelscope:modelscope`、`runninghub:runninghub`、`volcengine:volcengine`、`jimeng:jimeng`、`codex:codex`、`gemini-cli:gemini-cli`、`custom-api:openai`。协议实现、设置页面、Provider/模型绑定与保存逻辑均未改写。
+- 密钥边界：示例中 7 类敏感字段全部为空；对 ChromaOS 与当前安装版收集到的 7 个不同真实敏感值逐一扫描 450 个 Git 跟踪文件及 `origin/main..HEAD` 历史，精确命中为 0。真实 Key 只允许在后续本机迁移进入 `D:\软件\Lavans`，不得进入公开仓库或安装包。
+- Skill 根因：两个 Skill 的包、适配器和电商组合模板一直完整存在；`brainstorming-obra-share` 被前端隐藏名单误伤，造成“文件在但 AGENT 看不到”。现只从隐藏名单移除脑暴，保留旧产品直出入口隐藏，不修改两个 Skill 的正文、哈希、流程或工具安全边界。
+- 内置证据：仓库与当前安装版注册表均能无错误发现 `brainstorming-obra-share@1.0.0` 和 `ecommerce-video-director-skill@1.7.0`，入口来自各自安装目录内的 `resources/backend/agent-skills/bundled`，不是外部绝对地址；两个入口文件存在且完整性摘要通过。电商对脑暴的精确身份确认继续作为防版本漂移安全门，它不要求重新导入或填写地址。
+- 同类审计：安装版与仓库的 `agent-skills`、`workflows`、`system-prompts` 静态目录逐文件一致；未发现第二个必需 Skill、工作流或系统提示词被清除。旧 `create-product-microstory-seedance` 仍按既有产品决策隐藏，不在本批擅自恢复。
+- 验证：6 个聚焦测试文件共 39/39 通过；显式枚举 68 个第一方源码测试文件后 561/561 通过，失败、取消、跳过均为 0。覆盖首次配置、已有配置保护、Provider 分类、Skill 自动注册、包完整性、脑暴与电商可见性、组合身份、AGENT/画布/素材库/快捷键/Provider 精确绑定等现有行为。
+- 当前边界：尚未提交、推送、重建安装包或同步正式安装目录；没有启动/停止 Lavans 或 ChromaOS，没有调用真实/付费 API，也没有写画布数据。源码修改前恢复点为 `e733cc1592b8ab14609d60477e17e7a165af8965`。

@@ -113,8 +113,7 @@ const SMART_AGENT_SKILL_PRESENTATIONS = Object.freeze({
 });
 let SMART_AGENT_SKILLS = SMART_AGENT_FALLBACK_SKILLS.map(skill => ({...skill}));
 const SMART_AGENT_HIDDEN_SKILL_IDS = new Set([
-    'create-product-microstory-seedance',
-    'brainstorming-obra-share'
+    'create-product-microstory-seedance'
 ]);
 let smartAgentSkillsLoaded = false;
 let smartAgentSkillsLoadError = '';

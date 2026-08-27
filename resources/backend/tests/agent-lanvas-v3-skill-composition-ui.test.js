@@ -76,13 +76,16 @@ test('M8R-3C：刷新恢复组合状态，composer 与右键隔离保持原合�
   assert.doesNotMatch(landing, /smartAgentSkillCompositionBusy[\s\S]*?smartAgentQuestionInput\.disabled/);
 });
 
-test('用户可见 Skill 隐藏内部头脑风暴依赖与旧产品直出入口', () => {
+test('用户可见 Skill 显示头脑风暴并隐藏旧产品直出入口', () => {
   const lookup = sourceBetween('function smartAgentSkillById', 'function smartAgentSkillIconHtml');
   const catalog = sourceBetween('function renderSmartAgentSkillCatalog', 'function smartAgentIsImportedSkill');
   const library = sourceBetween('function renderSmartAgentSkillLibrary', 'function setSmartAgentSkillCreateMenuOpen');
   const composition = sourceBetween('function renderSmartAgentSkillComposition', 'async function refreshSmartAgentSkillComposition');
+  const hidden = sourceBetween('const SMART_AGENT_HIDDEN_SKILL_IDS', 'let smartAgentSkillsLoaded');
 
-  assert.match(source, /SMART_AGENT_HIDDEN_SKILL_IDS[\s\S]*?'create-product-microstory-seedance'[\s\S]*?'brainstorming-obra-share'/);
+  assert.match(hidden, /'create-product-microstory-seedance'/);
+  assert.doesNotMatch(hidden, /'brainstorming-obra-share'/);
+  assert.doesNotMatch(hidden, /'ecommerce-video-director-skill'/);
   assert.match(catalog, /smartAgentVisibleSkills\(\)/);
   assert.match(library, /smartAgentVisibleSkills\(\)/);
   assert.match(composition, /status === 'ready' && !pending\?\.triggerMessage[\s\S]*?card\.hidden = true/,
