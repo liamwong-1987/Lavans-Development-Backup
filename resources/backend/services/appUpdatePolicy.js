@@ -20,6 +20,8 @@ const BLOCKED_FILES = new Set([
   'resources/backend/sessions.json'
 ]);
 
+const WINDOWS_RESERVED_NAME = /^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\..*)?$/i;
+
 function normalizeVersion(value) {
   const version = String(value || '').trim();
   if (!VERSION_PATTERN.test(version)) throw new Error('版本号必须使用 x.y.z 格式');
@@ -39,7 +41,8 @@ function isAllowedUpdatePath(value) {
   if (typeof value !== 'string' || !value || value.includes('\\') || value.includes('\0')) return false;
   if (value.startsWith('/') || value.endsWith('/') || value.includes('//')) return false;
   const segments = value.split('/');
-  if (segments.some(segment => !segment || segment === '.' || segment === '..' || segment.includes(':'))) return false;
+  if (segments.some(segment => !segment || segment === '.' || segment === '..' || segment.includes(':')
+    || segment.endsWith('.') || segment.endsWith(' ') || WINDOWS_RESERVED_NAME.test(segment))) return false;
 
   const relativePath = segments.join('/');
   const lower = relativePath.toLowerCase();

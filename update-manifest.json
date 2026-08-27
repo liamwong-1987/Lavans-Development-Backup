@@ -350,6 +350,11 @@
       "sha256": "ce4373f56f2234c4bc7b157154a0d5e0b9bf11381fc70800436cb281650a4bae"
     },
     {
+      "path": "resources/backend/routes/appUpdateRoutes.js",
+      "size": 2300,
+      "sha256": "8395920dc917078f3cbec466015cacaa600aef4dcc624b66e8ed8efe61bb0425"
+    },
+    {
       "path": "resources/backend/routes/assetManagerRoutes.js",
       "size": 31650,
       "sha256": "a43ec6369cec7c120c5da4324afdbd2c29a4fab30c0c5e2cd8451d7dfbe37602"
@@ -396,8 +401,8 @@
     },
     {
       "path": "resources/backend/server.js",
-      "size": 45759,
-      "sha256": "af282bce5ba13474ee0e1fd459ab5e7ba2bc5a24998c3d59ffe42f069298742f"
+      "size": 46154,
+      "sha256": "3f69a16b771c6afed1b2a7cb4caddc886a814504e6ae07118f0da1668eaba01f"
     },
     {
       "path": "resources/backend/services/agentCreativeScriptService.js",
@@ -506,8 +511,13 @@
     },
     {
       "path": "resources/backend/services/appUpdatePolicy.js",
-      "size": 2264,
-      "sha256": "47877d96c9c3a9f5ed561054338b66efadc13ed55515856cd25fc04cd7eb4adb"
+      "size": 2441,
+      "sha256": "c2a55b964c985473ae1548e67555ec96905a68358458bb87118fcc821227dba0"
+    },
+    {
+      "path": "resources/backend/services/appUpdateService.js",
+      "size": 17646,
+      "sha256": "459701842de477540830e73379f9fff32768944add99932d33eafd4bc3ff2982"
     },
     {
       "path": "resources/backend/services/batchService.js",

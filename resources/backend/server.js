@@ -48,6 +48,8 @@ const creativeRoutes = require('./routes/creativeRoutes');
 const canvasRoutes = require('./routes/canvasRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const assetManagerRoutes = require('./routes/assetManagerRoutes');
+const appUpdateRoutes = require('./routes/appUpdateRoutes');
+const { createAppUpdateService } = require('./services/appUpdateService');
 const BRAND = require('../frontend/brand-config.js');
 const app = express();
 const DEFAULT_PORT = 43127;
@@ -62,6 +64,10 @@ const MAX_CONCURRENCY = 8;
 const MAX_CORRECTIONS = Math.min(Math.max(0, Number(process.env.MAX_CORRECTIONS || 1)), 1);
 const API_COST_FEN = Math.max(0, Number(process.env.API_COST_FEN || 8));
 const VISION_COST_FEN = Math.max(0, Number(process.env.VISION_COST_FEN || 2));
+const appUpdateService = createAppUpdateService({
+  projectRoot: path.resolve(__dirname, '..', '..'),
+  stateRoot: path.join(process.env.OUTPUT_DIR || fileStore.OUTPUT_DIR, '.state', 'app-updates')
+});
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
@@ -313,6 +319,7 @@ app.use(scanRoutes({ fileStore, validator, colorEngine, validationCache, colorMa
 app.use(outputRoutes({ batchStore, exporter, resultService: recolorResultService, colorEngine }));
 app.use(logRoutes());
 app.use(creativeRoutes({ apiClient }));
+app.use(appUpdateRoutes({ service: appUpdateService }));
 // 素材库管理（asset-manager）非 canvas 命名空间别名：把源端 /api/local-assets、/api/asset-library、
 // /api/prompt-libraries、/api/providers 映射到 Lavans 的 canvas 命名空间，前端 asset-manager.js 原样调用。
 app.use((req, res, next) => {
