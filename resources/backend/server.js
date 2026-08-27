@@ -50,7 +50,14 @@ const chatRoutes = require('./routes/chatRoutes');
 const assetManagerRoutes = require('./routes/assetManagerRoutes');
 const BRAND = require('../frontend/brand-config.js');
 const app = express();
-const PORT = Number(process.env.PORT || 3001);
+const DEFAULT_PORT = 43127;
+const DEFAULT_PORT_RANGE_END = 43147;
+function validPort(value, fallback) {
+  const port = Number(value);
+  return Number.isInteger(port) && port >= 1 && port <= 65535 ? port : fallback;
+}
+const FIRST_PORT = validPort(process.env.PORT, DEFAULT_PORT);
+const LAST_PORT = Math.max(FIRST_PORT, validPort(process.env.PORT_RANGE_END, DEFAULT_PORT_RANGE_END));
 const MAX_CONCURRENCY = 8;
 const MAX_CORRECTIONS = Math.min(Math.max(0, Number(process.env.MAX_CORRECTIONS || 1)), 1);
 const API_COST_FEN = Math.max(0, Number(process.env.API_COST_FEN || 8));
@@ -848,16 +855,39 @@ for (const batch of batchStore.listBatches()) {
   if (batch.systemPauseRequested && batch.pauseReason === 'global_api_error') recolorHealthService.watch(batch.batchId);
 }
 
-app.listen(PORT, () => {
-  console.log(''); console.log('========================================'); console.log(`  ${BRAND.title}`); console.log(`  http://localhost:${PORT}`); console.log(`  并发: ${MAX_CONCURRENCY}`); console.log(`  PID: ${process.pid}`); console.log('========================================');
-}).on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`[FATAL] 端口 ${PORT} 已被占用，请在任务管理器终止占用进程后重试`);
-  } else {
-    console.error('[FATAL] Server error:', err.message);
-  }
-  process.exit(1);
-});
+function listenOnAvailablePort(port) {
+  return new Promise((resolve, reject) => {
+    const server = app.listen(port);
+    const onError = err => {
+      if (err.code === 'EADDRINUSE' && port < LAST_PORT) {
+        console.warn(`[PORT] ${port} 已被占用，尝试 ${port + 1}`);
+        resolve(listenOnAvailablePort(port + 1));
+        return;
+      }
+      reject(err);
+    };
+    server.once('error', onError);
+    server.once('listening', () => {
+      server.off('error', onError);
+      process.env.PORT = String(port);
+      console.log(''); console.log('========================================'); console.log(`  ${BRAND.title}`); console.log(`  http://localhost:${port}`); console.log(`  并发: ${MAX_CONCURRENCY}`); console.log(`  PID: ${process.pid}`); console.log('========================================');
+      resolve({ server, port });
+    });
+  });
+}
+
+const ready = listenOnAvailablePort(FIRST_PORT);
+if (require.main === module) {
+  ready.catch(err => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`[FATAL] 端口 ${FIRST_PORT}-${LAST_PORT} 均被占用，请关闭冲突软件或设置其他端口`);
+    } else {
+      console.error('[FATAL] Server error:', err.message);
+    }
+    process.exit(1);
+  });
+}
+module.exports = ready;
 
 // 定时输出心跳，证明进程未挂
 setInterval(() => {

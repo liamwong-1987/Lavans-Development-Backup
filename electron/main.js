@@ -1,7 +1,6 @@
 const { app, BrowserWindow, BrowserView, dialog, Tray, Menu, nativeImage, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const { execSync } = require('child_process');
 const RESOURCES_ROOT = app.isPackaged
   ? path.resolve(process.resourcesPath || '')
   : path.resolve(__dirname, '..', 'resources');
@@ -19,21 +18,6 @@ if (!gotTheLock) {
   app.quit();
 } else {
 
-// ===== STEP 1: 启动前强制清理 3001 端口所有残留进程 =====
-function killPort3001() {
-  try {
-    const result = execSync('netstat -ano | findstr :3001').toString();
-    const lines = result.split('\n');
-    for (const line of lines) {
-      const parts = line.trim().split(/\s+/);
-      const pid = parts[parts.length - 1];
-      if (pid && !isNaN(pid) && Number(pid) !== process.pid) {
-        try { execSync(`taskkill /PID ${pid} /F`); } catch (e) {}
-      }
-    }
-  } catch (e) {}
-}
-
 let mainWindow = null;
 let externalWindows = []; // 持有外部浏览器窗口引用，防止被 GC 回收
 let tray = null;
@@ -47,7 +31,10 @@ app.on('second-instance', () => {
 });
 
 const NAVBAR_HEIGHT = 40;
-const APP_URL = 'http://127.0.0.1:3001';
+const PREFERRED_PORT = 43127;
+const LAST_PORT = 43147;
+let appPort = PREFERRED_PORT;
+const appUrl = () => `http://127.0.0.1:${appPort}`;
 
 // ===== 窗口控制（fromWebContents 定位目标窗口，主窗口/外部窗口通用） =====
 ipcMain.handle('window-control', (event, action) => {
@@ -187,15 +174,14 @@ function createTray() {
   tray.on('double-click', () => { if (mainWindow) { mainWindow.show(); mainWindow.focus(); } });
 }
 
-killPort3001();
-
 app.whenReady().then(async () => {
   ['output','uploads','logs'].forEach(d => {
     const p = path.join(RESOURCES_ROOT, d);
     if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
   });
 
-  process.env.PORT = '3001';
+  process.env.PORT = String(PREFERRED_PORT);
+  process.env.PORT_RANGE_END = String(LAST_PORT);
   process.env.MAX_CONCURRENCY = '5';
   process.env.OUTPUT_DIR = path.join(RESOURCES_ROOT, 'output');
   process.env.UPLOAD_DIR = path.join(RESOURCES_ROOT, 'uploads');
@@ -209,7 +195,15 @@ app.whenReady().then(async () => {
   if (!global.__BACKEND_STARTED__) {
     global.__BACKEND_STARTED__ = true;
     const backendPath = path.join(RESOURCES_ROOT, 'backend', 'server.js');
-    require(backendPath);
+    try {
+      const started = await require(backendPath);
+      appPort = started.port;
+    } catch (error) {
+      console.error('[FATAL] Backend startup failed:', error);
+      dialog.showErrorBox('Lavans 启动失败', error && error.message ? error.message : '没有可用的本地端口');
+      app.quit();
+      return;
+    }
   }
 
   createTray();
@@ -245,7 +239,7 @@ app.whenReady().then(async () => {
       }
     });
 
-    mainWindow.loadURL(APP_URL);
+    mainWindow.loadURL(appUrl());
 
     // 拦截 target=_blank / window.open：http(s) 弹外部浏览器窗口，其余走系统浏览器
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
@@ -283,7 +277,7 @@ app.whenReady().then(async () => {
         try {
           const http = require('http');
           await new Promise(resolve => {
-            const req = http.request({ hostname: 'localhost', port: 3001, path: '/api/save-all', method: 'POST', timeout: 2000 }, () => resolve());
+            const req = http.request({ hostname: 'localhost', port: appPort, path: '/api/save-all', method: 'POST', timeout: 2000 }, () => resolve());
             req.on('error', () => resolve());
             req.end();
           });
@@ -301,7 +295,7 @@ app.on('before-quit', async () => {
   try {
     await new Promise((resolve) => {
       const http = require('http');
-      const req = http.request({ hostname: 'localhost', port: 3001, path: '/api/save-all', method: 'POST', timeout: 3000 }, () => resolve());
+      const req = http.request({ hostname: 'localhost', port: appPort, path: '/api/save-all', method: 'POST', timeout: 3000 }, () => resolve());
       req.on('error', () => resolve());
       req.end();
     });

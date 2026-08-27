@@ -1,7 +1,11 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const http = require('node:http');
+const net = require('node:net');
+const os = require('node:os');
 const path = require('node:path');
+const { spawn } = require('node:child_process');
 const vm = require('node:vm');
 
 const root = path.resolve(__dirname, '..', '..', '..');
@@ -22,15 +26,22 @@ test('Lavans 根入口使用干净的开发资源路径和应用身份', () => {
 test('桌面入口只允许一个实例并由主实例恢复窗口', () => {
   const main = read('electron/main.js');
   const lockAt = main.indexOf('app.requestSingleInstanceLock()');
-  const portCleanupAt = main.indexOf('killPort3001();');
+  const backendStartAt = main.indexOf('require(backendPath)');
 
   assert.notEqual(lockAt, -1);
-  assert.ok(lockAt < portCleanupAt);
+  assert.ok(lockAt < backendStartAt);
   assert.match(main, /if \(!gotTheLock\) \{\s*app\.quit\(\);\s*\} else \{/);
   assert.match(main, /app\.on\('second-instance',[\s\S]*mainWindow\.restore\(\)[\s\S]*mainWindow\.show\(\)[\s\S]*mainWindow\.focus\(\)/);
+  assert.doesNotMatch(main, /killPort\d+|taskkill|netstat/);
+  assert.match(main, /const PREFERRED_PORT = 43127/);
+  assert.match(main, /const LAST_PORT = 43147/);
+  assert.match(main, /process\.env\.PORT = String\(PREFERRED_PORT\)/);
+  assert.match(main, /process\.env\.PORT_RANGE_END = String\(LAST_PORT\)/);
+  assert.match(main, /appPort = started\.port/);
+  assert.match(main, /mainWindow\.loadURL\(appUrl\(\)\)/);
+  assert.equal((main.match(/port: appPort/g) || []).length, 2);
 
   let quitCount = 0;
-  const executedCommands = [];
   vm.runInNewContext(main, {
     __dirname: path.join(root, 'electron'),
     require(id) {
@@ -42,13 +53,78 @@ test('桌面入口只允许一个实例并由主实例恢复窗口', () => {
           quit: () => { quitCount += 1; }
         }
       };
-      if(id === 'child_process') return { execSync: command => { executedCommands.push(command); } };
       return require(id);
     }
   }, { filename: 'electron/main.js' });
 
   assert.equal(quitCount, 1);
-  assert.deepEqual(executedCommands, []);
+});
+
+test('后端在首选端口被占用时安全递增且不结束占用者', async () => {
+  const runtimeRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'lavans-port-'));
+  const occupier = net.createServer();
+  let child;
+  try {
+    await new Promise((resolve, reject) => {
+      occupier.once('error', reject);
+      occupier.listen(0, resolve);
+    });
+    const firstPort = occupier.address().port;
+    const lastPort = Math.min(firstPort + 20, 65535);
+    assert.ok(lastPort > firstPort, '测试首选端口必须留有安全递增空间');
+
+    for (const name of ['output', 'uploads', 'logs']) {
+      fs.mkdirSync(path.join(runtimeRoot, name), { recursive: true });
+    }
+    child = spawn(process.execPath, [path.join(root, 'resources', 'backend', 'server.js')], {
+      cwd: path.join(root, 'resources', 'backend'),
+      env: {
+        ...process.env,
+        PORT: String(firstPort),
+        PORT_RANGE_END: String(lastPort),
+        OUTPUT_DIR: path.join(runtimeRoot, 'output'),
+        UPLOAD_DIR: path.join(runtimeRoot, 'uploads'),
+        LOG_DIR: path.join(runtimeRoot, 'logs')
+      },
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
+
+    const selectedPort = await new Promise((resolve, reject) => {
+      let output = '';
+      const timer = setTimeout(() => reject(new Error(`后端启动超时\n${output}`)), 10000);
+      const collect = chunk => {
+        output += chunk.toString();
+        const match = output.match(/http:\/\/localhost:(\d+)/);
+        if (!match) return;
+        clearTimeout(timer);
+        resolve(Number(match[1]));
+      };
+      child.stdout.on('data', collect);
+      child.stderr.on('data', collect);
+      child.once('exit', code => {
+        clearTimeout(timer);
+        reject(new Error(`后端提前退出 ${code}\n${output}`));
+      });
+    });
+
+    assert.ok(selectedPort > firstPort && selectedPort <= lastPort);
+    assert.equal(occupier.listening, true);
+    const statusCode = await new Promise((resolve, reject) => {
+      const request = http.get(`http://127.0.0.1:${selectedPort}/`, response => {
+        response.resume();
+        resolve(response.statusCode);
+      });
+      request.once('error', reject);
+    });
+    assert.equal(statusCode, 200);
+  } finally {
+    if (child && child.exitCode === null) {
+      child.kill('SIGTERM');
+      await new Promise(resolve => child.once('exit', resolve));
+    }
+    if (occupier.listening) await new Promise(resolve => occupier.close(resolve));
+    fs.rmSync(runtimeRoot, { recursive: true, force: true });
+  }
 });
 
 test('Electron 预加载与外壳只暴露 Lavans 命名接口', () => {
