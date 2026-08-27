@@ -35,6 +35,8 @@ test('global navigation keeps every approved route and the angle-control icon', 
     cursor = next + label.length;
   }
   assert.match(html, /ph-crosshair-simple[^>]*><\/i><span class="nav-text">角度控制/);
+  assert.match(html, /https:\/\/github\.com\/liamwong-1987\/Lavans-Development-Backup/);
+  assert.doesNotMatch(html, /https:\/\/github\.com\/liamwong-1987\/LANVAS(?:['"/]|$)/);
   assert.match(html, /href="https:\/\/github\.com\/hero8152\/Infinite-Canvas"/);
   assert.match(html, /改自大雄画布，致敬原作/);
 });
