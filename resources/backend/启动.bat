@@ -1,11 +1,11 @@
 @echo off
 chcp 65001 >nul
 :: 品牌名同步 resources\frontend\brand-config.js（改名时同时改这里 + 重新打包 app.asar）
-title Lavans - 3001 Auto Launcher
+title Lavans - 43127 Launcher
 
 echo ==========================================
 echo  Lavans - Auto Start System
-echo  Port: 3001
+echo  Port: 43127
 echo ==========================================
 
 cd /d %~dp0
@@ -22,14 +22,18 @@ if %errorlevel% neq 0 (
 echo Node OK
 
 echo.
-echo [2/5] Cleaning port 3001...
+echo [2/5] Checking port 43127...
 
-for /f "tokens=5" %%a in ('netstat -ano ^| findstr :3001') do (
-    echo Killing PID %%a
-    taskkill /F /PID %%a >nul 2>&1
+set PORT=43127
+set PORT_RANGE_END=43127
+netstat -ano | findstr /R /C:":%PORT% .*LISTENING" >nul
+if %errorlevel% equ 0 (
+    echo ERROR: Port 43127 is already in use. Lavans will not stop the other program.
+    pause
+    exit /b 1
 )
 
-echo Port 3001 cleared
+echo Port 43127 available
 
 echo.
 echo [3/5] Installing dependencies (if needed)...
@@ -40,7 +44,7 @@ if exist package.json (
 echo.
 echo [4/5] Starting server...
 
-start "V7 Server" cmd /k "node server.js"
+start "Lavans Server" cmd /k "node server.js"
 
 echo Waiting server boot...
 timeout /t 3 >nul
@@ -48,10 +52,10 @@ timeout /t 3 >nul
 echo.
 echo [5/5] Opening browser...
 
-start http://localhost:3001
+start http://localhost:43127
 
 echo.
 echo DONE
-echo Server running at http://localhost:3001
+echo Server running at http://localhost:43127
 echo.
 pause

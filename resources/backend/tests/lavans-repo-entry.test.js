@@ -127,6 +127,16 @@ test('后端在首选端口被占用时安全递增且不结束占用者', async
   }
 });
 
+test('独立启动脚本使用新端口并在冲突时安全退出', () => {
+  const launcher = read('resources/backend/启动.bat');
+
+  assert.match(launcher, /set PORT=43127/);
+  assert.match(launcher, /set PORT_RANGE_END=43127/);
+  assert.match(launcher, /Port 43127 is already in use/);
+  assert.doesNotMatch(launcher, /taskkill/i);
+  assert.doesNotMatch(launcher, /3001/);
+});
+
 test('Electron 预加载与外壳只暴露 Lavans 命名接口', () => {
   const preload = read('electron/preload.js');
   const shell = read('electron/shell.html');
