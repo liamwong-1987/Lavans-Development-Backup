@@ -10969,6 +10969,7 @@ function smartAgentSessionMessageHtml(message){
     return `<article class="smart-agent-chat-turn ${roleClass}" data-agent-message-kind="${escapeAttr(kind)}" data-agent-message-id="${escapeAttr(message?.id || '')}"><div class="smart-agent-chat-turn-head"><span class="smart-agent-message-kind"><i data-lucide="${escapeAttr(kindIcons[kind] || 'message-circle')}"></i>${escapeHtml(roleLabels[role] || role)} · ${escapeHtml(kindLabels[kind] || kind)}</span>${time ? `<time class="smart-agent-message-time">${escapeHtml(time)}</time>` : ''}</div><div class="smart-agent-chat-turn-body">${structuredQuestionHtml || escapeHtml(parsed.content || '')}${attachmentsHtml}</div></article>`;
 }
 function renderSmartAgentQuestionnaire(){
+    renderSmartAgentMaterialCollections();
     const skill = selectedSmartAgentSkill();
     if(!skill || !smartAgentQuestionnaireView) return;
     const keepBottom = !smartAgentConversation || (smartAgentConversation.scrollHeight - smartAgentConversation.scrollTop - smartAgentConversation.clientHeight < 80);
@@ -11034,7 +11035,6 @@ function renderSmartAgentQuestionnaire(){
     if(smartAgentQuestionSkip) smartAgentQuestionSkip.hidden = smartAgentQuestionnaireComplete;
     if(smartAgentQuestionContinue) smartAgentQuestionContinue.disabled = smartAgentMaterialUploadBusy || smartAgentSessionMessageBusy;
     syncSmartAgentQuestionComposerMode();
-    renderSmartAgentMaterialCollections();
     requestAnimationFrame(() => { if(smartAgentConversation && keepBottom) smartAgentConversation.scrollTop = smartAgentConversation.scrollHeight; });
 }
 function stageSmartAgentSkill(skillId){

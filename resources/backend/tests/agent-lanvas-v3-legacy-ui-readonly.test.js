@@ -47,6 +47,18 @@ function functionSource(name) {
   assert.fail(`函数 ${name} 没有闭合`);
 }
 
+test('未选择 Skill 时，已上传附件仍会刷新到对话输入框', () => {
+  let rendered = 0;
+  const context = {
+    renderSmartAgentMaterialCollections: () => { rendered += 1; },
+    selectedSmartAgentSkill: () => null,
+    smartAgentQuestionnaireView: {}
+  };
+  vm.createContext(context);
+  vm.runInContext(`${functionSource('renderSmartAgentQuestionnaire')}; renderSmartAgentQuestionnaire();`, context);
+  assert.equal(rendered, 1);
+});
+
 test('Legacy AgentRun 非读取请求在 fetch 前统一失败关闭', async () => {
   const bundle = sourceBetween('const SMART_AGENT_LEGACY_READ_ONLY_MESSAGE', 'function smartAgentSettingsStorageKey');
   const fetchCalls = [];
