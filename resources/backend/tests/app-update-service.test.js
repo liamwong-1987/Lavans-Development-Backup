@@ -98,6 +98,47 @@ test('完整校验后更新程序文件并保留 API 设置、素材和可回滚
   assert.equal(JSON.parse(fs.readFileSync(path.join(backupRoot, 'update-receipt.json'), 'utf8')).status, 'completed');
 });
 
+test('压缩传输长度不冒充解压后的文件大小', async t => {
+  const data = fixture();
+  t.after(() => fs.rmSync(data.root, { recursive: true, force: true }));
+  const targetPath = 'resources/backend/server.js';
+  const targetUrl = `https://raw.githubusercontent.com/${REPOSITORY}/${COMMIT}/${targetPath}`;
+  let requestedEncoding = '';
+  const fetchImpl = async (url, options = {}) => {
+    if (url !== targetUrl) return data.fetchImpl(url);
+    requestedEncoding = options.headers?.['Accept-Encoding'];
+    const response = fakeResponse(data.files[targetPath], url);
+    response.headers.get = name => {
+      const header = String(name).toLowerCase();
+      if (header === 'content-length') return String(Buffer.byteLength(data.files[targetPath]) + 32);
+      if (header === 'content-encoding') return 'gzip';
+      return null;
+    };
+    return response;
+  };
+  const service = createAppUpdateService({ projectRoot: data.root, stateRoot: data.stateRoot, fetchImpl });
+  const result = await service.apply({ commitSha: COMMIT, version: '1.1.0' });
+  assert.equal(result.success, true);
+  assert.equal(requestedEncoding, 'identity');
+  assert.equal(fs.readFileSync(path.join(data.root, ...targetPath.split('/')), 'utf8'), data.files[targetPath]);
+});
+
+test('压缩响应解码后的真实内容超限仍被拒绝', async t => {
+  const data = fixture();
+  t.after(() => fs.rmSync(data.root, { recursive: true, force: true }));
+  const targetPath = 'resources/backend/server.js';
+  const targetUrl = `https://raw.githubusercontent.com/${REPOSITORY}/${COMMIT}/${targetPath}`;
+  const fetchImpl = async url => {
+    if (url !== targetUrl) return data.fetchImpl(url);
+    const response = fakeResponse(`${data.files[targetPath]}unexpected`, url);
+    response.headers.get = name => String(name).toLowerCase() === 'content-encoding' ? 'gzip' : null;
+    return response;
+  };
+  const service = createAppUpdateService({ projectRoot: data.root, stateRoot: data.stateRoot, fetchImpl });
+  await assert.rejects(service.apply({ commitSha: COMMIT, version: '1.1.0' }), error => error.code === 'UPDATE_DOWNLOAD_TOO_LARGE');
+  assert.equal(fs.readFileSync(path.join(data.root, 'resources', 'backend', 'server.js'), 'utf8'), 'module.exports = "old backend";\n');
+});
+
 test('下载哈希不符时不触碰任何本机程序或用户数据', async t => {
   const data = fixture({ corruptHash: true });
   t.after(() => fs.rmSync(data.root, { recursive: true, force: true }));

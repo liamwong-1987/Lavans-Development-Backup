@@ -516,8 +516,8 @@
     },
     {
       "path": "resources/backend/services/appUpdateService.js",
-      "size": 17646,
-      "sha256": "459701842de477540830e73379f9fff32768944add99932d33eafd4bc3ff2982"
+      "size": 17854,
+      "sha256": "224db4af1357eb77adebe8323f62049fdcf8b9a4a42d97e6db6144cb58469e60"
     },
     {
       "path": "resources/backend/services/batchService.js",

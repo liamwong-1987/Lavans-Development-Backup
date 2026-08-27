@@ -154,7 +154,7 @@ function createAppUpdateService(options = {}) {
         method: 'GET',
         redirect: 'follow',
         signal: controller.signal,
-        headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Lavans-Updater' }
+        headers: { Accept: 'application/vnd.github+json', 'Accept-Encoding': 'identity', 'User-Agent': 'Lavans-Updater' }
       });
       if (!response?.ok) throw updateError(`${label}失败: HTTP ${response?.status || 0}`, 'UPDATE_HTTP_FAILED', 502);
       if (response.url) {
@@ -162,8 +162,11 @@ function createAppUpdateService(options = {}) {
         try { finalHost = new URL(response.url).hostname.toLowerCase(); } catch (_error) {}
         if (finalHost && finalHost !== expectedHost) throw updateError(`${label}被重定向到未授权主机`, 'UPDATE_REDIRECT_BLOCKED', 502);
       }
+      const contentEncoding = String(response.headers?.get?.('content-encoding') || '').toLowerCase();
       const declaredSize = Number(response.headers?.get?.('content-length') || 0);
-      if (declaredSize > maxBytes) throw updateError(`${label}超过安全大小`, 'UPDATE_DOWNLOAD_TOO_LARGE', 502);
+      if ((!contentEncoding || contentEncoding === 'identity') && declaredSize > maxBytes) {
+        throw updateError(`${label}超过安全大小`, 'UPDATE_DOWNLOAD_TOO_LARGE', 502);
+      }
       const buffer = Buffer.from(await response.arrayBuffer());
       if (buffer.length > maxBytes) throw updateError(`${label}超过安全大小`, 'UPDATE_DOWNLOAD_TOO_LARGE', 502);
       return buffer;
