@@ -12,6 +12,15 @@ const appStage = path.join(distRoot, 'package-source');
 const dependencyStage = path.join(distRoot, 'runtime-dependencies');
 const packageJson = JSON.parse(fs.readFileSync(path.join(projectRoot, 'package.json'), 'utf8'));
 const electronZipDir = process.env.ELECTRON_ZIP_DIR;
+const releaseMetadata = ['VERSION', 'update-manifest.json', 'update-notes.json'];
+
+const releaseVersion = fs.readFileSync(path.join(projectRoot, 'VERSION'), 'utf8').trim();
+if (releaseVersion !== packageJson.version) {
+  throw new Error(`VERSION (${releaseVersion}) 与 package.json (${packageJson.version}) 不一致`);
+}
+for (const filename of releaseMetadata) {
+  if (!fs.existsSync(path.join(projectRoot, filename))) throw new Error(`Missing release metadata: ${filename}`);
+}
 
 if (electronZipDir) {
   const electronZip = path.join(electronZipDir, `electron-v${packageJson.devDependencies.electron}-win32-x64.zip`);
@@ -125,6 +134,9 @@ fs.copyFileSync(
   path.join(projectRoot, 'resources', '.env.example'),
   path.join(outputResources, '.env.example')
 );
+for (const filename of releaseMetadata) {
+  fs.copyFileSync(path.join(projectRoot, filename), path.join(outputRoot, filename));
+}
 
 for (const filename of ['package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml']) {
   fs.copyFileSync(path.join(projectRoot, filename), path.join(dependencyStage, filename));
@@ -142,7 +154,8 @@ const required = [
   path.join(outputResources, 'app.asar'),
   path.join(outputResources, 'frontend', 'index.html'),
   path.join(outputResources, 'backend', 'server.js'),
-  path.join(outputResources, 'node_modules', 'express', 'package.json')
+  path.join(outputResources, 'node_modules', 'express', 'package.json'),
+  ...releaseMetadata.map(filename => path.join(outputRoot, filename))
 ];
 for (const requiredPath of required) {
   if (!fs.existsSync(requiredPath)) throw new Error(`Missing packaged file: ${requiredPath}`);

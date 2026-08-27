@@ -1,0 +1,1078 @@
+{
+  "schemaVersion": 1,
+  "repository": "liamwong-1987/Lavans-Development-Backup",
+  "branch": "main",
+  "version": "1.1.0",
+  "files": [
+    {
+      "path": "resources/backend/agent-skills/brainstorming-obra-share.adapter.json",
+      "size": 1932,
+      "sha256": "3410a82a8a3fcd320775f1d4f0c91c5e9f4057e04229c36d469cc354670d554e"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/brainstorming-obra-share/package.json",
+      "size": 1131,
+      "sha256": "882314f4c8620c0ca102f11f334b7ee1916deae008482590123e6f5de27701c1"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/brainstorming-obra-share/SKILL.md",
+      "size": 16795,
+      "sha256": "03f6a3afa3f8f56fa348d31032a58c08cc973335b734e9b1940d5c9626c81b1a"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/.gitignore",
+      "size": 23,
+      "sha256": "6feaded4e28ea86e001a6751b4e3d960e8b7c31b9616ff9936b79297086e809b"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/agents/openai.yaml",
+      "size": 350,
+      "sha256": "073492b6690a38daddd3dd0f3c3d5934ef4bd7b87a3aea665a6345bc2ac0cb54"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/references/asset-workflow.md",
+      "size": 4976,
+      "sha256": "2055266f759551415fe9233218922929998456bbd06e3c89fc296a15ab691cc5"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/references/cli-handoff.md",
+      "size": 2580,
+      "sha256": "eef6a44930d3673abe81c351979f13aec067b4132c05b98b92105ebf87d2ee04"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/scripts/init_project.py",
+      "size": 5360,
+      "sha256": "f3e90670544b26ebd6d48005d92961b128351c4e9f48bb961d2798b02f07f93d"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/scripts/validate_package.py",
+      "size": 7606,
+      "sha256": "66f892cdc35810a5974e6862255697fd4daca848c1a4c1741adc25f3ae84a039"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/create-product-microstory-seedance/SKILL.md",
+      "size": 7183,
+      "sha256": "1b7ad0bca17f85d7573f365918ba14997af2205c698a8867f2ab139822861942"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/_meta.json",
+      "size": 124,
+      "sha256": "f1123c994316dc2b1308ffb9b03a50f64fab6db362ffaf458d105b1512d9a26d"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/_skillhub_meta.json",
+      "size": 124,
+      "sha256": "72db0802e43b0cf4bed1fbad4e07ea4c79a90152b1ff0e7fcd71f76bd12ea5f9"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/examples/README.md",
+      "size": 1894,
+      "sha256": "c057db5d7ba08ea9ee557ca93047f01dfadc479b1759d7ab10e61a437385a40d"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/package.json",
+      "size": 5156,
+      "sha256": "571c859b957c2334d8cade0d82d73b990fa9bed2f202636c5e57c53b27d6c863"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/README.md",
+      "size": 6756,
+      "sha256": "86c78665a1d2894a860ff443b90d3686c5162f0d96cb4b05d7633c262e9d23db"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/asset-workflow.md",
+      "size": 41794,
+      "sha256": "2e0a5f263b9474870d44bff96eb0c7be28630c5547f487025ffe08b6a36fd7f7"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/copywriting-library.md",
+      "size": 9349,
+      "sha256": "3be10940fdfddc951e01c20008c674d429c680d0edc9f99997e58264cbfcbfec"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/core-instructions.md",
+      "size": 22620,
+      "sha256": "d04949f176fc744c0e3ef021937217c1289e66708967be200d78ff694568dcf5"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/creative-discovery.md",
+      "size": 7072,
+      "sha256": "b131684f0d1f8645e48e9cc70f3b74ff51cdbcc3260b3b83a5800230fd315ff0"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/faq.md",
+      "size": 8798,
+      "sha256": "ce5a3466f24a1ebde5711bae410fd2283b0a26877df94eb091f761c502142189"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/h3-prompt.md",
+      "size": 8735,
+      "sha256": "9ddd5813274996e9e901d8be86d874464c6cff7369faa48871b281b982498dac"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/kling-prompt.md",
+      "size": 13777,
+      "sha256": "8794b0fd80215db0ba724c5d562544062b0f251a389b2e157786f7d494a33d1f"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/model-specs.md",
+      "size": 25821,
+      "sha256": "e26723d01ce0f1ea4901ef0e25887c735c07749aa500fb402ae099d54dec7edb"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/phase-checklist.md",
+      "size": 9574,
+      "sha256": "e5d14b7e2104a8fc29fbc538756facac8aaf6b52a8712bccab067c6bafb15c1c"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/platform-strategies.md",
+      "size": 14630,
+      "sha256": "d810c99e7d5b6d9535e072c9842efb773c7501eb8ccec4f75362a8b398404693"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/process-flow.md",
+      "size": 78128,
+      "sha256": "eb67fd4a779a48de89c1dc7aa444efdaa043f7771997a6e3158224196c0fee4e"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/prompt-delivery-contract.md",
+      "size": 8710,
+      "sha256": "a22785c6c0d946e27a1bf36d1b1c8b99afd94bfbc2615d7d4d6a3ddc84da1728"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/seedance-mini-prompt.md",
+      "size": 8575,
+      "sha256": "bc1eda377f5a1d1ac8cea810fe255ed387f134551c38c41d1c08d749eeb85506"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/seedance-prompt.md",
+      "size": 24658,
+      "sha256": "8ae038523532db3c99ba925a22b14d768921893b2ca0b4486b5deabcfa7e9d95"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/standup-copywriting.md",
+      "size": 5903,
+      "sha256": "615aff69a826ad19b63bdfb54844df6d6f168a695903e72a3a9bbff911e78e0d"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/style-guide.md",
+      "size": 12238,
+      "sha256": "90396123a6b7822f185040a113ba6c6e35e30a08005ad43b5862b3e533581e0f"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/video-types.md",
+      "size": 8570,
+      "sha256": "03e2a65d1ed3fc4b0b63a55d846e9ad5a66f4f408fa801359899c64d4e053c94"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/references/viral-replicate.md",
+      "size": 8482,
+      "sha256": "5ea8f8aa0a31cbf1d54cd381c24a63995838007ecb9caf03f59f9d399880e1e9"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/SKILL.md",
+      "size": 10661,
+      "sha256": "f26c0401128b2c8e6f7f6a775a2e46ea27835c1eeff5755a8680e044e93fdfef"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/ecommerce-video-director-skill/video_api.cjs",
+      "size": 8727,
+      "sha256": "f9d3451c1813a9458e397779c5955d82522e42a534fb0bfb9200fe81db8ea91c"
+    },
+    {
+      "path": "resources/backend/agent-skills/bundled/README.md",
+      "size": 542,
+      "sha256": "dddc1be55ab870ac6b297e064425cf2b3adbc4e96a5ed8f35a76120e7312d1a7"
+    },
+    {
+      "path": "resources/backend/agent-skills/compositions/ecommerce-video-director-brainstorming.composition.json",
+      "size": 1437,
+      "sha256": "70b84e23f26f2806bd167552d6eb0a0277738f97c2f0d11dd434df37a5895d8a"
+    },
+    {
+      "path": "resources/backend/agent-skills/create-product-microstory-seedance.adapter.json",
+      "size": 18065,
+      "sha256": "2bbed741b9c32f463f5b83e5298cdc018c1add52215d4fb8dff8a6799f5c4ee9"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/.gitattributes",
+      "size": 85,
+      "sha256": "cad9dc5d8b34d60659e59f2808c96c62c53d152fdd275bda46fdd6645ab408a0"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/.gitignore",
+      "size": 136,
+      "sha256": "83ade57feca146c165cfe19e0fdd9e4d5bca71178bedbb23818a9d86eb1e2105"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/install.ps1",
+      "size": 1300,
+      "sha256": "7d4e19c99e3e44d43f9b576893c152f167897e6931a85823baa263754115f044"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/lavans-vendor.json",
+      "size": 440,
+      "sha256": "2a99ffa22d2fc42adf6dc6f90517e9b2bd3dab62ad093857091bfc21c311841e"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/LICENSE",
+      "size": 1089,
+      "sha256": "96bc0893ca4aeaccbeff11d1181b4ed9c66cf9a848d87d64a962db3a56a0ede6"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/PUBLIC-RELEASE-NOTICE.md",
+      "size": 339,
+      "sha256": "76096cd872858ffd0a5c3ffbd03a8eedbe76e3500d87c83b7a7b689d39342135"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/publish.ps1",
+      "size": 999,
+      "sha256": "a5f8406bd19ece5829adf466b4c6b682041e3e8fba79f3d56ac68c8b30c3ae18"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/README.md",
+      "size": 1320,
+      "sha256": "e8262c851e22bdd3b36b00232c9b54ccaf98a88cab668ebeba47af648537932c"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/agents/openai.yaml",
+      "size": 246,
+      "sha256": "2436d5562707f699046af7d69c2ae717e0363b627c27b0e8105a94212d0b9be5"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/assets/.gitkeep",
+      "size": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/scripts/extract_legacy.ps1",
+      "size": 3654,
+      "sha256": "625f2dd179c3c01cb2217ad7f0507072362866844ddda26d45882312f28df791"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/scripts/ingest_scripts.py",
+      "size": 8329,
+      "sha256": "6f5a7df09b8f67fae0030b377ff29c9957384675edced817d347bcc0b0d55f8f"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/scripts/local_search.py",
+      "size": 4173,
+      "sha256": "a3b86777d149b1b9bb929a0828ff8deae83e4af4650e257dc7473a894e6233b2"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/skill/SKILL.md",
+      "size": 3613,
+      "sha256": "f39ec69f4d9b7c50b20b23ccb62e649a555ea2ea13ee98d1594fe626fcd90e0e"
+    },
+    {
+      "path": "resources/backend/agent-skills/dependencies/douyin-tiktok-story-skill/verify-package.ps1",
+      "size": 450,
+      "sha256": "fa4283c33011cd9a709d0fefdc27c6bef9c316fa112ee76c765da640f34d68c3"
+    },
+    {
+      "path": "resources/backend/agent-skills/ecommerce-video-director-skill.adapter.json",
+      "size": 2201,
+      "sha256": "b3c99269d59e5aac00afe5200d04c724bbd6ffa07ebc0fcc700ae1735e449af7"
+    },
+    {
+      "path": "resources/backend/agent-skills/skill-adapter.schema.json",
+      "size": 3109,
+      "sha256": "d692ddf4c49f19ab05e00449a8b2694bad50e02c164d94f6f543c0b64001a0c9"
+    },
+    {
+      "path": "resources/backend/apiClient.js",
+      "size": 29164,
+      "sha256": "76ff31b4bae9cc53611bc4699f304e00d346703f25f330ee84d93be28c95de5a"
+    },
+    {
+      "path": "resources/backend/batchStore.js",
+      "size": 19410,
+      "sha256": "acf9840b8556aee5025307745e28e7fa784035bf54b808545b5af829a262bf80"
+    },
+    {
+      "path": "resources/backend/canvas-config.example.json",
+      "size": 12986,
+      "sha256": "c391dae9c1e84e36c47abf83478e64e11416e1ca590ab4e151001f9e62998469"
+    },
+    {
+      "path": "resources/backend/colorEngine.js",
+      "size": 14023,
+      "sha256": "fa3bcb6dbdf0ba04cfe0b3a76111b4789a9d1cd6b6464f192cb5f3d8af5440e8"
+    },
+    {
+      "path": "resources/backend/config.example.json",
+      "size": 150,
+      "sha256": "27d46ae608e6727971a6f5a692077acd4e3c169a38b909063359f18c63254cf4"
+    },
+    {
+      "path": "resources/backend/creative-config.example.json",
+      "size": 83,
+      "sha256": "597fd122cc1f13ab4bda89a4a91dea44d088c26de5f9860ff22642feb83d46dd"
+    },
+    {
+      "path": "resources/backend/exporter.js",
+      "size": 7621,
+      "sha256": "f298568378d91fc6c905be2c25888e5da726d5e41a36c621e312af976488444b"
+    },
+    {
+      "path": "resources/backend/fileStore.js",
+      "size": 9373,
+      "sha256": "580fe443470b435ce0f704f470460f0e7dedd74759a1294c69570e82a555aaa0"
+    },
+    {
+      "path": "resources/backend/legacy/api.js",
+      "size": 25685,
+      "sha256": "13254fa6bedb3b6177003c9daf80da93cea40283749811e96ebb6211460678df"
+    },
+    {
+      "path": "resources/backend/legacy/queue.js",
+      "size": 4909,
+      "sha256": "c636909fd0d0effcf68434c2ac66db8cf59c3fd6370da476024b3a889d4375b0"
+    },
+    {
+      "path": "resources/backend/legacy/README_旧版代码说明.md",
+      "size": 698,
+      "sha256": "94886dc533708b5f94ae9e3a655e5dd0257f3a4de7b7e6cb6e4919321ad17157"
+    },
+    {
+      "path": "resources/backend/moduleConfigService.js",
+      "size": 17815,
+      "sha256": "1e5e5bc5f53481d909c915647eb986ffe8946f21d10452fa7879e87994b06395"
+    },
+    {
+      "path": "resources/backend/promptComposer.js",
+      "size": 2007,
+      "sha256": "bdf48e5f442762d1a023ccdad38c1c79197f7b91daab80498fec958349af3fa3"
+    },
+    {
+      "path": "resources/backend/qcEngine.js",
+      "size": 4146,
+      "sha256": "ce4373f56f2234c4bc7b157154a0d5e0b9bf11381fc70800436cb281650a4bae"
+    },
+    {
+      "path": "resources/backend/routes/assetManagerRoutes.js",
+      "size": 31650,
+      "sha256": "a43ec6369cec7c120c5da4324afdbd2c29a4fab30c0c5e2cd8451d7dfbe37602"
+    },
+    {
+      "path": "resources/backend/routes/canvasAgentFoundationRoutes.js",
+      "size": 3401,
+      "sha256": "4d51463f36670ffcb3e4d8fe354bb7bd57adb1526e2841147c9f842a00ff8f84"
+    },
+    {
+      "path": "resources/backend/routes/canvasRoutes.js",
+      "size": 598542,
+      "sha256": "370bcbdea69596c49a293f580dbc35b0062869ebecb3b2808cd5f821972c2afa"
+    },
+    {
+      "path": "resources/backend/routes/chatRoutes.js",
+      "size": 24432,
+      "sha256": "20e885de3102712e02bf1d916557c3b7250f052d0c8902812d1f499a3783e5e4"
+    },
+    {
+      "path": "resources/backend/routes/configRoutes.js",
+      "size": 8301,
+      "sha256": "4d4377f18ed3717a30782bfce13ff1a83e44a27a8f92e5df1055ac38f1eb2bc3"
+    },
+    {
+      "path": "resources/backend/routes/creativeRoutes.js",
+      "size": 12248,
+      "sha256": "0418af8c43cfc2a9e6ae81c9d1debdc47097c0069a5605ed4dfb0506a87f3708"
+    },
+    {
+      "path": "resources/backend/routes/logRoutes.js",
+      "size": 2869,
+      "sha256": "899b22df27d38923d910f16f521aca97282adae9f27e2a5e09aaf45319b2bc1a"
+    },
+    {
+      "path": "resources/backend/routes/outputRoutes.js",
+      "size": 18459,
+      "sha256": "4613c7e171e707865fcc2591c68a4379678f4da5b8bf8fe859d8e39d6c37f9a7"
+    },
+    {
+      "path": "resources/backend/routes/scanRoutes.js",
+      "size": 14708,
+      "sha256": "3cba8ff4c9663eb9c0716ae20591f10cc552aaccb1ae1efa231bf87f3b9c4fd8"
+    },
+    {
+      "path": "resources/backend/server.js",
+      "size": 45759,
+      "sha256": "af282bce5ba13474ee0e1fd459ab5e7ba2bc5a24998c3d59ffe42f069298742f"
+    },
+    {
+      "path": "resources/backend/services/agentCreativeScriptService.js",
+      "size": 2719,
+      "sha256": "965344a21a19b52973f50704a9277630979f6d017096d67dea4a26ad1d5fd779"
+    },
+    {
+      "path": "resources/backend/services/agentFinalDeliveryService.js",
+      "size": 9832,
+      "sha256": "dc97b03698adaa6cc788295d830013d8dcfd19f5f3bcc064d16a23aa97441138"
+    },
+    {
+      "path": "resources/backend/services/agentGenerationRoundService.js",
+      "size": 16596,
+      "sha256": "db6c21c5b616c69550b4c720b02c97d7aa1f8f26c00fcfa289b93ab0e12031ae"
+    },
+    {
+      "path": "resources/backend/services/agentLegacyMigrationService.js",
+      "size": 47327,
+      "sha256": "17f6e760e2fbd2645311fed0860b4a92398726299ed85b31ecf52b46e3f8eb30"
+    },
+    {
+      "path": "resources/backend/services/agentMaterialStore.js",
+      "size": 17171,
+      "sha256": "9de42a9d057e92c53bf343a8b7f245fa48687574c18d476fe26bb7fcd166507a"
+    },
+    {
+      "path": "resources/backend/services/agentMediaExecutionService.js",
+      "size": 54384,
+      "sha256": "11cabb30e293534e53c23f30c3974f0db1bb62f24310c5c9da5ec333010ff01d"
+    },
+    {
+      "path": "resources/backend/services/agentModelStrategyService.js",
+      "size": 7594,
+      "sha256": "484ee498f780eefc6941adad356866d3e02e0ed6c0fb81bcde322cb1a5ae0246"
+    },
+    {
+      "path": "resources/backend/services/agentNativeTaskBinding.js",
+      "size": 12064,
+      "sha256": "2937fcc43a4f3699e07e2312c82eff7da6379593ea31c9b6507033136134f4a8"
+    },
+    {
+      "path": "resources/backend/services/agentProductResearchService.js",
+      "size": 10433,
+      "sha256": "fc24efae2d3ecd92792df0aca44fbba373cea8f95c43f56f71e6e85ebfbb0d04"
+    },
+    {
+      "path": "resources/backend/services/agentRunService.js",
+      "size": 95946,
+      "sha256": "276b6deb404be9394162bccc4180ab6e00196a8fc6f6ce0a56f40a06b2370d64"
+    },
+    {
+      "path": "resources/backend/services/agentScriptVersionService.js",
+      "size": 31335,
+      "sha256": "34700bea4f8ff5f956f1895c412cfdd5f07c79b0b8577829f40858f944049c57"
+    },
+    {
+      "path": "resources/backend/services/agentSessionChatService.js",
+      "size": 57321,
+      "sha256": "1420d5c0350bc0cc86b7966444c56fb2df23421911dd629763c423a8d3feca9f"
+    },
+    {
+      "path": "resources/backend/services/agentSessionService.js",
+      "size": 112360,
+      "sha256": "443102f3a0717403b6a00c85fe94a7f3643d384b014dbc3c93670bd17807efb5"
+    },
+    {
+      "path": "resources/backend/services/agentShotVideoProductionService.js",
+      "size": 8402,
+      "sha256": "2ed47748d09e28c89dbd7b9ef2d2af10e2a170f47e93fc43796919898f43a712"
+    },
+    {
+      "path": "resources/backend/services/agentSkillCompositionService.js",
+      "size": 25131,
+      "sha256": "54d258c52e3598b525583d2504905f9de7444e8a1387537987dd07c1dcc909ce"
+    },
+    {
+      "path": "resources/backend/services/agentSkillImportService.js",
+      "size": 34866,
+      "sha256": "2c07375af707cc60ea7169cf34262958e2d955423c22ab874218eaa00c1a3c90"
+    },
+    {
+      "path": "resources/backend/services/agentSkillRegistry.js",
+      "size": 31468,
+      "sha256": "e796eb9b014e22d14cc8fe64e8eb010f9b3dd6fa45a20866a0bc05d66e72b65c"
+    },
+    {
+      "path": "resources/backend/services/agentSoundProductionPackageService.js",
+      "size": 10318,
+      "sha256": "a9419ca5fd7a1da1640576f7a3b611a574d38046ef4c0d31ec8c0980c7b7fd40"
+    },
+    {
+      "path": "resources/backend/services/agentStoryboardAssetService.js",
+      "size": 11253,
+      "sha256": "47f17c3662465ddc60c0b88afe6dac9d63dc7d12899923b62c0e347de04f5986"
+    },
+    {
+      "path": "resources/backend/services/agentStoryboardDispatchService.js",
+      "size": 8008,
+      "sha256": "574741886c9c50b0e4f301737fb8e89cf9ad413c345c73801eb2518bcef1e76a"
+    },
+    {
+      "path": "resources/backend/services/agentVisualAssetService.js",
+      "size": 6919,
+      "sha256": "24cde4d8f8ad6c6f86b4831fbc14d5ccfeda4e30cfdc0c73203e60d4597e4e8b"
+    },
+    {
+      "path": "resources/backend/services/appUpdatePolicy.js",
+      "size": 2264,
+      "sha256": "47877d96c9c3a9f5ed561054338b66efadc13ed55515856cd25fc04cd7eb4adb"
+    },
+    {
+      "path": "resources/backend/services/batchService.js",
+      "size": 1982,
+      "sha256": "bae518475b0f44b30d68cebdac6d0a87cf604b56c767909d80c1fbd29ab9f214"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/approvalGateEngine.js",
+      "size": 2274,
+      "sha256": "d8389b30056fd6679a54e56d3c6e135345fbe49dca352dc00c679a200f099b34"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/artifactVersionStore.js",
+      "size": 7348,
+      "sha256": "059319b9ab651051a44a10394d228500a80d62034bc862099e5d1d967fbd561f"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/atomicJsonStore.js",
+      "size": 2293,
+      "sha256": "21ca8bf6388c0126e23e2655dd54d242a4d5b654df15ee5577bd36b2a8d6e680"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/canvasProjection.js",
+      "size": 10595,
+      "sha256": "0da57a77974dee3c9df5083e335b2aa61286ded90b7d651978b8706b376528df"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/dependencyGraph.js",
+      "size": 3216,
+      "sha256": "78f1a05946700092f38e1dba95c3e9ff92c85c10b952258e3325e6ded6225328"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/executionGuard.js",
+      "size": 22175,
+      "sha256": "11c3b1b7540e0228851ee1a14487ba81247789b078ae4e304da509398887e4bc"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/impactPropagator.js",
+      "size": 3658,
+      "sha256": "6f9b5b4568a068d20358e286eaf7502f0abf3c5799ed70a22a22665dfc0cc93e"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/index.js",
+      "size": 10628,
+      "sha256": "8ad300440a37def5e34af3bda2e89d5ad8b8697a025624390d256429eeb30aea"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/recoveryAuditor.js",
+      "size": 2969,
+      "sha256": "c2ebffad5a24ebec97eac48653f08cf09ff37fee11fb6c9b525795ed5cfbed56"
+    },
+    {
+      "path": "resources/backend/services/canvasAgentFoundation/taskLedger.js",
+      "size": 2779,
+      "sha256": "77f8c3718335f611e52298bf7215060897cfdbc67cadcf012721aab91e8d75c9"
+    },
+    {
+      "path": "resources/backend/services/recolorHealthService.js",
+      "size": 5410,
+      "sha256": "1c2c7d614030ffd95c2c21d771b17d4d6b61bfc1a75024e02ce43b64ca86b07a"
+    },
+    {
+      "path": "resources/backend/services/recolorReferenceService.js",
+      "size": 9380,
+      "sha256": "3feef4b95deaa39f913e730b3141bc7c6fb1ce66c33efd414ea31f636823b27b"
+    },
+    {
+      "path": "resources/backend/services/recolorResultService.js",
+      "size": 12273,
+      "sha256": "93a5e81c832fea74b4142a59832515633c8e435299d1aa611209d423889db5e4"
+    },
+    {
+      "path": "resources/backend/services/taskRunner.js",
+      "size": 20029,
+      "sha256": "c1a1b166ffd1bd6831b81b37c4c632d52f8fa71bc26504c900d93f4176915b21"
+    },
+    {
+      "path": "resources/backend/services/taskService.js",
+      "size": 14369,
+      "sha256": "af3d364fdcb25e46aad93be50c1db2de8d242df7e9f0b45c2f4d94bf35621718"
+    },
+    {
+      "path": "resources/backend/services/validateStoryDatabase.py",
+      "size": 2843,
+      "sha256": "432cd42091ab3141ba88a7c141feed8ea85634e7a4d077d37506bcb7133624f6"
+    },
+    {
+      "path": "resources/backend/system-prompts/infinite-canvas-prompt-templates.md",
+      "size": 24187,
+      "sha256": "12e4ad04d880b09c4e58a666103286553277b34362463bf0201a5d3d3e9723a2"
+    },
+    {
+      "path": "resources/backend/validator.js",
+      "size": 1511,
+      "sha256": "3bc9599e31e013d1f252ac01ef7971045bc070900de6a43ee0fdaa63870a109c"
+    },
+    {
+      "path": "resources/backend/workflows/2511.json",
+      "size": 4596,
+      "sha256": "b6195d6988d658d7e1ad16c6d8a526b718d03ae869b6cbcfde708068c0a18c4a"
+    },
+    {
+      "path": "resources/backend/workflows/Flux2-Klein.json",
+      "size": 8267,
+      "sha256": "0c8f4d3f200d1d2df36e095b53788827f23df7d19689e0426ff1dc0a8eb8262e"
+    },
+    {
+      "path": "resources/backend/workflows/LTXDirectorv2-API.config.json",
+      "size": 3221,
+      "sha256": "ca403037770a4bff9b84943030ba55d2453789ca1c2805bcc9402729cf1eec81"
+    },
+    {
+      "path": "resources/backend/workflows/LTXDirectorv2-API.json",
+      "size": 9549,
+      "sha256": "981aa8c4f5e44430a388358b61b5032321b4661d7dad07a2d1c9c42c2c9882cb"
+    },
+    {
+      "path": "resources/backend/workflows/MiniMax_H3.config.json",
+      "size": 1779,
+      "sha256": "ad3e3a1783c24ffea2dc2cbad7e137d1e4af4c6824511c278cfee0245c9ad082"
+    },
+    {
+      "path": "resources/backend/workflows/MiniMax_H3.json",
+      "size": 5279,
+      "sha256": "693a0440052b868b140813bdee318d5a4a17684297955c3d21e722cd12ec9c98"
+    },
+    {
+      "path": "resources/backend/workflows/upscale.json",
+      "size": 1883,
+      "sha256": "b5071ace17524fb3486bdaf85efa4c90f7359848b351c6d33fc0107439d4eb95"
+    },
+    {
+      "path": "resources/backend/workflows/Z-Image-Enhance.json",
+      "size": 6611,
+      "sha256": "fd16b8ae7fac691d8fadd7bbe6b6c34133e05c5f44d46e491c7222131ab8fef0"
+    },
+    {
+      "path": "resources/backend/workflows/Z-Image.json",
+      "size": 2554,
+      "sha256": "fa96794a4557513894134d7e0fc26a9befbcc9af05735431862820d16e32a25e"
+    },
+    {
+      "path": "resources/backend/启动.bat",
+      "size": 1159,
+      "sha256": "b6d6ecc66b1aad057ede03d8841895d4304ff0850f33ad9c421283e0d18d1397"
+    },
+    {
+      "path": "resources/frontend/__verify_arrange.js",
+      "size": 11087,
+      "sha256": "915a761ae24a768220fdf8ed4b69de24311e8a5922555e2418b74f40a8767339"
+    },
+    {
+      "path": "resources/frontend/angle.html",
+      "size": 39481,
+      "sha256": "ae9d400573553615c316ed23d15bcfd1ade807f397b0e3e56b8558bdbdbfa2fb"
+    },
+    {
+      "path": "resources/frontend/app.js",
+      "size": 340465,
+      "sha256": "97d5f3fd730b769e54bc802bc35e61bbcbdfeb5fac7277e113ca14dad4f86713"
+    },
+    {
+      "path": "resources/frontend/asset-manager.css",
+      "size": 51096,
+      "sha256": "e7d9b2dc730ce41c2c9345bf2bc901bf5a2677e80618e2aee32bbd2c6cdd88f8"
+    },
+    {
+      "path": "resources/frontend/asset-manager.html",
+      "size": 3430,
+      "sha256": "cff99999688d518c0b6a90e90267febe355cc1d8a2ae90a90af490d4d801db12"
+    },
+    {
+      "path": "resources/frontend/asset-manager.js",
+      "size": 295536,
+      "sha256": "6aabe8405e14d8fdf7b93794f595a322dee8e2b3689deba93f52c0cc5bd619d2"
+    },
+    {
+      "path": "resources/frontend/assets/Phosphor-Duotone.woff2",
+      "size": 164420,
+      "sha256": "93d163cd4b1f07736d34bfef80803646ab0322efa947a98e3973a1450e3d20cc"
+    },
+    {
+      "path": "resources/frontend/brand-config.js",
+      "size": 1176,
+      "sha256": "2bb3521d78c8afa2d6d74b432fb5d6eb0638a367a15bfb2a45f33ebdd9b10da0"
+    },
+    {
+      "path": "resources/frontend/canvas-api-settings.html",
+      "size": 476058,
+      "sha256": "26fd56cf85c2a0536cbb8110c9072d01fd1554ec5736147fdc544ab38263a0d0"
+    },
+    {
+      "path": "resources/frontend/canvas-list.css",
+      "size": 27208,
+      "sha256": "4c3313e4ee299875eb9a36b1259624197aea10dbd59ad39d8b93283689400df0"
+    },
+    {
+      "path": "resources/frontend/canvas-list.html",
+      "size": 5074,
+      "sha256": "16bc5d693919da673062e5cc807a6f9e1c12d7a8895514ca6d1055208387578c"
+    },
+    {
+      "path": "resources/frontend/canvas-list.js",
+      "size": 51536,
+      "sha256": "083d53d0d507fbac0df55467975586c5c19645886fd25d31524d98bde1d3b97a"
+    },
+    {
+      "path": "resources/frontend/canvas.css",
+      "size": 173619,
+      "sha256": "f8a041bfcd4d1c8d556493d262a42ec77bae3328689374f7bcd25d20bcc6729d"
+    },
+    {
+      "path": "resources/frontend/canvas.html",
+      "size": 35119,
+      "sha256": "cdeaf855257d8bd75be175c598d5403e61b61a162e81cb9edb755737862965cf"
+    },
+    {
+      "path": "resources/frontend/canvas.js",
+      "size": 839386,
+      "sha256": "4f3da3248c2d70e1b02127ba629194ebf97497bcd822f1efab163b17b91dc226"
+    },
+    {
+      "path": "resources/frontend/canvasStudio.js",
+      "size": 254729,
+      "sha256": "28f6fb4bdc1d508432d36316df7a120eb07a17febd840c337044f6afafa5ad3c"
+    },
+    {
+      "path": "resources/frontend/comfyui-settings.css",
+      "size": 26449,
+      "sha256": "7026f7e86cee9a35c34c25a9275faae9df1249eedf6676764396984e489822c0"
+    },
+    {
+      "path": "resources/frontend/comfyui-settings.html",
+      "size": 8829,
+      "sha256": "cb7244d8e00ac3701425843027224b6cdde17f031786becdd99d0f842e365e82"
+    },
+    {
+      "path": "resources/frontend/comfyui-settings.js",
+      "size": 65543,
+      "sha256": "07a2173c67a4e94a695d8032ef1f7fe3395e07d34b10c77f20d8ad5cb9cf5c07"
+    },
+    {
+      "path": "resources/frontend/creativeStudio.js",
+      "size": 18608,
+      "sha256": "a16eca016795c72c0c91ecde358a2d9bf08fa9d17158dbf0e3cd52fa669fca7c"
+    },
+    {
+      "path": "resources/frontend/enhance.html",
+      "size": 31274,
+      "sha256": "92c4923346e7dce4e0163b656a036bbc33901992354fdaa6d9c131d2705ecfca"
+    },
+    {
+      "path": "resources/frontend/external-link.js",
+      "size": 2824,
+      "sha256": "2701e69922d18c1ce910bda703b6c69b768919a7a114994c2a64cb9ea7a4927b"
+    },
+    {
+      "path": "resources/frontend/gpt-chat.html",
+      "size": 97376,
+      "sha256": "c7e7f9973921af10dfe8d88ed3e55b6f8cc22b4f2240547fc770853e15441456"
+    },
+    {
+      "path": "resources/frontend/history-bulk-manager.js",
+      "size": 6211,
+      "sha256": "35867a99f740f08fbcdadc610509c296e334ca474bda11c3c638ccff40396f68"
+    },
+    {
+      "path": "resources/frontend/images/modelscope-1.gif",
+      "size": 49941,
+      "sha256": "cee529c910b262afaa0f3cc8934aa3d29048ec85e2c1440351fa28181e37c4cc"
+    },
+    {
+      "path": "resources/frontend/images/modelscope.gif",
+      "size": 35929,
+      "sha256": "38f8e5e8ce17319a6541ebf8acc4063247f8da3df05e89b3715e2b4b2a30cf7a"
+    },
+    {
+      "path": "resources/frontend/images/RunningHub-B.png",
+      "size": 2970,
+      "sha256": "7a7a959db97870de28b88324de58b94a0099a4f29aad31d166566f3070d88842"
+    },
+    {
+      "path": "resources/frontend/images/RunningHub-W.png",
+      "size": 1806,
+      "sha256": "72ce8c3c3601c57f58e1b72710ef834161be91752320eab4b4a08a23ceb5d097"
+    },
+    {
+      "path": "resources/frontend/images/volcengine-theme-dark.svg",
+      "size": 5085,
+      "sha256": "e280a66700d767591db23227858098d643a593f3815ad63080e458d416da523a"
+    },
+    {
+      "path": "resources/frontend/images/volcengine-theme-light.svg",
+      "size": 5088,
+      "sha256": "7711abb128c82fadfbd76561eb1a104e674949a0ccd1290771eb431d3955fee9"
+    },
+    {
+      "path": "resources/frontend/index.html",
+      "size": 26419,
+      "sha256": "eaa25d3d434f638b7f31af66479cfef7cb2e3a1623c3aa3708317690d04f3a39"
+    },
+    {
+      "path": "resources/frontend/klein.html",
+      "size": 38886,
+      "sha256": "465f2f3c3419056afae3d22045318854b0c2fa0265a409a0a9b948b4190668cf"
+    },
+    {
+      "path": "resources/frontend/lanvas-components.css",
+      "size": 4368,
+      "sha256": "0d4baa271e0a322b44cd5e95c26b0b2b4959db12f7fc2b49a6a53348c618a0c5"
+    },
+    {
+      "path": "resources/frontend/lanvas-pages.css",
+      "size": 87694,
+      "sha256": "692fd23fe8ad202f80ee0af7f5cda8fd91e7a890e32bccc3ab614133e9709ce8"
+    },
+    {
+      "path": "resources/frontend/lanvas-recolor-v3.css",
+      "size": 155379,
+      "sha256": "c1a30dbd9740432e5d31398287604067debaf04f56fcac7dcd488f1cacf1c533"
+    },
+    {
+      "path": "resources/frontend/lanvas-shell-v3.css",
+      "size": 17922,
+      "sha256": "1cfc0ee3b5534a4d73ad11c572f22bb1711870c94eb4e94b578bf7cd1fbe676a"
+    },
+    {
+      "path": "resources/frontend/lanvas-shell.css",
+      "size": 11869,
+      "sha256": "312e06e0eb52a02137a97a9aacc5ac5a3d304d7fca523fafd654b83f48b60a54"
+    },
+    {
+      "path": "resources/frontend/lanvas-tokens.css",
+      "size": 2562,
+      "sha256": "edff465b935c22f2f4909e5a3eba084a6d21daa6c353a3d9f2565f1748da23d7"
+    },
+    {
+      "path": "resources/frontend/lanvas-unified.css",
+      "size": 430,
+      "sha256": "da8dffba24b26fe060e879a8b6d8e8f13d87d8f7bd21a534d1c795658cf8aea6"
+    },
+    {
+      "path": "resources/frontend/lanvas-unified.js",
+      "size": 10291,
+      "sha256": "4de6950909115ae9199c99f6672d0afc352fa181347ecccdf43bba546a5e8a20"
+    },
+    {
+      "path": "resources/frontend/ltx-director-timeline.js",
+      "size": 154063,
+      "sha256": "044064d57dff5104e8a491ade62c5e6428945a915f43b0f04da2551d78a28773"
+    },
+    {
+      "path": "resources/frontend/online-studio.css",
+      "size": 8157,
+      "sha256": "8fef63bbc0b706443a0590fdd82b55ead3ba31eeadb7a1afcfc1f9d4b088acaa"
+    },
+    {
+      "path": "resources/frontend/online-studio.html",
+      "size": 36125,
+      "sha256": "52b96775d9435cf8f54166ce81ed22d9536e1a060ac694bf3958cce35a9938f2"
+    },
+    {
+      "path": "resources/frontend/online-studio.js",
+      "size": 12906,
+      "sha256": "e412606e3fa84a829fa8fa3bb715d7470c008a8e9ad6a555f4f49ebaa4c7a281"
+    },
+    {
+      "path": "resources/frontend/recolor.html",
+      "size": 30017,
+      "sha256": "0ef1db087978b10e5ea91bcefb7e5298f54276dd3fa9466bc036fe64539c0fd7"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/adapters/lavans-canvas-adapter.js",
+      "size": 6136,
+      "sha256": "162814821f39848bcb73c945cc0417f1e4e25baae8020fcad5eae23dfa67e3b9"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/agent-native-node-bridge.js",
+      "size": 39183,
+      "sha256": "a854c29995aeaa8a26089a13f7009dc7c8881824af5533926f5242920fe8133a"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/assets/ecommerce-video-skill-cover.webp",
+      "size": 8222,
+      "sha256": "670dab1ce894f1c2e953f02cf74cc85e4d3b1b113dea7138236a175e27856bbd"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/assets/logo.png",
+      "size": 2764,
+      "sha256": "e429ca63292aac861e8864b3adc43e94a2090d4bf974f20e9e35fe02cd8f5969"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n-core.js",
+      "size": 2809,
+      "sha256": "f529594ee4564e54b48bbee46ce2807369b568d5f742aae8ec5a471555d16dfe"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n.js",
+      "size": 1154,
+      "sha256": "016d7c9478ce3ddbb239cf6dbd2ed765e6f4f0d8b548b402ce9f127e788d21b7"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/api-settings.js",
+      "size": 20496,
+      "sha256": "dde6f379d470b5218c42fffd4cd830a1be018d763b1c807f1f2de895d01e4b54"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/canvas.js",
+      "size": 29901,
+      "sha256": "ff09ea1e4a3fe4561c52338510a89a72599e6a7641e79a7282da13a72c6a2322"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/comfyui-settings.js",
+      "size": 6205,
+      "sha256": "fd13340bd11d6b01f6b55e42e262d2042bf0e164eda237cf5ecc071f5229a640"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/common.js",
+      "size": 2856,
+      "sha256": "c5a30e9dc4f1f42f64bcf5f5402bf84009043d4a8db667e46913f08d78965cdf"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/pages.js",
+      "size": 21041,
+      "sha256": "25f09d8d0ba9f2abfdab05bcb5cf90fc3ff316c572c94b90bb55888e03facb7b"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/smart-canvas.js",
+      "size": 26738,
+      "sha256": "50f0eccdb9610a0388dcb732db28352cb053f7a9bfadc3cc139544c5f6047498"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/i18n/studio.js",
+      "size": 9743,
+      "sha256": "69027e16b9ac3a720169126b3024eddfe6f293433bc8df6c6703d0e3a9062249"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/smart-canvas-core.css",
+      "size": 324472,
+      "sha256": "97f23a97bdee573abe923d41daa58a2d7801acab517dc3271cf9de759d667486"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/smart-canvas-core.js",
+      "size": 1512780,
+      "sha256": "823595073ea79018e0346b3386a2d16b4212a26af2e1ee2d1f8e81773f41b42b"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/smart-canvas.html",
+      "size": 69967,
+      "sha256": "81c7c159266a167de3baf227e6a41d76e4bcaac7562a3f402b43e54a18315077"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/theme.js",
+      "size": 11696,
+      "sha256": "aa3af75c6141914a17f2fd16608f7f19f2ca13b86a0045bbe6396d35cdc9df07"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/touch-mouse.js",
+      "size": 6240,
+      "sha256": "5337e0d1c0ee5ec33a73ab701cae7370b2f40a53d020b85f95f1ddceb50b6b4e"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/css/fonts.css",
+      "size": 1983,
+      "sha256": "ee55cc8ef41860c9b4e206f208626419541e0d9c607b4613911bfe04d4e40b77"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/inter-1.ttf",
+      "size": 327324,
+      "sha256": "eec66af7f2337bd34fe6e801cf92ededcb57a20c0d7bc40a61d4eefcbe3dd40c"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/inter-2.ttf",
+      "size": 326048,
+      "sha256": "e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/inter-3.ttf",
+      "size": 325304,
+      "sha256": "8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/inter-4.ttf",
+      "size": 324820,
+      "sha256": "1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/inter-5.ttf",
+      "size": 325748,
+      "sha256": "d0f4bc7faca468376e3db9b5e57afcdc2192134c9ac82a9511f32767b56853a4"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/jetbrains-mono-6.ttf",
+      "size": 112092,
+      "sha256": "a1d92abc6b02a87faed23d98067ab1027e8e95242fd7c9978a072ea383b89d1a"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/jetbrains-mono-7.ttf",
+      "size": 112172,
+      "sha256": "44ce4a84f20d60f24539bd0cef11f79c29e38609e0f8adf18551c9794a5d9dc3"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/space-grotesk-10.ttf",
+      "size": 69416,
+      "sha256": "3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/space-grotesk-8.ttf",
+      "size": 69308,
+      "sha256": "3e756954468ff1cb302dae0414262e72f76a67d87bef3fa1f3226cd0fb9b2d85"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/fonts/space-grotesk-9.ttf",
+      "size": 69400,
+      "sha256": "2f29b31d803a928d21f96dbe7a5f8bfa5c5c98917736c2d195bc7c737bc906ba"
+    },
+    {
+      "path": "resources/frontend/smart-canvas-core/vendor/js/lucide.js",
+      "size": 401906,
+      "sha256": "82a83a2ffe91c253267e8fa4723df599911baf26f8aad22b39014bf4715f0301"
+    },
+    {
+      "path": "resources/frontend/storage.js",
+      "size": 8446,
+      "sha256": "21a0d5a4fb5e2ea736342ed18bff65423a1dd2d3b4cb0552beabc1a5f13f35b7"
+    },
+    {
+      "path": "resources/frontend/style.css",
+      "size": 159102,
+      "sha256": "04c5d76bd0ed8340d48386e68d43e07ec9dbf7d25d332ab5c7becea977db100b"
+    },
+    {
+      "path": "resources/frontend/text-studio.css",
+      "size": 6421,
+      "sha256": "f82adb5e82929801c74e03b5081131b22bc1c50fc4b3ecf1121bcfb9cb3b010e"
+    },
+    {
+      "path": "resources/frontend/text-studio.html",
+      "size": 18937,
+      "sha256": "458fbfc20763caa8002319c8e0fd44a814ae86154da7c426edf88b40dfc2a180"
+    },
+    {
+      "path": "resources/frontend/text-studio.js",
+      "size": 9123,
+      "sha256": "14cb032f6b15e131b050982af5e36ed590d7b4717744c737745c16b41a89b20f"
+    },
+    {
+      "path": "resources/frontend/theme.css",
+      "size": 56194,
+      "sha256": "e06020ca1b3813864a9668271db14789575802b2b787aef4ebda3e7e92a9ea23"
+    },
+    {
+      "path": "resources/frontend/vendor/js/tailwindcss-cdn.js",
+      "size": 407362,
+      "sha256": "f095de8d799a0281a19b0e349553ecb105c4b16dd4b94a2d568ad5fbd172cd79"
+    },
+    {
+      "path": "resources/frontend/vendor/js/three-0.160.0.module.js",
+      "size": 1326016,
+      "sha256": "c6eacae1ec5fd832160227ca7441311c8b30dee0419af87954fb9df6d105bf1f"
+    },
+    {
+      "path": "VERSION",
+      "size": 6,
+      "sha256": "1575e1af4a95f12f70b4ee6a6adce8160953d93ea17dc2611b90883ccc3ad3b8"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "lavans",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "private": true,
   "description": "Lavans AI Creative Canvas",
   "main": "electron/main.js",
@@ -8,7 +8,9 @@
     "start": "electron .",
     "start:backend": "node resources/backend/server.js",
     "build:win": "node scripts/package-windows.mjs",
-    "check": "node --check electron/main.js && node --check electron/preload.js && node --check resources/backend/server.js",
+    "check": "node --check electron/main.js && node --check electron/preload.js && node --check resources/backend/server.js && node scripts/build-update-manifest.mjs --check",
+    "update:manifest": "node scripts/build-update-manifest.mjs",
+    "update:manifest:check": "node scripts/build-update-manifest.mjs --check",
     "test": "node --test"
   },
   "dependencies": {

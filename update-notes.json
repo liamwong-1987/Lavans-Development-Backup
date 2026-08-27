@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "version": "1.1.0",
+  "title": "Lavans 1.1.0",
+  "notes": [
+    "新增连接 Lavans 自有 GitHub 仓库的安全更新入口。",
+    "更新只替换经过清单校验的第一方程序文件，保留 API 设置、素材、提示词、Skill 与画布数据。"
+  ]
+}
