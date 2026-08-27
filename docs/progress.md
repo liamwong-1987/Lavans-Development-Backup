@@ -672,3 +672,11 @@
 - 诊断旁证：包根 `debug.log` 为 444 字节，记录 4 条已归因的 Chromium Crashpad NamedPipe `0xE9` 信息；它没有 JavaScript 堆栈或崩溃码，且本轮正常退出码为 0，因此继续作为第三方诊断噪声保留，不修改或屏蔽。
 - 恢复与边界：运行数据备份位于 `C:\Users\Administrator\Documents\Codex\2026-08-26\lanvas-ponytail-audit\.backup\20260827-single-instance-release-runtime`；旧版 `D:\ChromaOS` 未启动、停止或修改。内置浏览器因自身 URL 安全策略拒绝本地 3001 页面，明确记为浏览器表面不可用，不用它冒充桌面单实例证据。
 - 当前状态：单实例源码合同、556/556 源码测试、包体重建、托盘隐藏、第二入口恢复、进程/端口唯一与正常退出均已通过。本主题到此停止；代码签名和安装器仍属发布阶段的独立工作，不在本批范围内。
+
+### Windows 发布图标定稿（2026-08-27，源码资产通过）
+
+- 用户确认采用 B「开放画布」的银河深紫版：接近黑色的深紫背景、星光紫开放画布轮廓与单颗星芒节点。第一轮和未选中的候选均未写入项目。
+- 最小改动仅替换 `electron/assets/logo.png` 与 `electron/assets/logo.ico`；前者供桌面窗口/托盘使用，后者由 Windows 打包入口使用。智能画布网页自身的 favicon、HTML/CSS、文案、布局和业务逻辑均未改动。
+- 资产证据：PNG 为 256×256 RGBA，SHA-256 `EC8C80117C01BCC135DE2A4AEF18B2027B35CFFDF2973259BB08F3DA2E4E798B`；ICO 含 16、32、48、64、128、256 六档，SHA-256 `BE342587C17326D1B472F603A832C3242DDBE70DF0FD626A58A8188FE28BA118`。16px 与 32px 放大检查均保留开放画布主轮廓。
+- 聚焦验证：`resources/backend/tests/lavans-repo-entry.test.js` 5/5 通过；没有启动应用、写画布、调用 Provider/模型或产生费用。
+- 当前边界：源码资产已经定稿，但现有 `release/Lavans-win32-x64` 仍是旧图标构建，尚未重新打包。安全动态端口与安装器仍是后续独立主题；`D:\ChromaOS` 未启动、停止或修改。
