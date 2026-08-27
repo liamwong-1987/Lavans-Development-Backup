@@ -750,3 +750,12 @@
 - 便携包：`D:\Lavans备份\release\Lavans-win32-x64\Lavans.exe`，大小 `162121216` 字节，SHA-256 `7B7A7F1D4C4D7F541358D012BF1F69CBDB9906F4A3FD407A520CD266E27F5E78`。本轮没有覆盖 `D:\软件\Lavans`，也没有启动或停止 Lavans/ChromaOS。
 - 未完成证据：Codex 内置浏览器仍因宿主组件“无法写入内核资源”而不能打开本地夹具，不冒充可见通过；`app.asar` 的补充字节抽取因 pnpm 未暴露 asar 检查模块而按二次失败规则停止，但正式打包成功、外置负载与成品测试通过。当前 Inno Setup 编译器入口先被 Windows 拒绝，随后文件路径消失，因此没有生成 `Lavans-Setup-1.1.0-x64.exe`，也没有安装新工具；旧 `1.0.7` 安装器保持不动。
 - 发布门：一次原子推送已成功把既有 `main` 补齐到 `b2be2a6`，并创建远端 `feature/git-repo-updater`；24 个变更文件的常见真实密钥模式命中为 0。功能分支尚未合并到 `main`，必须由用户单独批准合并；只有合并并推送后的自有仓库 `main` 才是正式日常更新源。首次启用仍需一次 1.1.0 安装/同步，之后才可由 Git 更新器接管日常第一方程序更新。
+
+#### main 合并前更新清单门暂停（2026-08-27，已记录）
+
+- 用户已批准把 `feature/git-repo-updater` 合入并推送 `main`；本地 `main` 已从 `b2be2a6` 快进到 `add7d44`，但发布前关键验收未通过，因此没有推送。远端仍保持 `origin/main=b2be2a6`、`origin/feature/git-repo-updater=add7d44`，功能分支未删除。
+- 失败证据：两次 30 项关键测试均为 29/30。首次发现 `resources/backend/routes/appUpdateRoutes.js` 的清单大小 `2300` 与 Windows 工作区大小 `2350` 不一致；初步修正后又发现内置电商 Skill 的 `README.md` 清单大小 `6756` 与 Git 索引大小 `6609` 不一致。
+- 根因：旧清单生成器直接读取 Windows 工作区字节，而 `core.autocrlf=true` 会把部分已检出文本转换为 CRLF；同一批中新建文件仍为 LF，导致 217 项清单混合记录两种换行。GitHub 实际发布的是 Git 索引中的规范化字节，所以旧清单不能作为安全更新依据。
+- 当前未验证修改只存在于 `scripts/build-update-manifest.mjs` 与 `resources/backend/tests/app-update-manifest.test.js`：两者改为读取将实际提交到 GitHub 的 Git 索引字节。该修改尚未提交、尚未推送，也尚未重新生成 `update-manifest.json`；不得视为稳定完成。
+- 恢复与保护：当前功能分支稳定恢复点仍为 `add7d4418b8db960a90854b0b1e76f9bfde63be4`，远端 `main` 的稳定恢复点仍为 `b2be2a6b245153ff05408798e74e9d823b491c22`。`D:\软件\Lavans` 未修改，未启动或停止软件，未调用 Provider/付费 API，未写画布、API 设置、素材、提示词库或 Skill 数据。
+- 下一步门：待用户确认后，先用修正后的生成器重新生成全部 217 项清单并逐项核对 GitHub 发布字节；同一组关键测试全部通过后，才可提交修正、快进合入并推送 `main`。若仍失败，继续停在发布门，不得绕过校验。
