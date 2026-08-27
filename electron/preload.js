@@ -16,3 +16,7 @@ contextBridge.exposeInMainWorld('lavansNav', {
   getState: () => ipcRenderer.invoke('nav-get-state'),
   onNavState: callback => ipcRenderer.on('nav-state', (_event, state) => callback(state))
 });
+
+contextBridge.exposeInMainWorld('lavansUpdater', {
+  restart: () => ipcRenderer.invoke('app-relaunch')
+});

@@ -39,7 +39,7 @@ test('桌面入口只允许一个实例并由主实例恢复窗口', () => {
   assert.match(main, /process\.env\.PORT_RANGE_END = String\(LAST_PORT\)/);
   assert.match(main, /appPort = started\.port/);
   assert.match(main, /mainWindow\.loadURL\(appUrl\(\)\)/);
-  assert.equal((main.match(/port: appPort/g) || []).length, 2);
+  assert.equal((main.match(/port: appPort/g) || []).length, 3, '关闭、退出和更新重启都必须使用后端实际端口');
 
   let quitCount = 0;
   vm.runInNewContext(main, {
@@ -143,6 +143,7 @@ test('Electron 预加载与外壳只暴露 Lavans 命名接口', () => {
 
   assert.match(preload, /lavansWindow/);
   assert.match(preload, /lavansNav/);
+  assert.match(preload, /lavansUpdater/);
   assert.match(shell, /window\.lavansWindow/);
   assert.match(shell, /window\.lavansNav/);
   assert.doesNotMatch(preload + shell, /chroma/i);

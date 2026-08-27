@@ -362,6 +362,11 @@ html.studio-theme-dark .side-pill.active { background: #e8e8ea; color: #10141d; 
                     <button class="side-pill" onclick="toggleLanguage()" id="lang-toggle-btn" type="button" title="语言"><i class="ph-duotone ph-translate" aria-hidden="true"></i><span class="side-pill-text">语言</span></button>
                     <button class="side-pill" onclick="switchUI(this, 'comfyui-settings')" type="button" title="工作流设置"><i class="ph-duotone ph-flow-arrow" aria-hidden="true"></i><span class="side-pill-text">工作流设置</span></button>
                 </div>
+                <button class="side-pill app-update-pill" id="app-update-button" type="button" title="检查 Lavans 更新" aria-haspopup="dialog">
+                    <i class="ph-duotone ph-github-logo" aria-hidden="true"></i>
+                    <span class="side-pill-text" id="app-update-label">版本 --</span>
+                    <span class="app-update-dot" id="app-update-dot" hidden aria-label="有新版本"></span>
+                </button>
                 <button class="side-pill" onclick="openProjectPage()" type="button" title="项目主页"><i class="ph-duotone ph-house" aria-hidden="true"></i><span class="side-pill-text">项目主页</span></button>
             </nav>
             <a class="lanvas-attribution" href="https://github.com/hero8152/Infinite-Canvas" target="_blank" rel="noopener noreferrer" title="查看大雄的 Infinite Canvas 原始项目"><span>改自大雄画布，致敬原作</span><i class="ph-duotone ph-github-logo" aria-hidden="true"></i></a>
@@ -383,9 +388,28 @@ html.studio-theme-dark .side-pill.active { background: #e8e8ea; color: #10141d; 
     </main>
 </div>
 
+<dialog class="app-update-dialog" id="app-update-dialog" aria-labelledby="app-update-title">
+    <div class="app-update-dialog-head">
+        <div>
+            <p class="app-update-kicker">LAVANS UPDATE</p>
+            <h2 id="app-update-title">检查更新</h2>
+        </div>
+        <button class="app-update-close" id="app-update-close" type="button" aria-label="关闭更新窗口">×</button>
+    </div>
+    <p class="app-update-summary" id="app-update-summary">正在读取 Lavans 自有 GitHub 仓库…</p>
+    <ul class="app-update-notes" id="app-update-notes" hidden></ul>
+    <p class="app-update-source" id="app-update-source">来源：Lavans-Development-Backup / main</p>
+    <p class="app-update-status" id="app-update-status" role="status" aria-live="polite"></p>
+    <div class="app-update-actions">
+        <button class="app-update-button secondary" id="app-update-cancel" type="button">稍后</button>
+        <button class="app-update-button primary" id="app-update-confirm" type="button" hidden>安全更新并重启</button>
+    </div>
+</dialog>
+
 <script src="/smart-canvas-core/theme.js"></script>
 <script src="/smart-canvas-core/i18n-core.js"></script>
 <script src="/smart-canvas-core/i18n.js"></script>
+<script src="/app-update.js?v=1.1.0"></script>
 <script>
 (function () {
     // ===== 窗口控制（依赖 Electron preload 暴露的 lavansWindow） =====

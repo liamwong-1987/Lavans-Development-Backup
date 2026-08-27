@@ -675,6 +675,11 @@
       "sha256": "ae9d400573553615c316ed23d15bcfd1ade807f397b0e3e56b8558bdbdbfa2fb"
     },
     {
+      "path": "resources/frontend/app-update.js",
+      "size": 5588,
+      "sha256": "15c690f8bb445ad4f270bd113e3b8c7b4033ded18ac8770062f39a30d60b694a"
+    },
+    {
       "path": "resources/frontend/app.js",
       "size": 340465,
       "sha256": "97d5f3fd730b769e54bc802bc35e61bbcbdfeb5fac7277e113ca14dad4f86713"
@@ -816,8 +821,8 @@
     },
     {
       "path": "resources/frontend/index.html",
-      "size": 26419,
-      "sha256": "eaa25d3d434f638b7f31af66479cfef7cb2e3a1623c3aa3708317690d04f3a39"
+      "size": 27984,
+      "sha256": "9190687c8629a71b9a8ccdb74a2270bd3c1b958c172647210139b2cc859cfb23"
     },
     {
       "path": "resources/frontend/klein.html",
@@ -841,8 +846,8 @@
     },
     {
       "path": "resources/frontend/lanvas-shell-v3.css",
-      "size": 17922,
-      "sha256": "1cfc0ee3b5534a4d73ad11c572f22bb1711870c94eb4e94b578bf7cd1fbe676a"
+      "size": 21098,
+      "sha256": "eba989030196662e462c26b60fb1c60580c3aee7e29a90e6b3b82b504105e879"
     },
     {
       "path": "resources/frontend/lanvas-shell.css",

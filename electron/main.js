@@ -74,6 +74,24 @@ ipcMain.handle('nav-get-state', (event) => {
   return { url: wc.getURL(), canGoBack: wc.canGoBack(), canGoForward: wc.canGoForward(), title: wc.getTitle() };
 });
 
+ipcMain.handle('app-relaunch', async event => {
+  if (!mainWindow || mainWindow.isDestroyed() || event.sender !== mainWindow.webContents) return false;
+  let senderOrigin = '';
+  try { senderOrigin = new URL(event.sender.getURL()).origin; } catch (_error) {}
+  if (senderOrigin !== appUrl()) return false;
+  try {
+    const http = require('http');
+    await new Promise(resolve => {
+      const request = http.request({ hostname: 'localhost', port: appPort, path: '/api/save-all', method: 'POST', timeout: 3000 }, () => resolve());
+      request.on('error', () => resolve());
+      request.end();
+    });
+  } catch (_error) {}
+  app.relaunch();
+  setTimeout(() => app.exit(0), 250);
+  return true;
+});
+
 // ===== 绑定外部窗口 BrowserView 的导航事件 → 推送状态给 shell 工具栏 =====
 function bindBrowserViewEvents(win, view) {
   const push = () => {
