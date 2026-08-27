@@ -819,3 +819,13 @@
 - 远端与本地：GitHub `main=47aaf804fb310a5769c214626bbd04d626580fca`，本地 `main` 与 `origin/main` 同步且工作树干净。
 - 零写入证据：检查前后隔离运行区 `output/.state/app-updates` 均不存在；服务队列始终 running=0、pending=0、total=0。没有下载更新、创建备份、替换文件、调用 Provider/模型、产生费用或写正式画布/配置。
 - 结论：Lavans 自有公开 Git 仓库发布、软件内匿名版本读取、最新版本判定和确认前零写入门均通过。真实“有新版本→确认→应用→安全重启”仍由既有本地假远端浏览器测试覆盖；本轮不人为发布第二个版本触发正式更新。
+
+#### 紧急 API 设置迁移与验证故障（2026-08-27，静态修复通过，待真实验证）
+
+- 用户报告：Lavans 的“验证地址”和“验证协议”均显示 `fetch failed`，要求以 ChromaOS 的真实 API 设置为权威来源修复；不得改变平台、地址、协议、模型分类、异步任务语义或 Provider 绑定，也不得泄露 Key。
+- 目标与恢复：`D:\软件\Lavans` 已由用户卸载；当前修复目标是 `D:\Lavans备份\release\Lavans-win32-x64`。迁移前配置备份为 `D:\Lavans备份\.backup\api-migration-20260827-145528`，代理补丁前 release 路由备份为 `D:\Lavans备份\.backup\api-proxy-fix-20260827-150307`。同步时 Lavans 已关闭，本轮没有停止任何进程。
+- 配置迁移：已把 ChromaOS 当前使用的 `canvas-config.json`、`config.json`、`creative-config.json` 和 `resources\.env` 精确复制到 Lavans release；四个目标文件分别与来源 SHA-256 完全一致。脱敏复核确认 APIMART 仍为 `protocol=apimart`、`base_url=https://api.apimart.ai/v1`，APIMART Key 指纹同为 `c0d7cf8e18cb`；没有把任何 Key 写入 Git 源码、公开默认配置、日志或更新清单。
+- 网络根因：Windows WinINet 代理已启用且为 `127.0.0.1:7890`；直连 APIMART 的无 Key 请求超时，经该代理的同一无 Key请求在约 1 秒内返回 HTTP 401，证明目标可达且没有模型/生成费用。原 ChromaOS 与 Lavans 路由均只读取 `HTTP_PROXY/HTTPS_PROXY` 环境变量，未继承 Windows 系统代理，因此仅复制配置仍会得到 `fetch failed`。
+- 最小修复：新增一个只读系统代理解析器，显式环境变量仍优先，`null` 仍可明确禁用；仅在没有显式代理且 Windows 系统代理已启用时读取当前用户代理。画布与聊天 Provider 共用该解析器；没有写注册表、改系统设置、改 Provider、改地址或改协议。APIMART 图片链仍按原路径提交任务并轮询 `/v1/tasks/{id}`。
+- 当前验证：代理解析与两个路由接线测试 4/4 通过，APIMART Provider/模型分类、Gemini 视频、附件、会话和聊天绑定等聚焦回归合计 27/27 通过。正式源码套件显式枚举 `resources/backend/tests` 的 74 个第一方测试文件，582/582 通过，失败 0、取消 0、跳过 0；三份已验证代码已同步到 release 并逐文件核对 SHA-256。首次宽泛运行误把 release 内的测试副本重复纳入，源码测试均通过，但安装目录本来不包含仓库根 `package.json/electron`，因此出现 5 个结构性路径失败；按既有源码口径纠正一次后全绿，未继续重试。尚未启动正式 Lavans，也未携带真实 Key 访问 Provider；真实“验证地址/验证协议”须另行取得确认。
+- 独立边界：更新器压缩响应修复已提交为 `0c269ac`；真实 GitHub 临时应用复跑继续暂停，不与本 API 修复混批。

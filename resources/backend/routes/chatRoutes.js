@@ -23,6 +23,7 @@ const http = require('http');
 const https = require('https');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const { getModuleConfig } = require('../moduleConfigService');
+const { resolveProxyUrl } = require('../systemProxy');
 
 const MAX_ATTACHMENTS = 10;
 const MAX_FILE_BYTES = 30 * 1024 * 1024;
@@ -50,10 +51,6 @@ module.exports = function chatRoutes() {
   });
 
   // ==================== 工具函数（与 canvasRoutes 同源实现） ====================
-  function resolveProxyUrl() {
-    const proxy = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy || '';
-    return /^null$/i.test(String(proxy).trim()) ? '' : String(proxy).trim();
-  }
   function shouldUseProxy(url) {
     try {
       const host = new URL(String(url)).hostname.toLowerCase();

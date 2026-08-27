@@ -12,6 +12,7 @@ const https = require('https');
 const sharp = require('sharp');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const { getModuleConfig, updateModuleConfig, publicConfig, normalizeModelId } = require('../moduleConfigService');
+const { resolveProxyUrl } = require('../systemProxy');
 const { loadAgentSkillRegistry, findAgentSkill, findAgentSkillRuntime, findAgentDependencyRuntime } = require('../services/agentSkillRegistry');
 const { createAgentSkillImportService, LIMITS: AGENT_SKILL_IMPORT_LIMITS } = require('../services/agentSkillImportService');
 const { createAgentSkillCompositionService } = require('../services/agentSkillCompositionService');
@@ -808,7 +809,6 @@ module.exports = function canvasRoutes(routeOptions = {}) {
   function canvasProviderTimeoutMs(model) { return /^gpt-image-2(?:[-_].*)?$/i.test(String(model || '').trim()) ? CANVAS_GPT_IMAGE_TIMEOUT_MS : CANVAS_DEFAULT_PROVIDER_TIMEOUT_MS; }
   function canvasImageRequestMode(provider) { const mode = String(provider?.image_request_mode || 'openai').trim().toLowerCase(); return CANVAS_IMAGE_REQUEST_MODES.has(mode) ? mode : 'openai'; }
   function providerEndpointUrl(provider, key, fallbackPath) { const configured = String(provider?.[key] || '').trim(); if (configured) return /^https?:\/\//i.test(configured) ? configured : `${String(provider?.base_url || '').replace(/\/$/, '')}/${configured.replace(/^\/+/, '')}`; let base = String(provider?.base_url || '').replace(/\/$/, ''); if (['openai', 'apimart'].includes(provider?.protocol) && !/\/v1(\/|$)/i.test(base)) base += '/v1'; return `${base}${fallbackPath}`; }
-  function resolveProxyUrl() { const proxy = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy || ''; return /^null$/i.test(String(proxy).trim()) ? '' : String(proxy).trim(); }
   function shouldUseProxy(url) { try { const host = new URL(String(url)).hostname.toLowerCase(); if (!host || host === 'localhost' || host === '::1' || host.startsWith('127.') || host.startsWith('192.168.') || host.startsWith('10.') || /^172\.(1[6-9]|2\d|3[01])\./.test(host)) return false; const noProxy = String(process.env.NO_PROXY || process.env.no_proxy || ''); if (noProxy && (noProxy === '*' || noProxy.split(/[,\s]+/).some(token => token && (token === host || (token.startsWith('.') && host.endsWith(token)))))) return false; } catch (_error) {} return true; }
   async function bodyToBuffer(body) {
     if (body == null) return null;

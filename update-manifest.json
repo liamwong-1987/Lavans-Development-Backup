@@ -366,13 +366,13 @@
     },
     {
       "path": "resources/backend/routes/canvasRoutes.js",
-      "size": 598542,
-      "sha256": "370bcbdea69596c49a293f580dbc35b0062869ebecb3b2808cd5f821972c2afa"
+      "size": 598367,
+      "sha256": "75d09f2e032fec0206c2c83d695241ca093cae8e4457a07524d732be8028f45d"
     },
     {
       "path": "resources/backend/routes/chatRoutes.js",
-      "size": 24432,
-      "sha256": "20e885de3102712e02bf1d916557c3b7250f052d0c8902812d1f499a3783e5e4"
+      "size": 24247,
+      "sha256": "130e58f1aced03e76f727405893b2a018c4f8ad171b2a728982d76f69d8dc689"
     },
     {
       "path": "resources/backend/routes/configRoutes.js",
@@ -608,6 +608,11 @@
       "path": "resources/backend/system-prompts/infinite-canvas-prompt-templates.md",
       "size": 24187,
       "sha256": "12e4ad04d880b09c4e58a666103286553277b34362463bf0201a5d3d3e9723a2"
+    },
+    {
+      "path": "resources/backend/systemProxy.js",
+      "size": 2280,
+      "sha256": "73ed214bb5daf79a9434e48073fe953e10ccdadcf441c46269fb5dc8a763273a"
     },
     {
       "path": "resources/backend/validator.js",
