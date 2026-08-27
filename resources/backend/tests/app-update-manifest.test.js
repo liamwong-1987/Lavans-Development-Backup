@@ -9,6 +9,7 @@ const root = path.resolve(__dirname, '..', '..', '..');
 const manifest = JSON.parse(fs.readFileSync(path.join(root, 'update-manifest.json'), 'utf8'));
 const version = fs.readFileSync(path.join(root, 'VERSION'), 'utf8').trim();
 const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+const electronPkg = JSON.parse(fs.readFileSync(path.join(root, 'electron', 'package.json'), 'utf8'));
 const notes = JSON.parse(fs.readFileSync(path.join(root, 'update-notes.json'), 'utf8'));
 
 function sha256(buffer) {
@@ -18,6 +19,7 @@ function sha256(buffer) {
 test('版本来源、包版本与更新说明保持一致', () => {
   assert.equal(version, '1.1.0');
   assert.equal(pkg.version, version);
+  assert.equal(electronPkg.version, version);
   assert.equal(manifest.version, version);
   assert.equal(notes.version, version);
   assert.equal(manifest.repository, 'liamwong-1987/Lavans-Development-Backup');
