@@ -714,3 +714,14 @@
 - 同类审计：安装版与仓库的 `agent-skills`、`workflows`、`system-prompts` 静态目录逐文件一致；未发现第二个必需 Skill、工作流或系统提示词被清除。旧 `create-product-microstory-seedance` 仍按既有产品决策隐藏，不在本批擅自恢复。
 - 验证：6 个聚焦测试文件共 39/39 通过；显式枚举 68 个第一方源码测试文件后 561/561 通过，失败、取消、跳过均为 0。覆盖首次配置、已有配置保护、Provider 分类、Skill 自动注册、包完整性、脑暴与电商可见性、组合身份、AGENT/画布/素材库/快捷键/Provider 精确绑定等现有行为。
 - 当前边界：尚未提交、推送、重建安装包或同步正式安装目录；没有启动/停止 Lavans 或 ChromaOS，没有调用真实/付费 API，也没有写画布数据。源码修改前恢复点为 `e733cc1592b8ab14609d60477e17e7a165af8965`。
+
+### API/Skill 正式安装同步与安装包复建（2026-08-27，通过）
+
+- 源码恢复点：API 默认目录、已有配置保护和脑暴可见性修复已提交为 `b29af2352b1a4ab2f493dee44c6d59ce0037916d`；提交前工作区只包含本主题 6 个文件，提交后工作区干净。
+- 正式安装同步：确认 Lavans、ChromaOS 进程均为 0，`43127-43147` 监听为 0 后，把 ChromaOS 的 `canvas-config.json`、`config.json`、`creative-config.json` 逐字节复制到 `D:\软件\Lavans`，并同步已验证的默认目录读取与脑暴可见性文件。6 个目标文件 SHA-256 均与各自来源一致；安装版现有 8 个 Provider、主平台 `apimart`，协议列表保持原样，脑暴和电商 Skill 均未隐藏。
+- 本机恢复：覆盖前 4 个既有文件及恢复说明位于 `D:\软件\Lavans\.migration-backup\20260827-111347`，所有备份哈希与覆盖前一致；`config.json`、`creative-config.json` 在迁移前不存在，精确回退时按清单移除即可。没有启动、停止或结束任何软件进程。
+- 离线打包：复用本机 Electron 与 pnpm 缓存，下载量 0；最终便携包的 288 个第一方文件全部存在且与源码 SHA-256 一致，缺失 0、漂移 0。包内运行期 `canvas-config.json`、`config.json`、`creative-config.json` 继续排除，真实密钥命中 0；公开示例会在首启建立无密钥配置。
+- 首装 Skill 门：最终负载中的 `brainstorming-obra-share` 与 `ecommerce-video-director-skill` 均被 Registry 无错误列出，runtime 入口位于安装负载自己的 `resources/backend/agent-skills/bundled`，入口存在且完整性通过；前端两者均可见。直接针对最终负载运行的首装配置、Registry 和 UI 测试为 21/21 通过。
+- 安装器：`D:\Lavans备份\release\installer\Lavans-Setup-1.0.7-x64.exe`，大小 `83442417` 字节，SHA-256 `90932970F670E7705929BBCE37A31BF302B4E256740663B62F63D3CBA8F8C4B7`。未对同 AppId 做第二次沙箱安装，以免改写用户当前正式安装的卸载注册信息；最终负载与安装器编译清单作为本轮首装证据。
+- GitHub 状态：本地 GitHub 登录与仓库地址有效，但 `git push` 和只读 `git ls-remote` 均在 HTTPS 连接阶段收到 `Recv failure: Connection was reset`；远端没有接收本批提交，也未切换协议、仓库或凭据。网络恢复后只需推送当前 `main`，不得重做修复。
+- 安全边界：没有调用 Provider、模型或付费 API，没有生成媒体、写正式画布或更改系统设置。一次早期本地脱敏辅助函数报错可能把一个目标 Key 写入 Codex 本地任务日志，未发送给外部服务；迁移完成后建议轮换该 Key。
